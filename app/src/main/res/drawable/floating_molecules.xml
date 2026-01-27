@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="100dp"
+    android:viewportWidth="400"
+    android:viewportHeight="100">
+    
+    <!-- Floating molecules background pattern -->
+    <group android:name="floatingMolecules">
+        <!-- Large molecules -->
+        <path
+            android:pathData="M50,25 A3,3 0 0,1 56,25 A3,3 0 0,1 50,25"
+            android:fillColor="#0D47A1"
+            android:fillAlpha="0.15" />
+        <path
+            android:pathData="M150,20 A4,4 0 0,1 158,20 A4,4 0 0,1 150,20"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.2" />
+        <path
+            android:pathData="M250,30 A2,2 0 0,1 254,30 A2,2 0 0,1 250,30"
+            android:fillColor="#FF6D00"
+            android:fillAlpha="0.15" />
+        <path
+            android:pathData="M350,25 A3,3 0 0,1 356,25 A3,3 0 0,1 350,25"
+            android:fillColor="#9C27B0"
+            android:fillAlpha="0.18" />
+            
+        <!-- Medium molecules -->
+        <path
+            android:pathData="M100,50 A5,5 0 0,1 110,50 A5,5 0 0,1 100,50"
+            android:fillColor="#0D47A1"
+            android:fillAlpha="0.25" />
+        <path
+            android:pathData="M200,55 A3,3 0 0,1 206,55 A3,3 0 0,1 200,55"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.2" />
+        <path
+            android:pathData="M300,45 A4,4 0 0,1 308,45 A4,4 0 0,1 300,45"
+            android:fillColor="#FF6D00"
+            android:fillAlpha="0.22" />
+            
+        <!-- Small molecules -->
+        <path
+            android:pathData="M75,75 A2,2 0 0,1 79,75 A2,2 0 0,1 75,75"
+            android:fillColor="#0D47A1"
+            android:fillAlpha="0.1" />
+        <path
+            android:pathData="M175,80 A3,3 0 0,1 181,80 A3,3 0 0,1 175,80"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.15" />
+        <path
+            android:pathData="M275,70 A4,4 0 0,1 283,70 A4,4 0 0,1 275,70"
+            android:fillColor="#FF6D00"
+            android:fillAlpha="0.18" />
+        <path
+            android:pathData="M375,75 A2,2 0 0,1 379,75 A2,2 0 0,1 375,75"
+            android:fillColor="#9C27B0"
+            android:fillAlpha="0.12" />
+            
+        <!-- Connecting bonds -->
+        <path
+            android:pathData="M105,50 L150,25"
+            android:strokeColor="#5472D3"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.1" />
+        <path
+            android:pathData="M203,55 L250,32"
+            android:strokeColor="#5472D3"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.1" />
+        <path
+            android:pathData="M304,45 L350,27"
+            android:strokeColor="#5472D3"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.1" />
+    </group>
+</vector>

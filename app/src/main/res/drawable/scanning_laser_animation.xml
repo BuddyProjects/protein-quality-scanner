@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="160dp"
+    android:viewportWidth="120"
+    android:viewportHeight="160">
+    
+    <!-- Scanning laser lines -->
+    <group android:name="scannerLines">
+        <!-- Primary laser line -->
+        <path
+            android:pathData="M10,60 L110,60"
+            android:strokeColor="#00E676"
+            android:strokeWidth="3"
+            android:strokeAlpha="0.9"
+            android:strokeLineCap="round" />
+        
+        <!-- Secondary laser line -->
+        <path
+            android:pathData="M15,65 L105,65"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.6"
+            android:strokeLineCap="round" />
+        
+        <!-- Laser glow effect -->
+        <path
+            android:pathData="M10,60 L110,60"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.8"
+            android:strokeLineCap="round" />
+    </group>
+    
+    <!-- Data analysis points -->
+    <group android:name="dataPoints">
+        <!-- Analysis nodes that appear during scanning -->
+        <path
+            android:pathData="M25,58 A2,2 0 0,1 29,58 A2,2 0 0,1 25,58"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.8" />
+        <path
+            android:pathData="M45,62 A1.5,1.5 0 0,1 48,62 A1.5,1.5 0 0,1 45,62"
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.9" />
+        <path
+            android:pathData="M65,59 A2,2 0 0,1 69,59 A2,2 0 0,1 65,59"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.8" />
+        <path
+            android:pathData="M85,63 A1.5,1.5 0 0,1 88,63 A1.5,1.5 0 0,1 85,63"
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.9" />
+        <path
+            android:pathData="M95,61 A2,2 0 0,1 99,61 A2,2 0 0,1 95,61"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.8" />
+    </group>
+    
+    <!-- Pulse rings around scan area -->
+    <group android:name="pulseRings">
+        <path
+            android:pathData="M60,60 A15,15 0 0,1 90,60 A15,15 0 0,1 60,60"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:fillColor="@android:color/transparent"
+            android:strokeAlpha="0.3" />
+        <path
+            android:pathData="M60,60 A25,25 0 0,1 110,60 A25,25 0 0,1 60,60"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:fillColor="@android:color/transparent"
+            android:strokeAlpha="0.2" />
+    </group>
+</vector>

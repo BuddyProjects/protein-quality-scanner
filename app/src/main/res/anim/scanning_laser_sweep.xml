@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true">
+    
+    <!-- Laser scanning movement -->
+    <translate
+        android:fromYDelta="-40%"
+        android:toYDelta="40%"
+        android:duration="2000"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+    
+    <!-- Laser intensity pulse -->
+    <alpha
+        android:fromAlpha="0.6"
+        android:toAlpha="1.0"
+        android:duration="1000"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+</set>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="160dp"
+    android:viewportWidth="120"
+    android:viewportHeight="160">
+    
+    <!-- Volumetric scanning plane -->
+    <group android:name="scanningPlane">
+        <!-- Main scanning plane -->
+        <path
+            android:pathData="M5,60 L115,60"
+            android:strokeColor="#00E676"
+            android:strokeWidth="4"
+            android:strokeAlpha="0.8"
+            android:strokeLineCap="round" />
+        
+        <!-- Secondary scan lines for depth -->
+        <path
+            android:pathData="M8,58 L112,58"
+            android:strokeColor="#4CAF50"
+            android:strokeWidth="2"
+            android:strokeAlpha="0.6"
+            android:strokeLineCap="round" />
+        <path
+            android:pathData="M8,62 L112,62"
+            android:strokeColor="#4CAF50"
+            android:strokeWidth="2"
+            android:strokeAlpha="0.6"
+            android:strokeLineCap="round" />
+        
+        <!-- Bright center laser line -->
+        <path
+            android:pathData="M10,60 L110,60"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.9"
+            android:strokeLineCap="round" />
+        
+        <!-- Laser emanation points -->
+        <path
+            android:pathData="M5,60 A2,2 0 0,1 9,60 A2,2 0 0,1 5,60"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.9" />
+        <path
+            android:pathData="M111,60 A2,2 0 0,1 115,60 A2,2 0 0,1 111,60"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.9" />
+    </group>
+    
+    <!-- 3D holographic data analysis points -->
+    <group android:name="dataAnalysis3D">
+        <!-- Primary analysis nodes -->
+        <path
+            android:pathData="M25,58 A3,3 0 0,1 31,58 A3,3 0 0,1 25,58"
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.9" />
+        <path
+            android:pathData="M26,59 A2,2 0 0,1 30,59 A2,2 0 0,1 26,59"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.8" />
+        
+        <path
+            android:pathData="M50,61 A3,3 0 0,1 56,61 A3,3 0 0,1 50,61"
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.9" />
+        <path
+            android:pathData="M51,62 A2,2 0 0,1 55,62 A2,2 0 0,1 51,62"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.8" />
+        
+        <path
+            android:pathData="M75,59 A3,3 0 0,1 81,59 A3,3 0 0,1 75,59"
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.9" />
+        <path
+            android:pathData="M76,60 A2,2 0 0,1 80,60 A2,2 0 0,1 76,60"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.8" />
+        
+        <path
+            android:pathData="M95,62 A3,3 0 0,1 101,62 A3,3 0 0,1 95,62"
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.9" />
+        <path
+            android:pathData="M96,63 A2,2 0 0,1 100,63 A2,2 0 0,1 96,63"
+            android:fillColor="#00E676"
+            android:fillAlpha="0.8" />
+        
+        <!-- Smaller secondary nodes -->
+        <path
+            android:pathData="M40,57 A1.5,1.5 0 0,1 43,57 A1.5,1.5 0 0,1 40,57"
+            android:fillColor="#81C784"
+            android:fillAlpha="0.7" />
+        <path
+            android:pathData="M65,63 A1.5,1.5 0 0,1 68,63 A1.5,1.5 0 0,1 65,63"
+            android:fillColor="#81C784"
+            android:fillAlpha="0.7" />
+        <path
+            android:pathData="M85,58 A1.5,1.5 0 0,1 88,58 A1.5,1.5 0 0,1 85,58"
+            android:fillColor="#81C784"
+            android:fillAlpha="0.7" />
+    </group>
+    
+    <!-- Holographic scan field overlay -->
+    <group android:name="holographicField">
+        <!-- Vertical scan grid lines -->
+        <path
+            android:pathData="M20,55 L20,65"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.3" />
+        <path
+            android:pathData="M35,55 L35,65"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.3" />
+        <path
+            android:pathData="M50,55 L50,65"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.3" />
+        <path
+            android:pathData="M65,55 L65,65"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.3" />
+        <path
+            android:pathData="M80,55 L80,65"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.3" />
+        <path
+            android:pathData="M95,55 L95,65"
+            android:strokeColor="#00E676"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.3" />
+        
+        <!-- Scan boundary rings -->
+        <path
+            android:pathData="M60,60 A20,8 0 0,1 100,60 A20,8 0 0,1 60,60"
+            android:strokeColor="#4CAF50"
+            android:strokeWidth="1"
+            android:fillColor="@android:color/transparent"
+            android:strokeAlpha="0.4" />
+        <path
+            android:pathData="M60,60 A30,12 0 0,1 120,60 A30,12 0 0,1 60,60"
+            android:strokeColor="#4CAF50"
+            android:strokeWidth="1"
+            android:fillColor="@android:color/transparent"
+            android:strokeAlpha="0.2" />
+    </group>
+    
+    <!-- Energy particle effects -->
+    <group android:name="energyParticles">
+        <!-- Small energy particles -->
+        <path
+            android:pathData="M15,59 A1,1 0 0,1 17,59 A1,1 0 0,1 15,59"
+            android:fillColor="#C8E6C9"
+            android:fillAlpha="0.8" />
+        <path
+            android:pathData="M45,61 A1,1 0 0,1 47,61 A1,1 0 0,1 45,61"
+            android:fillColor="#C8E6C9"
+            android:fillAlpha="0.8" />
+        <path
+            android:pathData="M70,58 A1,1 0 0,1 72,58 A1,1 0 0,1 70,58"
+            android:fillColor="#C8E6C9"
+            android:fillAlpha="0.8" />
+        <path
+            android:pathData="M105,62 A1,1 0 0,1 107,62 A1,1 0 0,1 105,62"
+            android:fillColor="#C8E6C9"
+            android:fillAlpha="0.8" />
+    </group>
+</vector>

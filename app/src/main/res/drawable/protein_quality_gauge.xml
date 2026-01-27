@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background ring -->
+    <item>
+        <shape android:shape="oval">
+            <stroke
+                android:width="8dp"
+                android:color="#E0E7FF" />
+            <size android:width="120dp" android:height="120dp" />
+        </shape>
+    </item>
+    <!-- Progress ring -->
+    <item>
+        <rotate
+            android:fromDegrees="-90"
+            android:toDegrees="180">
+            <shape android:shape="oval">
+                <stroke
+                    android:width="8dp"
+                    android:color="#00E676"
+                    android:dashWidth="3dp"
+                    android:dashGap="1dp" />
+                <size android:width="120dp" android:height="120dp" />
+            </shape>
+        </rotate>
+    </item>
+    <!-- Center circle -->
+    <item android:top="24dp" android:bottom="24dp" android:left="24dp" android:right="24dp">
+        <shape android:shape="oval">
+            <gradient
+                android:startColor="#F8FAFF"
+                android:endColor="#E8F2FF"
+                android:angle="45" />
+            <stroke
+                android:width="2dp"
+                android:color="#0D47A1" />
+        </shape>
+    </item>
+</layer-list>

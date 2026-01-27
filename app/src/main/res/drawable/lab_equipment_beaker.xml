@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    
+    <!-- Beaker outline -->
+    <path
+        android:pathData="M14,12 L14,32 Q14,38 20,38 L28,38 Q34,38 34,32 L34,12 Z"
+        android:strokeColor="#0D47A1"
+        android:strokeWidth="2"
+        android:fillColor="@android:color/transparent" />
+    
+    <!-- Liquid inside -->
+    <path
+        android:pathData="M16,14 L16,30 Q16,34 20,34 L28,34 Q32,34 32,30 L32,14 Z"
+        android:fillColor="#00E676"
+        android:fillAlpha="0.3" />
+    
+    <!-- Beaker spout -->
+    <path
+        android:pathData="M34,12 L38,8"
+        android:strokeColor="#0D47A1"
+        android:strokeWidth="2" />
+    
+    <!-- Measurement lines -->
+    <path
+        android:pathData="M16,18 L20,18"
+        android:strokeColor="#5472D3"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M16,22 L22,22"
+        android:strokeColor="#5472D3"
+        android:strokeWidth="1" />
+    <path
+        android:pathData="M16,26 L20,26"
+        android:strokeColor="#5472D3"
+        android:strokeWidth="1" />
+    
+    <!-- Bubbles -->
+    <path
+        android:pathData="M22,18.5 A1.5,1.5 0 0,1 25,18.5 A1.5,1.5 0 0,1 22,18.5"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7" />
+    <path
+        android:pathData="M26,23 A1,1 0 0,1 28,23 A1,1 0 0,1 26,23"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7" />
+    <path
+        android:pathData="M20,27.2 A0.8,0.8 0 0,1 21.6,27.2 A0.8,0.8 0 0,1 20,27.2"
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.7" />
+</vector>

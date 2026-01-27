@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:world.openfoodfacts.org)",
+      "Bash(python scripts/fetch_random_product.py:*)",
+      "Bash(cmd.exe /c:*)",
+      "Bash(./gradlew :app:testDebugUnitTest:*)",
+      "Bash(/c/Users/Kevin/Desktop/python/trueprotein/ProteinScannerAndroid/gradlew.bat :app:testDebugUnitTest --rerun-tasks)",
+      "Bash(python:*)",
+      "Bash(powershell.exe -Command \"Set-Location -Path ''C:\\\\Users\\\\Kevin\\\\Desktop\\\\python\\\\trueprotein\\\\ProteinScannerAndroid''; .\\\\gradlew.bat :app:testDebugUnitTest 2>&1\")",
+      "Bash(for i in 1 2 3 4 5)",
+      "Bash(do python scripts/fetch_random_product.py --protein)",
+      "Bash(done)",
+      "Bash(powershell -Command \"Get-Content ''app\\\\src\\\\test\\\\resources\\\\protein_test_cases.json'' | Select-Object -Last 50\")",
+      "Bash(gradlew.bat :app:testDebugUnitTest:*)",
+      "Bash(cmd /c \"gradlew.bat :app:testDebugUnitTest 2>&1\")",
+      "Bash(cmd /c \"cd /d C:\\\\Users\\\\Kevin\\\\Desktop\\\\python\\\\trueprotein\\\\ProteinScannerAndroid && gradlew.bat :app:testDebugUnitTest\")",
+      "Bash(powershell -Command \".\\\\gradlew.bat :app:testDebugUnitTest\")",
+      "Bash(powershell -Command \"Get-Content app/build/reports/tests/testDebugUnitTest/classes/com.proteinscannerandroid.ProteinDetectionTest.html | Select-String -Pattern ''INTEGRALE'' -Context 5,10\")",
+      "Bash(powershell -Command \"Get-Content app/build/reports/tests/testDebugUnitTest/classes/com.proteinscannerandroid.ProteinDetectionTest.html | Select-String -Pattern ''FAIL'' -Context 0,8\")",
+      "Bash(powershell -Command \"\\(Get-Content app/src/test/resources/protein_test_cases.json | Select-String -Pattern ''\"\"id\"\":''\\).Count\")",
+      "Bash(.gradlew.bat:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(./gradlew.bat :app:testDebugUnitTest)",
+      "Bash(cmd //c \"gradlew.bat :app:testDebugUnitTest\")",
+      "Bash(findstr:*)",
+      "Bash(cmd /c \"gradlew.bat :app:testDebugUnitTest\")",
+      "Bash(for barcode in 6111032001003 6111242100305 6111032006619 6111032001010 6111242100930 6111242102781 6111242103702 6111242102002 6111242102767)",
+      "Bash(do if ! grep -q \"$barcode\" app/src/test/resources/protein_test_cases.json)",
+      "Bash(then echo \"MISSING: $barcode\")",
+      "Bash(fi)",
+      "Bash(cmd /c \".\\\\gradlew.bat :app:testDebugUnitTest 2>&1\")",
+      "Bash(C:UsersKevinDesktoppythontrueproteinProteinScannerAndroidgradlew.bat :app:testDebugUnitTest)"
+    ]
+  }
+}

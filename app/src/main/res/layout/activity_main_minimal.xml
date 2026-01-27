@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:fillViewport="true">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="56dp"
+    android:paddingBottom="24dp">
+
+    <!-- Top Bar with Settings -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="48dp">
+
+        <!-- App Title -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Protein Scanner"
+            android:textSize="28sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif-light" />
+
+        <!-- Settings Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_settings"
+            app:iconTint="?android:attr/textColorSecondary"
+            app:iconSize="20dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+    </LinearLayout>
+
+    <!-- Protein Helix Visual -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginBottom="56dp">
+
+        <com.proteinscannerandroid.ProteinHelixView
+            android:id="@+id/proteinHelixView"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center" />
+
+        <!-- Minimal overlay text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Analyze protein quality"
+            android:textSize="13sp"
+            android:textColor="?android:attr/textColorTertiary"
+            android:layout_gravity="bottom|center_horizontal"
+            android:fontFamily="sans-serif" />
+
+    </FrameLayout>
+
+    <!-- Main Actions Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Primary Action - Barcode Scan -->
+        <LinearLayout
+            android:id="@+id/btnScanBarcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/minimal_item_background"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="0dp"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <!-- Accent Dot -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/accent_dot_primary" />
+
+            <!-- Content -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan Barcode"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quick database lookup"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:fontFamily="sans-serif" />
+
+            </LinearLayout>
+
+            <!-- Action Icon -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_barcode"
+                android:alpha="0.6"
+                app:tint="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+        <!-- Secondary Action - Ingredient Photo -->
+        <LinearLayout
+            android:id="@+id/btnScanIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/minimal_item_background"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="0dp"
+            android:layout_marginBottom="4dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <!-- Accent Dot -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/accent_dot_secondary" />
+
+            <!-- Content -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scan Ingredients"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Photo of ingredient list"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:fontFamily="sans-serif" />
+
+            </LinearLayout>
+
+            <!-- Action Icon -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_camera"
+                android:alpha="0.6"
+                app:tint="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+        <!-- Tertiary Action - Manual Entry -->
+        <LinearLayout
+            android:id="@+id/btnManualEntry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/minimal_item_background"
+            android:paddingVertical="20dp"
+            android:paddingHorizontal="0dp"
+            android:layout_marginBottom="32dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <!-- Accent Dot -->
+            <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/accent_dot_tertiary" />
+
+            <!-- Content -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manual Entry"
+                    android:textSize="17sp"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:fontFamily="sans-serif-medium"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter barcode manually"
+                    android:textSize="13sp"
+                    android:textColor="?android:attr/textColorTertiary"
+                    android:fontFamily="sans-serif" />
+
+            </LinearLayout>
+
+            <!-- Action Icon -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_edit"
+                android:alpha="0.6"
+                app:tint="?android:attr/textColorSecondary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Quick Test Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quick Test"
+            android:textSize="11sp"
+            android:textColor="?android:attr/textColorTertiary"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:layout_marginBottom="12dp"
+            android:letterSpacing="0.1"
+            android:textAllCaps="true" />
+
+        <LinearLayout
+            android:id="@+id/btnSampleBarcode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/minimal_item_background"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="0dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <!-- Small Accent Dot -->
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/accent_dot_sample" />
+
+            <!-- Content -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Test Sample Product"
+                android:textSize="15sp"
+                android:textColor="?android:attr/textColorSecondary"
+                android:fontFamily="sans-serif" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>

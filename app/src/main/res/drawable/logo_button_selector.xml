@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Pressed state - clean teal glow effect -->
+    <item android:state_pressed="true">
+        <layer-list>
+            <!-- Realistic teal glow with proper fadeout -->
+            <item>
+                <shape android:shape="oval">
+                    <gradient
+                        android:type="radial"
+                        android:centerX="0.5"
+                        android:centerY="0.5"
+                        android:gradientRadius="150dp"
+                        android:startColor="#FF00FFE5"
+                        android:centerColor="#4000FFE5"
+                        android:endColor="#0000FFE5" />
+                </shape>
+            </item>
+            
+            <!-- Semi-transparent logo on top -->
+            <item android:gravity="center">
+                <bitmap android:src="@drawable/logo_ai_generated" 
+                    android:gravity="center"
+                    android:alpha="0.5" />
+            </item>
+        </layer-list>
+    </item>
+    
+    <!-- Normal state - just the logo -->
+    <item>
+        <bitmap android:src="@drawable/logo_ai_generated" 
+            android:gravity="center" />
+    </item>
+</selector>

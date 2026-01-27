@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 🧬 Protein Quality Scanner - Dark Minimalist Design System -->
+    
+    <!-- DARK THEME - Primary -->
+    <color name="background_dark">#000000</color>
+    <color name="surface_dark">#111111</color>
+    <color name="surface_elevated_dark">#1E1E1E</color>
+    <color name="surface_card_dark">#1C1C1C</color>
+    
+    <!-- LIGHT THEME - Primary -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="surface_white">#FFFFFF</color>
+    <color name="surface_elevation">#F5F5F5</color>
+    
+    <!-- Dynamic Colors (Theme-aware) -->
+    <color name="primary_accent">#00D4AA</color>
+    <color name="primary_accent_dark">#00B894</color>
+    <color name="primary_accent_light">#4DFFE6</color>
+    
+    <!-- Text Colors - Dark Theme -->
+    <color name="text_primary_dark">#FFFFFF</color>
+    <color name="text_secondary_dark">#AAAAAA</color>
+    <color name="text_hint_dark">#666666</color>
+    <color name="text_sophisticated_primary">#FFFFFF</color>
+    <color name="text_sophisticated_secondary">#AAAAAA</color>
+    <color name="text_sophisticated_tertiary">#666666</color>
+    
+    <!-- Text Colors - Light Theme -->
+    <color name="text_primary_light">#212121</color>
+    <color name="text_secondary_light">#757575</color>
+    <color name="text_hint_light">#BDBDBD</color>
+    <color name="text_sophisticated_primary_light">#1A1A1A</color>
+    <color name="text_sophisticated_secondary_light">#666666</color>
+    <color name="text_sophisticated_tertiary_light">#999999</color>
+    
+    <!-- Protein Quality Colors - Minimalist -->
+    <color name="quality_excellent">#00D4AA</color>
+    <color name="quality_good">#FFB84D</color>
+    <color name="quality_medium">#FFA726</color>
+    <color name="quality_low">#FF6B6B</color>
+    <color name="quality_low_light">#FF8A80</color>
+    
+    <!-- Interactive Elements -->
+    <color name="button_primary">#00D4AA</color>
+    <color name="button_secondary">#2A2A2A</color>
+    <color name="ripple_dark">#33FFFFFF</color>
+    <color name="ripple_light">#1F000000</color>
+    
+    <!-- Borders & Dividers -->
+    <color name="divider_dark">#333333</color>
+    <color name="divider_light">#E0E0E0</color>
+    <color name="border_dark">#404040</color>
+    <color name="border_light">#E0E0E0</color>
+    
+    <!-- Legacy compatibility for old layouts -->
+    <color name="primary_blue">#0D47A1</color>
+    <color name="primary_blue_dark">#002171</color>
+    <color name="primary_blue_light">#5472D3</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="text_hint">#BDBDBD</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="divider">#E0E0E0</color>
+    
+    <!-- Quality color aliases for layout compatibility -->
+    <color name="excellent">#00D4AA</color>
+    <color name="good">#FFB84D</color>
+    <color name="medium">#FFA726</color>
+    <color name="low">#FF6B6B</color>
+    
+    <!-- Basic colors -->
+    <color name="black">#212121</color>
+    <color name="white">#FFFFFF</color>
+    <color name="light_gray">#FAFAFA</color>
+    <color name="text_gray">#757575</color>
+    <color name="high_quality_protein">#00D4AA</color>
+    <color name="medium_quality_protein">#FFB84D</color>
+    <color name="low_quality_protein">#FF6B6B</color>
+    
+    <!-- Material Design Compatibility -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+</resources>

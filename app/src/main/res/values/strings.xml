@@ -1,0 +1,48 @@
+<resources>
+    <!-- 🧬 Protein Quality Scanner - Scientific Elegance -->
+    <string name="app_name">Protein Quality Scanner</string>
+    <string name="app_tagline">Protein quality analysis • PDCAAS scoring • Scientific standards</string>
+    
+    <!-- Main Interface -->
+    <string name="scan_barcode">📊 Scan Product</string>
+    <string name="scan_subtitle">PDCAAS Analysis • Protein Quality • Nutrition Data</string>
+    <string name="enter_barcode_manually">⌨️ Manual Entry</string>
+    <string name="manual_subtitle">Enter barcode for product analysis</string>
+    <string name="barcode_hint">Product barcode</string>
+    <string name="analyze_protein">Analyze Quality</string>
+    
+    <!-- Analysis States -->
+    <string name="loading">Analyzing protein quality...</string>
+    <string name="loading_fetching">Fetching product data</string>
+    <string name="loading_analyzing">Computing PDCAAS scores</string>
+    <string name="analysis_complete">Analysis Complete</string>
+    
+    <!-- Results -->
+    <string name="scan_again">New Analysis</string>
+    <string name="protein_quality_analysis">Protein Quality Analysis</string>
+    <string name="pdcaas_score">PDCAAS Score</string>
+    <string name="quality_rating">Quality Rating</string>
+    <string name="detected_proteins">Protein Sources</string>
+    <string name="amino_acid_profile">Amino Acid Profile</string>
+    <string name="scientific_details">Scientific Details</string>
+    
+    <!-- Quality Labels -->
+    <string name="quality_excellent">Excellent</string>
+    <string name="quality_good">Good</string>
+    <string name="quality_medium">Medium</string>
+    <string name="quality_low">Low</string>
+    
+    <!-- Error States -->
+    <string name="product_not_found">Product not found in database. Consider adding it at https://world.openfoodfacts.org/.\n\nIn the meantime, try scanning the list of ingredients or looking up the protein manually</string>
+    <string name="error_fetching_data">Unable to retrieve product data</string>
+    <string name="no_protein_detected">No protein sources detected</string>
+    <string name="camera_permission_needed">Camera access required for scanning</string>
+    
+    <!-- Sample & Testing -->
+    <string name="sample_barcode">Test Sample: 4260414150012</string>
+    <string name="debug_information">Debug Information</string>
+    
+    <!-- Accessibility -->
+    <string name="content_description_scan">Scan product barcode</string>
+    <string name="content_description_quality">Protein quality indicator</string>
+</resources>

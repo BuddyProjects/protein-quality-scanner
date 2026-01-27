@@ -1,0 +1,706 @@
+{
+  "fetched_at": "2026-01-26T23:46:36.073032",
+  "count": 100,
+  "products": [
+    {
+      "barcode": "5025125000006",
+      "name": "Sliced White Sourdough Bread",
+      "brand": "Jason's Sourdough",
+      "ingredients": "Wheat Flour (Fortified with Calcium Carbonate, Iron, Niacin, Thiamin), Water, Salt, Fermented Wheat Flour.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "5025125000112",
+      "name": "Proper Sourdough",
+      "brand": "Jason's",
+      "ingredients": "Wheat Flour (Wheat Flour, Calcium Carbonate, Iron, Niacin, Thiamin), Water, Rye Flour, Salt, Fermented Wheat",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "5025125000037",
+      "name": "Sourdough Grains & Seeds",
+      "brand": "Jasons",
+      "ingredients": "Wheat Flour (Wheat Flour, Calcium Carbonate, Iron, Niacin, Thiamin), Water, Mixed Seeds (Golden Linseeds, Sunflower Seeds (6%), Sprouted Spelt (Wheat) Grains (1.5%), Salt, Fermented Wheat Flour.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "7300400481595",
+      "name": "Tartine croustillante Authentique",
+      "brand": "wasa",
+      "ingredients": "Farine complète de SEIGLE (77 g*), farine de SEIGLE (28 g*), levure, sel. Peut contenir des traces de LUPIN, LAIT, MOUTARDE, GRAINES DE SÉSAME et SOJA. *en g pour 100 g de produit.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "3760049798609",
+      "name": "Pain de mie grandes tranches Seigle & Graines 500g",
+      "brand": "la Boulangère",
+      "ingredients": "Farine de BLÉ* 41 % , eau, graines de lin brun 6,1 %, graines de lin jaune 6,1 %, graines de tournesol décortiquées 6 %, farine de SEIGLE 5,1 %, GLUTEN DE BLÉ, farine d'ORGE maltée torréfiée, levure, extrait de malt d'ORGE, sel, vinaigre, arôme naturel (contient alcool), conservateur : propionate de calcium, jus d'acérola déshydraté. Traces éventuelles d'œufs, lait, graines de sésame, soja et moutarde. * Ingrédient issu du commerce équitable français.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "5025125000129",
+      "name": "Sourdough",
+      "brand": "Jason's",
+      "ingredients": "Wheat Flour (Wheat Flour, Calcium Carbonate, Iron, Niacin, Thiamin), Water, Wholemeal Spelt (Wheat) Flour, Sprouted Spelt (Wheat) Grains (5%), Rye Flour, Salt, Fermented Wheat Flour.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "7300400481588",
+      "name": "FIBRES",
+      "brand": "Wasa",
+      "ingredients": "Farine complète de SEIGLE 59 g*, son de BLÉ 27 g*, flocons d'AVOINE 12 g*, GRAINES DE SÉSAME 7,0 g*, germe de BLÉ, sel. *en g pour 100 g de produit fini. Peut contenir des traces de LUPIN, LAIT, MOUTARDE et SOJA.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "7311070032611",
+      "name": "Krisprolls complets sans sucres ajoutés",
+      "brand": "Krisprolls",
+      "ingredients": "Ingrédients: Farine de blé (62%), farine de blé*, huiles végétales (huile de colza*, huile de colza totalement hydrogénée), malt d'orge levure, sel. *",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "3029330022428",
+      "name": "14 Maxi Tranches complet sans sucres ajoutés",
+      "brand": "Jacquet",
+      "ingredients": "Farine complète de blé (63%), eau, farine de blé (2,2%), huile de colga, Levure, arôme naturel (contient alcool), sel, farine de maïs fermentée, gluten de blé, jus d'acérola en poudre. Contient des sucres naturellement présents. Une recette sans huile de palme pour des pains de mie moelleux. Con vient à un régime végétalien. pour 1 portion %AR* pour (1 tranche ÉTIQUETAGE NUTRITIONNEL 100 g par =39,3g) portion 410 97 f Valeur 1020 kJ énergétique",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "5010265002911",
+      "name": "Dark Rye Crispbread",
+      "brand": "Ryvita",
+      "ingredients": "wholegrain rye flour, salt",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "3760049790214",
+      "name": "Pain De Mie Bio",
+      "brand": "La Boulangère,La Boulangère Bio",
+      "ingredients": "wheat flour*, water, whole wheat flour* 13%, brown cane sugar*, yeast, rapeseed oil*, apple cider vinegar*, wheat bran*, salt, wheat gluten*, ascorbic acid, possible traces of soy",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "20006105",
+      "name": "Roggen Vollkornbrot",
+      "brand": "Afischer",
+      "ingredients": "Wholemeal Rye, Water, Sourdough (Water, Wholemeal Rye, Rye Flour, Wheat Flour), Wholegrain Rye Flour, Invert Sugar Syrup, Salt, Rye Flakes, Yeast.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "5010003064744",
+      "name": "Seed Sensations Seven Seeds",
+      "brand": "Hovis",
+      "ingredients": "Wheat Flour (Calcium, Iron, Niacin, Thiamin), Water, Seed Mix 13% (Toasted Brown Linseed, Toasted Sunflower Seeds, Pumpkin Seeds, Sunflower Seeds, Millet Seeds, Golden Linseed, Poppy Seeds), Yeast, Wheat  Protein, Salt, Soya Flour, Malted Barley Flour, Granulated Sugar, Barley Flour, Preservative (E282), Caramelised Sugar, Barley Fibre, Emulsifier (E472e), Flour Treatment Agent (Ascorbic Acid).",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "5020364010113",
+      "name": "Bakery Co. 5 The Original Bagels",
+      "brand": "New York Bakery Co",
+      "ingredients": "WHEAT Flour (with added Calcium Carbonate, Iron, Niacin, Thiamin), Water, Sugar, Yeast, Vinegar, Salt, Rapeseed Oil, Preservative (Calcium Propionate), Maize, Sweet potato puree, Malted BARLEY Flour, Flour Treatment Agent (Ascorbic Acid)",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "5057967395088",
+      "name": "Rye & Mixed Seed Sourdough Bread",
+      "brand": "Tesco",
+      "ingredients": "Wheat Flour [Wheat Flour, Calcium Carbonate, Iron, Niacin, Thiamin], Water, Wholemeal Wheat Flour, Malted Wheat Flakes, Rye Flour, Millet Seed (2%), Golden Linseed (2%), Sunflower Seed (2%), Rapeseed Oil, Fermented Wheat Flour, Salt, Poppy Seeds (0.6%), Molasses, Malted Wheat Flour, Flour Treatment Agent (Ascorbic Acid), Rice Flour.",
+      "category": "en:breads"
+    },
+    {
+      "barcode": "20057206",
+      "name": "Œufs frais plein air",
+      "brand": "Lidl",
+      "ingredients": "6 Oeufs frais de poules élevées en plein air - Catégorie A",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "20057237",
+      "name": "Œufs",
+      "brand": "Plein Air",
+      "ingredients": "Œufs de poules élevées en plein air",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "20057251",
+      "name": "Stéphanie eleveur",
+      "brand": "Oeufs de  france",
+      "ingredients": "Œufs frais de poules élevées en plein air issus de l'agriculture biologique de catégorie A.",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "3245412846991",
+      "name": "Oeufs de poules élevées en plein air* *Conformément au mode de production biologique Catégorie A",
+      "brand": "Carrefour BIO, Carrefour",
+      "ingredients": "Œufs de poules élevées en plein air issus de l'agriculture biologique.",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "3564707000239",
+      "name": "Œufs bio x6",
+      "brand": "Bio Village, Marque Repère",
+      "ingredients": "_Œufs_ frais, calibre gros-L",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "01217155",
+      "name": "6 British Free Range Eggs",
+      "brand": "Sainsbury",
+      "ingredients": "Free range British eggs. Class A",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "3270190205685",
+      "name": "12 OEUFS FRAIS de poules élevées en plein air",
+      "brand": "Carrefour",
+      "ingredients": "101980220 #107 LVOLLZONIL NIKON NEXOW W LO/61:200 12 ceufs de catégorie A de poules élevées en plein air. Code du producteur sur l'oeuf: 1 ou 0 = plein air, FR = France, 3 lettres = identification de l'élevage, 2 chiffres = N° du bâtiment. Conservation:",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "3270190021179",
+      "name": "Oeufs frais BIO",
+      "brand": "Carrefour BIO, Carrefour",
+      "ingredients": "Oeufs* frais.*Ingredient issu de l'agriculture biologique.",
+      "category": "en:eggs"
+    },
+    {
+      "barcode": "6111242100985",
+      "name": "",
+      "brand": "Jaouda",
+      "ingredients": "lait ecremé, créme, ferments lactiques. Matière grasse: 6% Poids net:90g",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111242100206",
+      "name": "Yaourt nature",
+      "brand": "Jaouda",
+      "ingredients": "lait frais entier, poudre de lait écrémé, amidon, ferment lactique sélectionné",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111032001003",
+      "name": "Assil vanille",
+      "brand": "Danone",
+      "ingredients": "ليوغور م.د,%2. مصنوع إخط قد يمكن أن يحتوي على الگلوتين، الجوز والبندق. 2.",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111242100305",
+      "name": "jaouda Cremy",
+      "brand": "jaouda",
+      "ingredients": "Lait frais, sucre, poudre de lait écrémé, texturant : amidon, crème, arôme, ferments lactiques sélectionnés, matière grasse 3%",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111032006619",
+      "name": "Jamila رايبي",
+      "brand": "Danone",
+      "ingredients": "Lait sans crème, sucre, crème, poudre de lait sans crème, protéines du lait, matière grasse laitiere, colorant naturel",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111032001010",
+      "name": "DANONE ASSIL BANANE",
+      "brand": "Danone",
+      "ingredients": "يوغورت عاقد - ا سکر. قشدة، زبدة، نكهة، خمائر حليبية لليوغورت. م. د: %1.80 مصنوع ف خط قد يمكن أن يحتوي على الكلوتين و الفستوه رقم الاعتماد الصحي 0NSSA ؛ 2.1,13 LPL الوزن الصافي : 10 لمكونات حليب بدون قشدة، مسحوق الحليب بدون قشدة تصنوع خط قد 4e ستطرال - دانون - طريق قنيطردره تارية الإفتاج - تاريخ ادتهاء انعز وع 6با علي لا عو ر ek TT10322 OO TO",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111242100930",
+      "name": "raibi jaoda",
+      "brand": "Jaouda",
+      "ingredients": "lait frais partiellement écrémé'sucre'colorant:amidon ' arôme 'correcteur d'acidité :acide citrique'ferments lactiques sélectionnés' matière grasse:1'3%",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111242102781",
+      "name": "Tendre nature",
+      "brand": "Tendre, jouda",
+      "ingredients": "Lait frais, crème, sucre, poudre de lait écrémé, ferments lactiques,",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111242103702",
+      "name": "Yaourt Grec Muesli",
+      "brand": "Jaouda",
+      "ingredients": "Lait frais, crème, poudre lait, sucre, amidon, préparation de céréales et de fruits secs (amandes, noix, miel, raisins secs, blé, avoine, seigle), ferments lactiques, arômes Matière grasse: 7%",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111242102002",
+      "name": "غلال القمح",
+      "brand": "Jaouda",
+      "ingredients": "Ingré&lents : lait entier enrichi en crème, sucre, poudre de lait écrémé, texturant : amidon, préparation de céréales, fibres, arômes, ferments ladiques et colorant naturel. Matière grasse : 3,4 % Poids net : 110 g",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "6111242102767",
+      "name": "Yaourt tendre",
+      "brand": "Jaouda",
+      "ingredients": "Lait frais, crème, sucre, poudre de lait écrémé, ferments lactiques, arôme, vitamines A et D3",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "5201054017432",
+      "name": "Total",
+      "brand": "FAGE",
+      "ingredients": "Pasteurised skimmed milk, cream (milk), live active yoghurt cultures (L. Bulgaricus, S. Thermophilus, L. Acidophilus, Bifidus, L. Casei).",
+      "category": "en:yogurts"
+    },
+    {
+      "barcode": "5000157024671",
+      "name": "BEANZ In a rich tomato sauce",
+      "brand": "HEINZ",
+      "ingredients": "Beans (50%), Tomatoes (36%), Water, Sugar, Modified Cornflour, Salt, Spice Extracts , Herb Extract",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5051399182506",
+      "name": "Chickpeas In Water",
+      "brand": "Tesco",
+      "ingredients": "chickpeas, water, antioxidant (ascorbic acid).",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5018095011271",
+      "name": "Puy Lentils & French green lentils",
+      "brand": "Merchant Gourmet",
+      "ingredients": "Puy Lentils (97%) (Water, Puy Lentils), Onion, Olive Oil, Bay Leaf Powder.",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "4088600072517",
+      "name": "Baked Beans",
+      "brand": "Bramwells",
+      "ingredients": "haricot beans 50%, tomato 35%, water, sugar, modified maize starch, salt, onion powder, ground paprika, flavourings, paprika extract,",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5013665114017",
+      "name": "Protein packed lentil cakes",
+      "brand": "Kallo",
+      "ingredients": "Lentil flour (85%), corn flour, buckwheat",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5018095011318",
+      "name": "Tomatocy French Puy & Green Lentils",
+      "brand": "Merchant Gourmet",
+      "ingredients": "Cooked Green Lentils (70%) (Water, Green Lentils), Tomato and Basil Sauce (10%) (Tomato Purée, Basil, contains Sunflower Oil and/or Rapeseed Oil, Water, Sugar, Salt, Tapioca Starch, Potato Starch). Cooked Puy Lentils (10%) (Water, Puy Lentils), Onion, Olive Oil, Basil (1.5%), Dried Tomato (1.4%), White Wine (Sulphites), Natural Flavour, Garlic, Sugar, Black Pepper, Salt.",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5000157024886",
+      "name": "Heinz Beanz in a rich tomato sauce",
+      "brand": "Heinz",
+      "ingredients": "Beans (51%), Tomatoes (34%), Water, Sugar, spirit Vinegar, Modified Cornflour, Salt, Spice extracts, Herb Extract",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5000232902450",
+      "name": "Baked Beans",
+      "brand": "Branston",
+      "ingredients": "Beans (51%), Tomatoes (38%), Water, Sugar, Modified Maize Starch, Reduced Sodium Sea Salt, Spirit Vinegar, Salt, Paprika, White Pepper, Spices, Flavourings.",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "3083680613576",
+      "name": "Lentilles préparées 1/2",
+      "brand": "Cassegrain",
+      "ingredients": "Eau, lentilles sèches trempées 32%, carottes 3%, arômes, oignons déshydratés 0.7%, sel, feuille de laurier, affermissant : chlorure de calcium.\n\n \n\npeut contenir des cécérales contenant du GLUTEN, SOJA",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "01162622",
+      "name": "Chickpeas in water",
+      "brand": "Sainsbury's, Greencane paper",
+      "ingredients": "Chickpeas, Water, Antioxidant: Sodium Metabisulphite (_Sulphites_).",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "3021690201123",
+      "name": "Lentilles Cuisinées à l'Auvergnate",
+      "brand": "Raynal & Roquelaure",
+      "ingredients": "Eau, lentilles précuites 30%, couenne de porc, saindoux, oignons 1%, arômes naturels (dont céleri), farine de blé, carotte 0,3%, sel, graisse de canard, ail en poudre, affermissant : chlorure de calcium.",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "0016843697000",
+      "name": "Yankee",
+      "brand": "",
+      "ingredients": "ARACHIDES TORREFIEES, SUCRE, HUILE VEGETALE ENTIEREMENT HYDROGENEE (HUILE DE SOJA), SEL",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "3302740087103",
+      "name": "Les Tranches Végé Haricots Blancs",
+      "brand": "FLEURY MICHON",
+      "ingredients": "Eau, haricots blancs cuits 19,7%, blanc d'œuf poudre, huile de colza, fécules, bouillon (eau, carottes, oignons, plantes aromatiques, céleri, sel, huile de colza, épices), extrait de plantes, sel, arômes naturels, vinaigre tamponné, poivre, colorant: caramel ordinaire",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5000237127261",
+      "name": "Original Salted Peanuts",
+      "brand": "KP",
+      "ingredients": "_peanuts_, sunflower oil, salt",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5013635312160",
+      "name": "Chick Peas in Salted Water",
+      "brand": "KTC",
+      "ingredients": "Chick Peas (60%), Water, Salt.",
+      "category": "en:legumes"
+    },
+    {
+      "barcode": "5411188124689",
+      "name": "Hafer Milch",
+      "brand": "alpro",
+      "ingredients": "Wasser, Hafer [8,3%), löslicher Mais-Ballast - stoff, Sonnenblumenöl, Calcium (Calciumcarbonat), Meersalz, Stabilisator [Gellan), Vitamine B2, D2. Kann andere glutenhaltige Getreidesorten enthalten. Von Natur aus laktosefrei.",
+      "category": "en:cereals"
+    },
+    {
+      "barcode": "7394376616228",
+      "name": "Barista Edition Oat Drink",
+      "brand": "Oatly",
+      "ingredients": "water,  oats  10%, rapeseed oil, acidity regulator (dipotassium phosphate), minerals (calcium carbonate, potassium iodide), salt, vitamins (d2, riboflavin and b12),",
+      "category": "en:cereals"
+    },
+    {
+      "barcode": "5010029000016",
+      "name": "Weetabix",
+      "brand": "Weetabix",
+      "ingredients": "Wholegrain Wheat (95%), Malted Barley Extract, Sugar, Salt, Niacin, Iron, Riboflavin (B2), Thiamin (B1), Folic Acid.",
+      "category": "en:cereals"
+    },
+    {
+      "barcode": "5013665100065",
+      "name": "Organic Lightly Salted Wholegrain Low Fat Rice Cakes",
+      "brand": "Kallo",
+      "ingredients": "Organic wholegrain _rice_ 99.8%, Sea Salt",
+      "category": "en:cereals"
+    },
+    {
+      "barcode": "3168930010265",
+      "name": "cruesly mélange de noix",
+      "brand": "Quaker",
+      "ingredients": "_avoine_ complète (32%), _blé_ complet (18%), sirop de glucose, huile de tournesol, sucre, _amandes_ grillées (4,2%), _noisettes_ (4%), oligofructose, _noix de Pécan_ (1,5%), farine de _blé_, farine de riz, _noix du Brésil_ (1%), miel, arômes naturels, antioxydant (tocophérol).",
+      "category": "en:cereals"
+    },
+    {
+      "barcode": "06175700",
+      "name": "Tartines craquantes au sarrasin imp",
+      "brand": "Ekibio,Le pain des Fleurs",
+      "ingredients": "Farine de sarrasin* (97,6%), sucre de canne complet* (&lt;2%), sel marin. *issu de l'agriculture biologique.",
+      "category": "en:cereals"
+    },
+    {
+      "barcode": "5010029000801",
+      "name": "Weetabix",
+      "brand": "Weetabix",
+      "ingredients": "Wholegrain _Wheat_ (95%), Malted _Barley_ Extract, Sugar, Salt, Niacin, Iron, Riboflavin (B2), Thiamin (B1), Folic Acid.",
+      "category": "en:cereals"
+    },
+    {
+      "barcode": "6111162001218",
+      "name": "Filets de maquereau",
+      "brand": "joly",
+      "ingredients": "Maquereaux, huile végétale, sel.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "6111003031107",
+      "name": "",
+      "brand": "10dh",
+      "ingredients": "Maquereaux, huile végétale, sel. F",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "3019081238643",
+      "name": "Sardines Huile d'Olive Vierge Extra",
+      "brand": "Parmentier",
+      "ingredients": "_Sardines_, huile d'olive vierge extra, sel",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "8410111211202",
+      "name": "Atun",
+      "brand": "Isabel",
+      "ingredients": "القيمة الغذائية المشار القيم(إليها في 0 10غ من المنتوج )المقطر",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "6111162000181",
+      "name": "Joly Thon Entier",
+      "brand": "Joly",
+      "ingredients": "Thon, huile végétale, sel.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "8410111000707",
+      "name": "Atún con tomate",
+      "brand": "Isabel",
+      "ingredients": "Thon 65 et sauce tomate 35 (eau, hui\\e de soja, concentré de tomate, glucose, sucre, sel et arôme).",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "6111162000402",
+      "name": "Miettes de Maquereaux à la sauce tomate et aux épices",
+      "brand": "Joly",
+      "ingredients": "Maguereaux, sauce tomate préparée, huile végétale, épices, sel, piment, Teuille de laurier.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "5060088700105",
+      "name": "NAKD PROTEIN - Cacao noisette - 45g (16x1p)",
+      "brand": "Nakd",
+      "ingredients": "Dattes (38%), cacahuètes (35%), fibre de chicorée (10%), farine de cacahuètes (8%), noisettes (5%), cacao maigre (3%), arômes naturels.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "6111162001102",
+      "name": "Thon Joly",
+      "brand": "Joly,Doha",
+      "ingredients": "Thon, huile végétale, sel.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "3263670162219",
+      "name": "Plain Sardines",
+      "brand": "Connétable",
+      "ingredients": "Sardines,water,lemon pulp,salt.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "3341430510019",
+      "name": "TAM thon entier a l'huile",
+      "brand": "tam",
+      "ingredients": "Thon, huile végétale (soja), sel",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "3165958350014",
+      "name": "Filets de Maquereaux au Vin Blanc",
+      "brand": "Saupiquet",
+      "ingredients": "Filets de _maquereaux_ (60%), eau, légumes en proportion variable (10%) (cornichon, carotte, poivron rouge, oignon), vinaigre de vin blanc, vinaigre d'alcool, vin blanc (1,8%), sel, persil (0,5%), arômes naturels.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "3165950211726",
+      "name": "Filet de maquereaux au naturel",
+      "brand": "Saupiquet",
+      "ingredients": "Filets de maquereaux, eau, sel",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "3165957058010",
+      "name": "Filets de Maquereaux à la moutarde",
+      "brand": "Saupiquet",
+      "ingredients": "Filet de maquereaux (56%), eau, moutarde de Dijon (8% : eau, graines de moutarde, vinaigre d'alcool, sel, acidifiant : acide citrique, antioxydant : bisulfite de sodium ou de potassium), vinaigre d'alcool, huile de tournesol, sel, amidon transformé de maïs, épaississants : gomme guar et gomme xanthane, poivre noir, arômes, colorant : extrait de paprika.",
+      "category": "en:fish"
+    },
+    {
+      "barcode": "5060317350033",
+      "name": "Pork Sausages",
+      "brand": "Heck!",
+      "ingredients": "British Pork (97%), Seasoning (Salt, Gluten Free Rice Flour, Spices, Sugar, Preservative (Sodium Sulphite**), Antioxidant (Ascorbic Acid))",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "3302740059193",
+      "name": "Blanc de Poulet",
+      "brand": "Fleury Michon",
+      "ingredients": "Filet de poulet 94%, bouillon (eau, os de poulet, échalote, ail, épices, plantes aromatiques, céleri, oignon, poireau, carotte), sel, jus concentré de carotte et céleri, dextrose, ferments, aröme naturel, antiOxYdant : ascorbate de sodium, colorant: caramel ordinaire,",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "5060055251548",
+      "name": "Pork Sausages",
+      "brand": "Finnebrogue",
+      "ingredients": "British or Irish Pork (90%), Water, Sea Salt, Flavouring, Rice Flour, Chickpea Flour, Ground Spices (Coriander, White Pepper, Nutmeg), Dried Onion, Antioxidant: Ascorbic Acid; Salt, Cornflour, Dextrose. Sausages filled into natural vegetable casings.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "3302740047367",
+      "name": "Le Supérieur - à l'Etouffée - Conservation sans Nitrite",
+      "brand": "Fleury Michon",
+      "ingredients": "Jambon de porc, bouillon (eau, os de porc, plantes aromatiques, viande de porc, concentré de carotte, poivre, baies de genièvre, clou de girofle), sel, arômes naturels (présence naturelle de polyphenols), chlorure de potassium, dextrose, antioxydant: acide ascorbíque.\nTraces éventuelles de céleri.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "3302740047404",
+      "name": "Le Supérieur -25% de Sel - Conservation sans Nitrite",
+      "brand": "Fleury Michon",
+      "ingredients": "Jambon de porc, bouillon (eau, os de porc, échalotes, viande de porc, ail, concentré d'oignon et de carottes, thym, laurier, épices), sel, arôme naturel (présence naturelle de polyphénols), vinaigre en poudre, dextrose, chlorure de potassium, antioxydant (acide ascorbique).",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "8480000057105",
+      "name": "Pechuga de Pavo Cocida 92%",
+      "brand": "Hacendado",
+      "ingredients": "Pechuga de pavo (92%), agua, cloruro sódico, jarabe de glucosa, estabilizantes (E-451i, E-407), aroma, cloruro potásico, antioxidante (ascorbato sódico), conservador (nitrito sódico).",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "5060055251234",
+      "name": "unsmoked back bacon rashers",
+      "brand": "naked bacon",
+      "ingredients": "pork (87%), water, salt, natural flavoring, antioxidant: ascorbic acid,",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "3154230800965",
+      "name": "HERTA Blanc Poulet Nature conservation sans nitrite x4 -140g",
+      "brand": "Herta",
+      "ingredients": "Filets de poulet 92,3%, Sel, Bouillon (eau, viande et os et graisse de poulet, sel, extraits de carotte et d'oignon, sucre, ail, thym, laurier, livèche, curcuma, paprika, poivre noir, muscade, clou de girofle, antioxydant : extrait de romarin), Arôme naturel (présence naturelle de polyphénols), Arôme, Chlorure de potassium, Conservateur : acétate de potassium, Antioxydant : acide ascorbique, Colorant : caramel ordinaire.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "3302740039362",
+      "name": "Rôti de Poulet - 100% filet",
+      "brand": "Fleury Michon",
+      "ingredients": "Filet de poulet 98%, bouillon (eau, os de poulet, ail, carotte, _céleri_, épices, oignon, poireau), sel, dextrose, arômes naturels (présence naturelle de polyphénols), extrait de levure, poivre 0.1%, antioxydant: acide ascorbique, colorant : caramel ordinaire.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "3302740025136",
+      "name": "ZERO NITRITE - LE SUPERIEUR",
+      "brand": "Fleury Michon",
+      "ingredients": "Jambon de porc, bouillons (eau, plantes aromatiques, épices), sel, arôme naturel, sucre, jus concentré d'acérola.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "8480000592569",
+      "name": "Jamón cocido lonchas",
+      "brand": "Hacendado",
+      "ingredients": "Jamón (90%), sal, dextrosa, antioxidante (ascorbato sódico), estabilizante (carragenato), especias, aromas, conservador (nitrito sódico). Manténgase entre 0°C y 5°C. Abrir 5 minutos antes de servir. Una vez abierto consumir en 48 horas.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "8480000867865",
+      "name": "",
+      "brand": "Hacendado",
+      "ingredients": "Pechuga de pavo(65%), agua, jarabe de glucosa, dextrosa, cloruro potásico, cloruro sódico, estabilizantes e451, e-407,aromas, antioxidante e301, conservadores e261, e250",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "3154230802280",
+      "name": "HERTA Lardons fumés conservation sans nitrite - 2x75g",
+      "brand": "Herta",
+      "ingredients": "Poitrine de porc, sel, conservateurs : lactate de potassium, acétate de potassium ; arôme naturel (présence naturelle de polyphénols), antioxydant : acide ascorbique.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "5013683305527",
+      "name": "Lincolnshire sausages",
+      "brand": "Cauldron",
+      "ingredients": "Rehydrated Textured Vegetable Protein 45% (Water, _Soya_ Protein, Potato Starch, _Wheat_ Gluten, Stabiliser (Dicalcium Phosphate), Water, Onion, Rapeseed Oil, Lincolnshire Seasoning 5% (Yeast Extract, Salt, Potassium Chloride, Herbs, Fructose, White Pepper, Rusk (Wheat Flour, Salt, Raising Agent: Ammonium Bicarbonate), Barley Malt Extract, Carrot Powder, Leek Powder, Sage Extract, Nutmeg Extract), Dried Free Range Egg White, Soya Protein, Stabiliser: Methylcellulose.",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "8480000860743",
+      "name": "Jamón cocido extra finas lonchas",
+      "brand": "Hacendado",
+      "ingredients": "Jamón (85%), \r\nagua, \r\nsal, \r\njarabe de glucosa, \r\nestabilizantes (E-451, E-407), \r\nantioxidante (ascorbato sódico), \r\nespecias, \r\naromas, \r\nconservadores (acetato potásico, nitrito sódico).",
+      "category": "en:meats"
+    },
+    {
+      "barcode": "6111242100992",
+      "name": "Perly",
+      "brand": "Perly",
+      "ingredients": "milk cream, cream, sugar, banana, bacteria",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "6111266962187",
+      "name": "Lait",
+      "brand": "Jaouda",
+      "ingredients": "Lait frais pasteurisé demi-écrémé à 15g/l de matière grasse",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "6111246721261",
+      "name": "Fromage Blanc Nature",
+      "brand": "Milky Food Professional",
+      "ingredients": "Ferments lactiques, Présure, Sel.",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "6111242106949",
+      "name": "Jben",
+      "brand": "Jaouda",
+      "ingredients": "lait frais entier, crème, stabilisants, amidon, carraghénane, sel, ferments lactiques\nmatière grasse 21%",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "6111032009665",
+      "name": "Unknown Product",
+      "brand": "Salim",
+      "ingredients": "lait partiellement écrémé",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "6111099003897",
+      "name": "",
+      "brand": "lilia",
+      "ingredients": "زيوت نباتية مصفاة غير مهدرجة مل طيب نشأ الفرد مستحبات (2471) و (478) تسكين الصوجا (1222) حمض السورية (200) السيتريك (2300) مضادات الأكسدة سوريات البوتاسيوم (1202) حم خليط الشوكوفيرولات)، منكم ملون (1600) وفينا , AU : يحفظ في مكان بارد درجة TERR All FRANS : Tents",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "6111203006653",
+      "name": "Cheddar",
+      "brand": "la Hollandaise",
+      "ingredients": "(AJR 30%) ¿S-250 (AJR 100%) ¿S 10 (AJR 30%) ¿L 3,5 (AJR 30%) ¿S 300 فيتامين A فيتامين D فيتامين E كالسيوم جبنة مذوبة للدهن 50% مواد دسمة في المادة الجافة. الوزن الصافي : - المكونات حليب خالي من الدسم مشكل شيدر %25، زبدة، أملاح مستحلبة (E452 E341 E450) بروتينات الحليب قلح، مادة حافظة: سوربات البوتاسيوم، الكالسيوم، فيتامين ED،A أنتج بالمغرب من م.ص. عين الـ يحفظ في مكا تاريخ الاستخـ Agrément sanitaire MA LPL.5.11.13 111203 006653 LOONEY TUNES TH www.LOONEYTUNES.COM TH&War Bros Certamente 615) // AJR = Apports j",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "6111246721278",
+      "name": "Cream cheese",
+      "brand": "Original",
+      "ingredients": "Lait de Vache pasteurisé, Crème fraiche pasteurisée\nferments lactiques, Présure,Sel.",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "5740900404465",
+      "name": "Spreadable Slightly Salted",
+      "brand": "Lurpak",
+      "ingredients": "butter (64%) (milk), rapeseed oil, water, lactic culture (milk), salt",
+      "category": "en:dairy"
+    },
+    {
+      "barcode": "20003166",
+      "name": "Flocons avoine",
+      "brand": "LIDL",
+      "ingredients": "100 % wholemeal oat flakes",
+      "category": "en:breakfast-cereals"
+    },
+    {
+      "barcode": "3229820019307",
+      "name": "Flocons d'avoine",
+      "brand": "Bjorg",
+      "ingredients": "Flocons d'_avoine_ complète issue de l'agriculture biologique.",
+      "category": "en:breakfast-cereals"
+    },
+    {
+      "barcode": "3229820160672",
+      "name": "Croustillant Chocolat",
+      "brand": "Bjorg",
+      "ingredients": "Flocons d'avoine complète, Flocons de blé complet, Riz extrudé (farine de riz), Sucre de canne non raffiné, Chocolat noir (pâte de cacao, sucre de canne non raffiné, inuline), Farine de blé, Huile de tournesol, Miel, Stabilisant: gomme d'acacia, Mélasses, Flocons de noix de coco, Sel marin, Cannelle, Antioxydant: extrait riche en tocopherols. \n\nPeut contenir du lait, des fruits à coque, des graines de sésame et du soja. \n\n*Ingrédients biologiques.",
+      "category": "en:breakfast-cereals"
+    },
+    {
+      "barcode": "5010029000023",
+      "name": "Weetabix produit à base de blé complet 100%",
+      "brand": "Weetabix",
+      "ingredients": "_Blé_ complet (95%), extrait d'_orge_ maltée, sucre, sel, niacine, fer, vitamines B2, vitamines B1, vitamines B9.",
+      "category": "en:breakfast-cereals"
+    },
+    {
+      "barcode": "4088600247519",
+      "name": "Wheat Bisks",
+      "brand": "Harvest Morn",
+      "ingredients": "whole wheat (95%), barley malt extract, sugar, salt, niacin, iron, riboflavin, thiamin, folic acid,",
+      "category": "en:breakfast-cereals"
+    }
+  ]
+}

@@ -98,6 +98,15 @@ object ProteinDatabase {
                 return Pair(false, "Part of emulsifier (lecithin with soy), not protein source")
             }
 
+            // FIX: German compound word "SOJALECITHINE" - check if soja/soy is part of a word containing lecithin
+            // Get the full word around the match
+            val wordStart = (position - 1 downTo 0).firstOrNull { ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n') }?.plus(1) ?: 0
+            val wordEnd = (position + matchedText.length until ingredientsLower.length).firstOrNull { ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n') } ?: ingredientsLower.length
+            val fullWord = ingredientsLower.substring(wordStart, wordEnd)
+            if (lecithinPatterns.any { fullWord.contains(it) }) {
+                return Pair(false, "Part of compound word containing lecithin ($fullWord), not protein source")
+            }
+
             // Oil exclusion - if this match is part of an oil phrase
             val oilPatterns = listOf(
                 "soybean oil", "soya oil", "soy oil", "sojaöl", "huile de soja",
@@ -118,6 +127,23 @@ object ProteinDatabase {
             if (contextBeforeMatch.contains("huile") || contextBeforeMatch.contains("oil") ||
                 contextBeforeMatch.contains("öl") || contextBeforeMatch.contains("aceite")) {
                 return Pair(false, "Part of oil phrase (oil precedes soja/soy), not protein source")
+            }
+        }
+
+        // FIX: Cocoa butter exclusion for Dairy Trace Protein - cocoa butter is NOT dairy
+        if (proteinSourceName == "Dairy Trace Protein" && matchedText == "butter") {
+            // Get text immediately before the match to check for cocoa/cacao/kakao prefix
+            val beforeStart = maxOf(0, position - 10)
+            val textBefore = ingredientsLower.substring(beforeStart, position)
+            // Check if "butter" is preceded by cocoa-related terms (German, English, French)
+            if (textBefore.endsWith("kakao") || textBefore.endsWith("cocoa") || textBefore.endsWith("cacao")) {
+                return Pair(false, "Part of cocoa butter, not dairy")
+            }
+            // Also check for "beurre de cacao" pattern where "de cacao" follows
+            val afterEnd = minOf(ingredientsLower.length, position + matchedText.length + 12)
+            val textAfter = ingredientsLower.substring(position + matchedText.length, afterEnd)
+            if (textAfter.startsWith(" de cacao") || textAfter.startsWith(" de cocoa")) {
+                return Pair(false, "Part of cocoa butter (beurre de cacao), not dairy")
             }
         }
 
@@ -1139,12 +1165,17 @@ object ProteinDatabase {
             val (proteinSource, keyword, position) = match
 
             // Ordinal ranking: 1st = 1.0, 2nd = 0.7, 3rd = 0.5, 4th+ = 0.3
-            val weight = when (index) {
+            val baseWeight = when (index) {
                 0 -> 1.0    // First protein ingredient gets full weight
                 1 -> 0.7    // Second gets 70%
                 2 -> 0.5    // Third gets 50%
                 else -> 0.3 // Fourth and later get 30%
             }
+
+            // FIX: Trace proteins (e.g., "Dairy Trace Protein") should show in results
+            // but NOT contribute to PDCAAS calculation
+            val isTraceProtein = proteinSource.name.contains("Trace")
+            val effectiveWeight = if (isTraceProtein) 0.0 else baseWeight
 
             detectedProteins.add(
                 DetectedProtein(
@@ -1153,12 +1184,13 @@ object ProteinDatabase {
                     ingredientText = keyword,
                     position = index + 1, // 1-based ranking
                     matchConfidence = 0.9,
-                    weight = weight
+                    weight = baseWeight // Display weight for UI purposes
                 )
             )
 
-            totalScore += proteinSource.pdcaas * weight
-            totalWeight += weight
+            // Only add non-trace proteins to the PDCAAS calculation
+            totalScore += proteinSource.pdcaas * effectiveWeight
+            totalWeight += effectiveWeight
         }
 
         // Calculate weighted PDCAAS

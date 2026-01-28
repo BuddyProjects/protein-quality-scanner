@@ -52,7 +52,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Theme Section -->
+            <!-- Developer Section -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,65 +73,54 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Appearance"
+                        android:text="Developer"
                         android:textSize="16sp"
                         android:textColor="@color/text_primary_dark"
                         android:textStyle="bold"
                         android:fontFamily="sans-serif-medium"
                         android:layout_marginBottom="16dp" />
 
-                    <TextView
+                    <!-- Debug Toggle -->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Choose your preferred theme"
-                        android:textSize="13sp"
-                        android:textColor="@color/text_secondary_dark"
-                        android:fontFamily="sans-serif"
-                        android:layout_marginBottom="20dp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="8dp">
 
-                    <!-- Theme Options -->
-                    <RadioGroup
-                        android:id="@+id/radioGroupTheme"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                        <RadioButton
-                            android:id="@+id/radioDark"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:text="Dark Theme"
-                            android:textColor="@color/text_primary_dark"
-                            android:textSize="15sp"
-                            android:fontFamily="sans-serif"
-                            android:buttonTint="@color/primary_accent"
-                            android:paddingStart="8dp"
-                            android:layout_marginBottom="8dp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Show Debug Information"
+                                android:textSize="15sp"
+                                android:textColor="@color/text_primary_dark"
+                                android:fontFamily="sans-serif" />
 
-                        <RadioButton
-                            android:id="@+id/radioLight"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:text="Light Theme"
-                            android:textColor="@color/text_primary_dark"
-                            android:textSize="15sp"
-                            android:fontFamily="sans-serif"
-                            android:buttonTint="@color/primary_accent"
-                            android:paddingStart="8dp"
-                            android:layout_marginBottom="8dp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Display detailed analysis logs in results"
+                                android:textSize="13sp"
+                                android:textColor="@color/text_secondary_dark"
+                                android:fontFamily="sans-serif"
+                                android:layout_marginTop="4dp" />
 
-                        <RadioButton
-                            android:id="@+id/radioSystem"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:text="Follow System"
-                            android:textColor="@color/text_primary_dark"
-                            android:textSize="15sp"
-                            android:fontFamily="sans-serif"
-                            android:buttonTint="@color/primary_accent"
-                            android:paddingStart="8dp" />
+                        </LinearLayout>
 
-                    </RadioGroup>
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchDebug"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:trackTint="@color/switch_track_color"
+                            app:thumbTint="@color/primary_accent" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

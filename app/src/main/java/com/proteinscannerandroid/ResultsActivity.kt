@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 
 class ResultsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultsBinding
-    private val isDebugMode = true // Set to false for production
+    private var isDebugMode = false // Read from SharedPreferences
     private val debugMessages = mutableListOf<String>()
     private var nativeAd: NativeAd? = null
 
@@ -37,6 +37,10 @@ class ResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Read debug preference from SharedPreferences
+        val sharedPreferences = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE)
+        isDebugMode = sharedPreferences.getBoolean(SettingsActivity.KEY_DEBUG_ENABLED, false)
 
         // Initialize native ad (only for non-premium users)
         loadNativeAd()

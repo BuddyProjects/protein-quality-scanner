@@ -19,9 +19,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Apply theme before setContentView
-        applyTheme()
-        
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -145,20 +142,4 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, InfoActivity::class.java)
         startActivity(intent)
     }
-
-    private fun applyTheme() {
-        val sharedPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE)
-        val theme = sharedPrefs.getString(SettingsActivity.KEY_THEME_MODE, SettingsActivity.THEME_DARK)
-            ?: SettingsActivity.THEME_DARK
-
-        val mode = when (theme) {
-            SettingsActivity.THEME_DARK -> AppCompatDelegate.MODE_NIGHT_YES
-            SettingsActivity.THEME_LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-            SettingsActivity.THEME_SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            else -> AppCompatDelegate.MODE_NIGHT_YES
-        }
-
-        AppCompatDelegate.setDefaultNightMode(mode)
-    }
-    
 }

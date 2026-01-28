@@ -11,7 +11,6 @@ class ProteinLookupActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProteinLookupBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        applyTheme()
         super.onCreate(savedInstanceState)
         binding = ActivityProteinLookupBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -41,20 +40,5 @@ class ProteinLookupActivity : AppCompatActivity() {
         binding.btnClear.setOnClickListener {
             binding.etProteinName.text?.clear()
         }
-    }
-
-    private fun applyTheme() {
-        val sharedPrefs = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE)
-        val theme = sharedPrefs.getString(SettingsActivity.KEY_THEME_MODE, SettingsActivity.THEME_DARK)
-            ?: SettingsActivity.THEME_DARK
-
-        val mode = when (theme) {
-            SettingsActivity.THEME_DARK -> AppCompatDelegate.MODE_NIGHT_YES
-            SettingsActivity.THEME_LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-            SettingsActivity.THEME_SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            else -> AppCompatDelegate.MODE_NIGHT_YES
-        }
-
-        AppCompatDelegate.setDefaultNightMode(mode)
     }
 }

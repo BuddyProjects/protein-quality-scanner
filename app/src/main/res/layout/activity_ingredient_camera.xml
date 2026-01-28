@@ -131,8 +131,8 @@
                     android:min="0"
                     android:max="100"
                     android:progress="0"
-                    android:progressTint="@color/primary_accent"
-                    android:thumbTint="@color/primary_accent" />
+                    android:progressTint="#00D4E6"
+                    android:thumbTint="#00D4E6" />
 
                 <ImageView
                     android:layout_width="24dp"
@@ -164,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_camera_capture"
-                android:backgroundTint="@color/primary_accent"
+                android:backgroundTint="#00D4E6"
                 app:tint="@android:color/white"
                 app:fabSize="normal"
                 android:layout_marginBottom="12dp" />

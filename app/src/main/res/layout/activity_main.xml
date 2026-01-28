@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sophisticated_background_light"
+    android:background="@drawable/sophisticated_background_gradient"
     android:fillViewport="true">
 
 <LinearLayout
@@ -71,8 +71,8 @@
 
         <ImageView
             android:id="@+id/logoButton"
-            android:layout_width="108dp"
-            android:layout_height="108dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/logo_button_selector"
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@drawable/refined_card_background_light"
+            android:background="@drawable/refined_card_background"
             android:paddingVertical="20dp"
             android:paddingHorizontal="20dp"
             android:layout_marginBottom="10dp"
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:text="SCAN BARCODE"
                     android:textSize="18sp"
-                    android:textColor="@color/text_sophisticated_primary_light"
+                    android:textColor="@color/text_sophisticated_primary"
                     android:fontFamily="@font/blinker"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:text="Quick database lookup"
                     android:textSize="14sp"
-                    android:textColor="@color/text_sophisticated_tertiary_light"
+                    android:textColor="@color/text_sophisticated_tertiary"
                     android:fontFamily="@font/blinker" />
 
             </LinearLayout>
@@ -148,7 +148,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@drawable/refined_card_background_light"
+            android:background="@drawable/refined_card_background"
             android:paddingVertical="20dp"
             android:paddingHorizontal="20dp"
             android:layout_marginBottom="10dp"
@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:text="SCAN INGREDIENTS"
                     android:textSize="18sp"
-                    android:textColor="@color/text_sophisticated_primary_light"
+                    android:textColor="@color/text_sophisticated_primary"
                     android:fontFamily="@font/blinker"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
@@ -179,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:text="Photo of ingredient list"
                     android:textSize="14sp"
-                    android:textColor="@color/text_sophisticated_tertiary_light"
+                    android:textColor="@color/text_sophisticated_tertiary"
                     android:fontFamily="@font/blinker" />
 
             </LinearLayout>
@@ -200,7 +200,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@drawable/refined_card_background_light"
+            android:background="@drawable/refined_card_background"
             android:paddingVertical="18dp"
             android:paddingHorizontal="16dp"
             android:layout_marginBottom="10dp"
@@ -220,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:text="MANUAL ENTRY"
                     android:textSize="18sp"
-                    android:textColor="@color/text_sophisticated_primary_light"
+                    android:textColor="@color/text_sophisticated_primary"
                     android:fontFamily="@font/blinker"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
@@ -231,7 +231,7 @@
                     android:layout_height="wrap_content"
                     android:text="Enter barcode manually"
                     android:textSize="14sp"
-                    android:textColor="@color/text_sophisticated_tertiary_light"
+                    android:textColor="@color/text_sophisticated_tertiary"
                     android:fontFamily="@font/blinker" />
 
             </LinearLayout>
@@ -252,7 +252,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:background="@drawable/refined_card_background_light"
+            android:background="@drawable/refined_card_background"
             android:paddingVertical="18dp"
             android:paddingHorizontal="16dp"
             android:layout_marginBottom="32dp"
@@ -271,7 +271,7 @@
                     android:layout_height="wrap_content"
                     android:text="PROTEIN LOOKUP"
                     android:textSize="18sp"
-                    android:textColor="@color/text_sophisticated_primary_light"
+                    android:textColor="@color/text_sophisticated_primary"
                     android:fontFamily="@font/blinker"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
@@ -282,7 +282,7 @@
                     android:layout_height="wrap_content"
                     android:text="Search protein database"
                     android:textSize="14sp"
-                    android:textColor="@color/text_sophisticated_tertiary_light"
+                    android:textColor="@color/text_sophisticated_tertiary"
                     android:fontFamily="@font/blinker" />
 
             </LinearLayout>

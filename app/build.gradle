@@ -16,9 +16,19 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Test AdMob IDs - safe for development
+            buildConfigField "String", "ADMOB_APP_ID", "\"ca-app-pub-3940256099942544~3347511713\""
+            buildConfigField "String", "ADMOB_NATIVE_AD_UNIT_ID", "\"ca-app-pub-3940256099942544/2247696110\""
+            manifestPlaceholders = [ADMOB_APP_ID: "ca-app-pub-3940256099942544~3347511713"]
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // Production AdMob IDs - real ads for release builds
+            buildConfigField "String", "ADMOB_APP_ID", "\"ca-app-pub-6662755234552897~3094316904\""
+            buildConfigField "String", "ADMOB_NATIVE_AD_UNIT_ID", "\"ca-app-pub-6662755234552897/7845254167\""
+            manifestPlaceholders = [ADMOB_APP_ID: "ca-app-pub-6662755234552897~3094316904"]
         }
     }
 
@@ -33,6 +43,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
 }
 

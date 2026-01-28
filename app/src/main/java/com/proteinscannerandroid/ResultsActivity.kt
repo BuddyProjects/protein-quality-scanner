@@ -463,8 +463,8 @@ class ResultsActivity : AppCompatActivity() {
             return
         }
 
-        // Test Native Advanced ad unit ID
-        val adUnitId = "ca-app-pub-3940256099942544/2247696110"
+        // Native Ad unit ID from BuildConfig (test ID for debug, real ID for release)
+        val adUnitId = BuildConfig.ADMOB_NATIVE_AD_UNIT_ID
 
         val adLoader = AdLoader.Builder(this, adUnitId)
             .forNativeAd { ad: NativeAd ->

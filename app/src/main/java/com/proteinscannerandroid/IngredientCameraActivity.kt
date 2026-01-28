@@ -44,8 +44,8 @@ class IngredientCameraActivity : AppCompatActivity() {
         private const val TAG = "IngredientCamera"
 
         // Scanning frame size as percentage of visible preview (centered)
-        private const val FRAME_WIDTH_PERCENT = 0.85f   // 85% of width
-        private const val FRAME_HEIGHT_PERCENT = 0.30f  // 30% of height
+        private const val FRAME_WIDTH_PERCENT = 0.90f   // 90% of width (increased for wider labels)
+        private const val FRAME_HEIGHT_PERCENT = 0.40f  // 40% of height (increased for longer ingredient lists)
 
         // Extra padding around crop to ensure we don't cut off text (50% extra)
         private const val CROP_PADDING_PERCENT = 0.50f
@@ -319,14 +319,31 @@ class IngredientCameraActivity : AppCompatActivity() {
                 .addOnSuccessListener { visionText ->
                     showProgress(false)
 
-                    val extractedText = visionText.text
-                    Log.d(TAG, "Extracted text: $extractedText")
+                    val rawText = visionText.text
+                    Log.d(TAG, "Raw OCR text: $rawText")
 
-                    if (extractedText.isNotBlank()) {
+                    if (rawText.isNotBlank()) {
+                        // Preprocess OCR text to fix common errors
+                        val preprocessed = OcrTextPreprocessor.preprocess(rawText)
+                        Log.d(TAG, "Preprocessed text: ${preprocessed.processedText}")
+                        
+                        if (preprocessed.corrections.isNotEmpty()) {
+                            Log.d(TAG, "OCR corrections applied: ${preprocessed.corrections}")
+                        }
+                        
+                        // Assess text quality
+                        val quality = OcrTextPreprocessor.assessTextQuality(preprocessed.processedText)
+                        Log.d(TAG, "Text quality score: ${quality.score}, issues: ${quality.issues}")
+                        
+                        if (quality.score < 0.5) {
+                            // Low quality - warn user but still try to analyze
+                            Log.w(TAG, "Low quality OCR text detected")
+                        }
+                        
                         // Process with existing protein analysis algorithm
-                        analyzeExtractedIngredients(extractedText)
+                        analyzeExtractedIngredients(preprocessed.processedText, rawText)
                     } else {
-                        showError("No text detected. Try positioning the ingredients in the frame.")
+                        showError("No text detected. Try:\n• Better lighting\n• Hold camera steady\n• Position text clearly in frame")
                     }
 
                     // Clean up bitmaps
@@ -424,7 +441,7 @@ class IngredientCameraActivity : AppCompatActivity() {
         }
     }
 
-    private fun analyzeExtractedIngredients(ingredientText: String) {
+    private fun analyzeExtractedIngredients(ingredientText: String, rawOcrText: String? = null) {
         try {
             // Use existing protein analysis algorithm
             val result = ProteinDatabase.analyzeProteinQuality(ingredientText, null)
@@ -432,7 +449,10 @@ class IngredientCameraActivity : AppCompatActivity() {
             // Navigate to results activity
             val intent = Intent(this, ResultsActivity::class.java).apply {
                 putExtra("INGREDIENT_TEXT", ingredientText)
+                putExtra("RAW_OCR_TEXT", rawOcrText ?: ingredientText)
                 putExtra("IS_OCR_RESULT", true)
+                // Pass detected protein count for immediate feedback
+                putExtra("DETECTED_PROTEIN_COUNT", result.detectedProteins.size)
             }
             
             startActivity(intent)

@@ -75,6 +75,10 @@ class ResultsActivity : AppCompatActivity() {
         binding.btnScanAgain.setOnClickListener {
             finish() // Return to main screen
         }
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun fetchProductData(barcode: String) {

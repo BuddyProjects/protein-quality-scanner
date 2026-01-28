@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.LayoutInflater
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import android.app.AlertDialog
 import android.text.SpannableString
@@ -17,8 +20,10 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.proteinscannerandroid.databinding.ActivityResultsBinding
 import kotlinx.coroutines.launch
 
@@ -26,14 +31,15 @@ class ResultsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultsBinding
     private val isDebugMode = true // Set to false for production
     private val debugMessages = mutableListOf<String>()
+    private var nativeAd: NativeAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityResultsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize banner ad (only for non-premium users)
-        setupBannerAd()
+        // Initialize native ad (only for non-premium users)
+        loadNativeAd()
 
         // Check what type of result this is
         val isOcrResult = intent.getBooleanExtra("IS_OCR_RESULT", false)
@@ -447,34 +453,108 @@ class ResultsActivity : AppCompatActivity() {
     }
 
     /**
-     * Setup and load banner ad for non-premium users.
-     * Ad is displayed at the bottom of the results screen.
+     * Load Native Advanced ad for non-premium users.
+     * Ad is displayed between result sections, styled to match app design.
      */
-    private fun setupBannerAd() {
+    private fun loadNativeAd() {
         if (isPremiumUser()) {
             // Premium users don't see ads
-            binding.adView.visibility = View.GONE
+            binding.nativeAdContainer.visibility = View.GONE
             return
         }
 
-        // Load and show the banner ad
-        binding.adView.visibility = View.VISIBLE
-        val adRequest = AdRequest.Builder().build()
-        binding.adView.loadAd(adRequest)
+        // Test Native Advanced ad unit ID
+        val adUnitId = "ca-app-pub-3940256099942544/2247696110"
+
+        val adLoader = AdLoader.Builder(this, adUnitId)
+            .forNativeAd { ad: NativeAd ->
+                // Clean up any previous ad
+                nativeAd?.destroy()
+                nativeAd = ad
+
+                // Check if activity is finishing/destroyed before showing ad
+                if (isDestroyed || isFinishing) {
+                    ad.destroy()
+                    return@forNativeAd
+                }
+
+                // Inflate and populate the native ad view
+                val adView = layoutInflater.inflate(R.layout.native_ad_layout, null) as NativeAdView
+                populateNativeAdView(ad, adView)
+
+                // Add to container and make visible
+                binding.nativeAdContainer.removeAllViews()
+                binding.nativeAdContainer.addView(adView)
+                binding.nativeAdContainer.visibility = View.VISIBLE
+            }
+            .withAdListener(object : com.google.android.gms.ads.AdListener() {
+                override fun onAdFailedToLoad(loadAdError: com.google.android.gms.ads.LoadAdError) {
+                    // Hide ad container if ad fails to load
+                    binding.nativeAdContainer.visibility = View.GONE
+                    Log.d("ResultsActivity", "Native ad failed to load: ${loadAdError.message}")
+                }
+            })
+            .build()
+
+        adLoader.loadAd(AdRequest.Builder().build())
     }
 
-    override fun onPause() {
-        binding.adView.pause()
-        super.onPause()
-    }
+    /**
+     * Populate the native ad view with ad content.
+     * Maps ad assets to the corresponding views in the layout.
+     */
+    private fun populateNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+        // Set the media view (not used in this compact layout, but required for some ad types)
+        // adView.mediaView = adView.findViewById(R.id.ad_media)
 
-    override fun onResume() {
-        super.onResume()
-        binding.adView.resume()
+        // Set required asset views
+        adView.headlineView = adView.findViewById(R.id.ad_headline)
+        adView.bodyView = adView.findViewById(R.id.ad_body)
+        adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
+        adView.iconView = adView.findViewById(R.id.ad_app_icon)
+        adView.advertiserView = adView.findViewById(R.id.ad_advertiser)
+
+        // Populate headline (required)
+        (adView.headlineView as TextView).text = nativeAd.headline
+
+        // Populate body (optional)
+        if (nativeAd.body != null) {
+            (adView.bodyView as TextView).text = nativeAd.body
+            adView.bodyView?.visibility = View.VISIBLE
+        } else {
+            adView.bodyView?.visibility = View.GONE
+        }
+
+        // Populate call to action (optional)
+        if (nativeAd.callToAction != null) {
+            (adView.callToActionView as Button).text = nativeAd.callToAction
+            adView.callToActionView?.visibility = View.VISIBLE
+        } else {
+            adView.callToActionView?.visibility = View.GONE
+        }
+
+        // Populate icon (optional)
+        if (nativeAd.icon != null) {
+            (adView.iconView as ImageView).setImageDrawable(nativeAd.icon?.drawable)
+            adView.iconView?.visibility = View.VISIBLE
+        } else {
+            adView.iconView?.visibility = View.GONE
+        }
+
+        // Populate advertiser (optional)
+        if (nativeAd.advertiser != null) {
+            (adView.advertiserView as TextView).text = nativeAd.advertiser
+            adView.advertiserView?.visibility = View.VISIBLE
+        } else {
+            adView.advertiserView?.visibility = View.GONE
+        }
+
+        // Register the native ad view with the native ad object
+        adView.setNativeAd(nativeAd)
     }
 
     override fun onDestroy() {
-        binding.adView.destroy()
+        nativeAd?.destroy()
         super.onDestroy()
     }
 }

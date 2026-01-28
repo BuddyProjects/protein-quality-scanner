@@ -17,6 +17,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 import com.proteinscannerandroid.databinding.ActivityResultsBinding
 import kotlinx.coroutines.launch
 
@@ -29,6 +31,9 @@ class ResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityResultsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Initialize banner ad (only for non-premium users)
+        setupBannerAd()
 
         // Check what type of result this is
         val isOcrResult = intent.getBooleanExtra("IS_OCR_RESULT", false)
@@ -428,5 +433,48 @@ class ResultsActivity : AppCompatActivity() {
         }
         
         builder.show()
+    }
+
+    /**
+     * Check if the user has premium status (ad-free experience).
+     * TODO: Implement actual premium/subscription check when payment is added.
+     * @return true if user is premium, false otherwise
+     */
+    private fun isPremiumUser(): Boolean {
+        // Placeholder for premium check - returns false for now
+        // Future implementation will check subscription status, in-app purchase, etc.
+        return false
+    }
+
+    /**
+     * Setup and load banner ad for non-premium users.
+     * Ad is displayed at the bottom of the results screen.
+     */
+    private fun setupBannerAd() {
+        if (isPremiumUser()) {
+            // Premium users don't see ads
+            binding.adView.visibility = View.GONE
+            return
+        }
+
+        // Load and show the banner ad
+        binding.adView.visibility = View.VISIBLE
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
+    }
+
+    override fun onPause() {
+        binding.adView.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.adView.resume()
+    }
+
+    override fun onDestroy() {
+        binding.adView.destroy()
+        super.onDestroy()
     }
 }

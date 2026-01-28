@@ -459,7 +459,7 @@ class ResultsActivity : AppCompatActivity() {
     private fun loadNativeAd() {
         if (isPremiumUser()) {
             // Premium users don't see ads
-            binding.nativeAdContainer.visibility = View.GONE
+            binding.nativeAdCard.visibility = View.GONE
             return
         }
 
@@ -485,12 +485,12 @@ class ResultsActivity : AppCompatActivity() {
                 // Add to container and make visible
                 binding.nativeAdContainer.removeAllViews()
                 binding.nativeAdContainer.addView(adView)
-                binding.nativeAdContainer.visibility = View.VISIBLE
+                binding.nativeAdCard.visibility = View.VISIBLE
             }
             .withAdListener(object : com.google.android.gms.ads.AdListener() {
                 override fun onAdFailedToLoad(loadAdError: com.google.android.gms.ads.LoadAdError) {
                     // Hide ad container if ad fails to load
-                    binding.nativeAdContainer.visibility = View.GONE
+                    binding.nativeAdCard.visibility = View.GONE
                     Log.d("ResultsActivity", "Native ad failed to load: ${loadAdError.message}")
                 }
             })

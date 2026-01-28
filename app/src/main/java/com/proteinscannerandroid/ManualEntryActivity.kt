@@ -28,5 +28,9 @@ class ManualEntryActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener {
             finish()
         }
+
+        binding.btnClear.setOnClickListener {
+            finish()
+        }
     }
 }

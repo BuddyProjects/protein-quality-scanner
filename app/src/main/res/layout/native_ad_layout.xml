@@ -1,105 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Native Ad Layout - Styled to match app's info card design -->
+<!-- Native Ad Layout - Styled to match app's dark theme design -->
 <com.google.android.gms.ads.nativead.NativeAdView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/surface_white">
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Top row: Icon + Headline + Ad badge -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
 
-            <!-- Top row: Icon + Headline + Ad badge -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
+            <!-- Ad Icon -->
+            <ImageView
+                android:id="@+id/ad_app_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:adjustViewBounds="true" />
 
-                <!-- Ad Icon -->
-                <ImageView
-                    android:id="@+id/ad_app_icon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true" />
-
-                <!-- Headline -->
-                <TextView
-                    android:id="@+id/ad_headline"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="8dp"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_primary"
-                    android:fontFamily="sans-serif-medium"
-                    android:maxLines="2"
-                    android:ellipsize="end" />
-
-                <!-- Ad attribution badge -->
-                <TextView
-                    android:id="@+id/ad_attribution"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Ad"
-                    android:textSize="10sp"
-                    android:textColor="@color/text_secondary"
-                    android:background="@drawable/ad_badge_background"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="2dp" />
-
-            </LinearLayout>
-
-            <!-- Body text -->
+            <!-- Headline -->
             <TextView
-                android:id="@+id/ad_body"
-                android:layout_width="match_parent"
+                android:id="@+id/ad_headline"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@color/text_secondary"
-                android:fontFamily="sans-serif"
-                android:lineSpacingExtra="4dp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:layout_marginBottom="16dp" />
-
-            <!-- Advertiser name (optional, subtle) -->
-            <TextView
-                android:id="@+id/ad_advertiser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/text_hint"
-                android:fontFamily="sans-serif"
-                android:layout_marginBottom="16dp"
-                android:visibility="gone" />
-
-            <!-- Call to action button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/ad_call_to_action"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:textSize="14sp"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:fontFamily="sans-serif-medium"
-                app:backgroundTint="@color/primary_accent"
-                app:cornerRadius="12dp"
-                android:textColor="@color/white" />
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/blinker"
+                android:maxLines="2"
+                android:ellipsize="end" />
+
+            <!-- Ad attribution badge -->
+            <TextView
+                android:id="@+id/ad_attribution"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ad"
+                android:textSize="10sp"
+                android:textColor="#888888"
+                android:background="@drawable/ad_badge_background_dark"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp" />
 
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+        <!-- Body text -->
+        <TextView
+            android:id="@+id/ad_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#AAAAAA"
+            android:fontFamily="@font/blinker"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Advertiser name (optional, subtle) -->
+        <TextView
+            android:id="@+id/ad_advertiser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:fontFamily="@font/blinker"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone" />
+
+        <!-- Call to action button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ad_call_to_action"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:fontFamily="@font/blinker"
+            app:backgroundTint="#00D4E6"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
 </com.google.android.gms.ads.nativead.NativeAdView>

@@ -1,48 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
-    android:background="@color/white">
+    android:background="@drawable/sophisticated_background_gradient"
+    android:padding="24dp">
 
+    <!-- Header Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="32dp">
+
+        <!-- Back Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_back"
+            app:iconTint="#FFFFFF"
+            app:iconSize="20dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <!-- Title -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/enter_barcode_manually"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="@font/blinker"
+            android:letterSpacing="0.05"
+            android:gravity="center"
+            android:layout_marginEnd="40dp" />
+
+    </LinearLayout>
+
+    <!-- Logo Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="48dp">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo_ai_generated"
+            android:scaleType="centerInside" />
+
+    </LinearLayout>
+
+    <!-- Input Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/ultra_minimal_gradient_background"
+        android:padding="24dp"
+        android:layout_marginBottom="32dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Barcode Number"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/blinker"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Type the barcode number from your product packaging to look up protein quality information."
+            android:textSize="14sp"
+            android:textColor="#AAAAAA"
+            android:fontFamily="@font/blinker"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Input Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/barcode_hint"
+            app:hintTextColor="#888888"
+            app:boxBackgroundColor="#33FFFFFF"
+            app:boxStrokeColor="#00D4E6"
+            app:boxStrokeWidth="2dp"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBarcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#888888"
+                android:fontFamily="@font/blinker"
+                android:textSize="16sp"
+                android:inputType="number"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <!-- Button Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <!-- Clear/Back Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClear"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="BACK"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/blinker"
+            android:textStyle="bold"
+            android:backgroundTint="#444444"
+            android:layout_marginEnd="8dp"
+            style="@style/Widget.Material3.Button" />
+
+        <!-- Analyze Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAnalyze"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="@string/analyze_protein"
+            android:textColor="#000000"
+            android:fontFamily="@font/blinker"
+            android:textStyle="bold"
+            android:backgroundTint="#00D4E6"
+            android:layout_marginStart="8dp"
+            style="@style/Widget.Material3.Button" />
+
+    </LinearLayout>
+
+    <!-- Helper Text -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_barcode_manually"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginBottom="32dp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:hint="@string/barcode_hint">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etBarcode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAnalyze"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="@string/analyze_protein"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnBack"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Back"
-        style="@style/Widget.Material3.Button.OutlinedButton" />
+        android:text="Tip: The barcode is usually found near the product's nutritional information"
+        android:textSize="12sp"
+        android:textColor="#666666"
+        android:fontFamily="@font/blinker"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:layout_gravity="center" />
 
 </LinearLayout>

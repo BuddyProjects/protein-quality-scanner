@@ -1,6 +1,7 @@
 package com.proteinscannerandroid
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -11,6 +12,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.proteinscannerandroid.databinding.ActivityMainBinding
+import com.proteinscannerandroid.premium.PremiumManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -61,7 +63,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnFavorites.setOnClickListener {
-            startActivity(Intent(this, FavoritesActivity::class.java))
+            if (PremiumManager.checkPremium()) {
+                startActivity(Intent(this, FavoritesActivity::class.java))
+            } else {
+                showPremiumUpsellDialog("Favorites")
+            }
         }
 
         binding.btnSettings.setOnClickListener {
@@ -149,5 +155,16 @@ class MainActivity : AppCompatActivity() {
     private fun openInfo() {
         val intent = Intent(this, InfoActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun showPremiumUpsellDialog(featureName: String) {
+        AlertDialog.Builder(this)
+            .setTitle("⭐ Premium Feature")
+            .setMessage("\"$featureName\" is a premium feature.\n\nUpgrade to Premium to unlock:\n• Save favorite products\n• Full scan history\n• Compare products side-by-side\n• Ad-free experience")
+            .setPositiveButton("Upgrade Now") { _, _ ->
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            .setNegativeButton("Maybe Later", null)
+            .show()
     }
 }

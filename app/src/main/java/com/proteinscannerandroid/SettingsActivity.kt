@@ -43,6 +43,13 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
+        // Premium debug toggle
+        binding.switchPremiumDebug.setOnCheckedChangeListener { _, isChecked ->
+            PremiumManager.setPremium(isChecked)
+            val status = if (isChecked) "enabled" else "disabled"
+            Toast.makeText(this, "Premium mode $status", Toast.LENGTH_SHORT).show()
+        }
+
         // Debug toggle
         binding.switchDebug.setOnCheckedChangeListener { _, isChecked ->
             saveDebugPreference(isChecked)
@@ -64,6 +71,9 @@ class SettingsActivity : AppCompatActivity() {
         // Load debug setting (default: OFF)
         val debugEnabled = sharedPreferences.getBoolean(KEY_DEBUG_ENABLED, false)
         binding.switchDebug.isChecked = debugEnabled
+
+        // Load premium debug setting
+        binding.switchPremiumDebug.isChecked = PremiumManager.checkPremium()
     }
 
     private fun saveDebugPreference(enabled: Boolean) {

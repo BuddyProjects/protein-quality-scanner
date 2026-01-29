@@ -104,10 +104,17 @@ class ResultsActivity : AppCompatActivity() {
         val barcode = currentBarcode ?: return
         val name = currentProductName ?: return
 
+        // Check if user is premium
+        if (!PremiumManager.checkPremium()) {
+            showPremiumUpsellDialog("Save Favorites")
+            return
+        }
+
         lifecycleScope.launch {
             if (isFavorite) {
                 database.favoriteDao().deleteByBarcode(barcode)
                 isFavorite = false
+                Toast.makeText(this@ResultsActivity, "Removed from favorites", Toast.LENGTH_SHORT).show()
             } else {
                 val favorite = FavoriteEntity(
                     barcode = barcode,
@@ -118,9 +125,22 @@ class ResultsActivity : AppCompatActivity() {
                 )
                 database.favoriteDao().insert(favorite)
                 isFavorite = true
+                Toast.makeText(this@ResultsActivity, "Added to favorites", Toast.LENGTH_SHORT).show()
             }
             updateFavoriteIcon()
         }
+    }
+
+    private fun showPremiumUpsellDialog(featureName: String) {
+        AlertDialog.Builder(this, R.style.Theme_MaterialComponents_Dialog_Alert)
+            .setTitle("⭐ Premium Feature")
+            .setMessage("\"$featureName\" is a premium feature.\n\nUpgrade to Premium to unlock:\n• Save favorite products\n• Full scan history\n• Compare products side-by-side\n• Ad-free experience")
+            .setPositiveButton("Upgrade Now") { _, _ ->
+                // Navigate to settings for upgrade
+                startActivity(Intent(this, SettingsActivity::class.java))
+            }
+            .setNegativeButton("Maybe Later", null)
+            .show()
     }
 
     private fun updateFavoriteIcon() {

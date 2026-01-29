@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:background="@color/surface_dark">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_back"
+            app:iconTint="@color/text_primary_dark"
+            app:iconSize="24dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Compare Products"
+            android:textSize="20sp"
+            android:textColor="@color/text_primary_dark"
+            android:textStyle="bold"
+            android:fontFamily="@font/blinker" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Two-column comparison -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <!-- Product 1 Column -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_card_dark"
+                    app:strokeColor="@color/border_dark"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center_horizontal">
+
+                        <!-- Winner Badge (if this wins) -->
+                        <TextView
+                            android:id="@+id/tvWinner1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="WINNER"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            android:background="@drawable/winner_badge_background"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp"
+                            android:layout_marginBottom="12dp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/tvProduct1Name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Product 1"
+                            android:textSize="16sp"
+                            android:textColor="@color/text_primary_dark"
+                            android:textStyle="bold"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- PDCAAS Score Circle -->
+                        <TextView
+                            android:id="@+id/tvPdcaas1"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:gravity="center"
+                            android:text="0.85"
+                            android:textSize="22sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:background="@drawable/pdcaas_badge_background"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PDCAAS"
+                            android:textSize="12sp"
+                            android:textColor="#888888"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- Protein Sources -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Protein Sources"
+                            android:textSize="13sp"
+                            android:textColor="#00D4E6"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:id="@+id/tvProteins1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Whey Protein\nCasein"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_secondary_dark"
+                            android:gravity="center"
+                            android:lineSpacingExtra="4dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Product 2 Column -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="@color/surface_card_dark"
+                    app:strokeColor="@color/border_dark"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:gravity="center_horizontal">
+
+                        <!-- Winner Badge (if this wins) -->
+                        <TextView
+                            android:id="@+id/tvWinner2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="WINNER"
+                            android:textSize="12sp"
+                            android:textColor="#000000"
+                            android:textStyle="bold"
+                            android:background="@drawable/winner_badge_background"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp"
+                            android:layout_marginBottom="12dp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/tvProduct2Name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Product 2"
+                            android:textSize="16sp"
+                            android:textColor="@color/text_primary_dark"
+                            android:textStyle="bold"
+                            android:maxLines="2"
+                            android:ellipsize="end"
+                            android:gravity="center"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- PDCAAS Score Circle -->
+                        <TextView
+                            android:id="@+id/tvPdcaas2"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:gravity="center"
+                            android:text="0.75"
+                            android:textSize="22sp"
+                            android:textColor="#FFFFFF"
+                            android:textStyle="bold"
+                            android:background="@drawable/pdcaas_badge_background"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PDCAAS"
+                            android:textSize="12sp"
+                            android:textColor="#888888"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- Protein Sources -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Protein Sources"
+                            android:textSize="13sp"
+                            android:textColor="#00D4E6"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="8dp" />
+
+                        <TextView
+                            android:id="@+id/tvProteins2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Soy Protein"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_secondary_dark"
+                            android:gravity="center"
+                            android:lineSpacingExtra="4dp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- Difference summary -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#1A3D5C"
+                app:strokeColor="#00D4E6"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/tvDifference"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Product 1 has 10% higher protein quality"
+                        android:textSize="15sp"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold"
+                        android:gravity="center" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

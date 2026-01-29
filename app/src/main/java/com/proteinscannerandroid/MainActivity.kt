@@ -56,6 +56,14 @@ class MainActivity : AppCompatActivity() {
             openProteinLookup()
         }
 
+        binding.btnHistory.setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+
+        binding.btnFavorites.setOnClickListener {
+            startActivity(Intent(this, FavoritesActivity::class.java))
+        }
+
         binding.btnSettings.setOnClickListener {
             openSettings()
         }

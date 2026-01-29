@@ -36,6 +36,16 @@
             android:fontFamily="@font/blinker"
             android:layout_marginStart="8dp" />
 
+        <!-- Favorite Button -->
+        <ImageButton
+            android:id="@+id/btnFavorite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_heart_outline"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Add to favorites"
+            app:tint="#FFFFFF" />
+
     </LinearLayout>
 
     <ScrollView

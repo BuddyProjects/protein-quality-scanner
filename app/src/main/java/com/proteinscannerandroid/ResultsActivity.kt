@@ -24,7 +24,12 @@ import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.google.gson.Gson
+import com.proteinscannerandroid.data.AppDatabase
+import com.proteinscannerandroid.data.FavoriteEntity
+import com.proteinscannerandroid.data.ScanHistoryEntity
 import com.proteinscannerandroid.databinding.ActivityResultsBinding
+import com.proteinscannerandroid.premium.PremiumManager
 import kotlinx.coroutines.launch
 
 class ResultsActivity : AppCompatActivity() {
@@ -32,6 +37,16 @@ class ResultsActivity : AppCompatActivity() {
     private var isDebugMode = false // Read from SharedPreferences
     private val debugMessages = mutableListOf<String>()
     private var nativeAd: NativeAd? = null
+
+    // Database and current scan data for history/favorites
+    private val database by lazy { AppDatabase.getInstance(this) }
+    private val gson = Gson()
+    private var currentBarcode: String? = null
+    private var currentProductName: String? = null
+    private var currentPdcaasScore: Double = 0.0
+    private var currentProteinSources: List<String> = emptyList()
+    private var currentProteinPer100g: Double? = null
+    private var isFavorite = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +93,61 @@ class ResultsActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             finish()
+        }
+
+        binding.btnFavorite.setOnClickListener {
+            toggleFavorite()
+        }
+    }
+
+    private fun toggleFavorite() {
+        val barcode = currentBarcode ?: return
+        val name = currentProductName ?: return
+
+        lifecycleScope.launch {
+            if (isFavorite) {
+                database.favoriteDao().deleteByBarcode(barcode)
+                isFavorite = false
+            } else {
+                val favorite = FavoriteEntity(
+                    barcode = barcode,
+                    productName = name,
+                    pdcaasScore = currentPdcaasScore,
+                    proteinSourcesJson = gson.toJson(currentProteinSources),
+                    proteinPer100g = currentProteinPer100g
+                )
+                database.favoriteDao().insert(favorite)
+                isFavorite = true
+            }
+            updateFavoriteIcon()
+        }
+    }
+
+    private fun updateFavoriteIcon() {
+        val icon = if (isFavorite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
+        binding.btnFavorite.setImageResource(icon)
+    }
+
+    private fun checkIfFavorite(barcode: String) {
+        lifecycleScope.launch {
+            isFavorite = database.favoriteDao().isFavorite(barcode)
+            updateFavoriteIcon()
+        }
+    }
+
+    private fun saveToHistory() {
+        val barcode = currentBarcode ?: return
+        val name = currentProductName ?: return
+
+        lifecycleScope.launch {
+            val history = ScanHistoryEntity(
+                barcode = barcode,
+                productName = name,
+                pdcaasScore = currentPdcaasScore,
+                proteinSourcesJson = gson.toJson(currentProteinSources),
+                proteinPer100g = currentProteinPer100g
+            )
+            database.scanHistoryDao().insert(history)
         }
     }
 
@@ -206,7 +276,7 @@ class ResultsActivity : AppCompatActivity() {
         // Display product info
         binding.tvProductName.text = productInfo.name ?: "Unknown Product"
         binding.tvBarcode.text = "Barcode: ${productInfo.barcode}"
-        
+
         val proteinContent = productInfo.proteinPer100g
         binding.tvProteinContent.text = if (proteinContent != null) {
             "Protein: ${String.format("%.1f", proteinContent)}g per 100g"
@@ -214,12 +284,25 @@ class ResultsActivity : AppCompatActivity() {
             "Protein content: Not available"
         }
 
+        // Store scan data for history/favorites
+        currentBarcode = productInfo.barcode
+        currentProductName = productInfo.name ?: "Unknown Product"
+        currentPdcaasScore = analysis.weightedPdcaas
+        currentProteinSources = analysis.detectedProteins.map { it.proteinSource.name }
+        currentProteinPer100g = proteinContent
+
+        // Check if this product is already a favorite
+        checkIfFavorite(productInfo.barcode)
+
+        // Save to history
+        saveToHistory()
+
         // Display analysis results
         displayAnalysis(analysis, proteinContent)
-        
+
         // Display detected proteins
         displayDetectedProteins(analysis.detectedProteins)
-        
+
         // Show debug info
         showDebugInfo()
     }
@@ -451,13 +534,10 @@ class ResultsActivity : AppCompatActivity() {
 
     /**
      * Check if the user has premium status (ad-free experience).
-     * TODO: Implement actual premium/subscription check when payment is added.
      * @return true if user is premium, false otherwise
      */
     private fun isPremiumUser(): Boolean {
-        // Placeholder for premium check - returns false for now
-        // Future implementation will check subscription status, in-app purchase, etc.
-        return false
+        return PremiumManager.checkPremium()
     }
 
     /**

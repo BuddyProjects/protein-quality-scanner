@@ -67,6 +67,7 @@ class ResultsActivity : AppCompatActivity() {
 
         // Check what type of result this is
         val isOcrResult = intent.getBooleanExtra("IS_OCR_RESULT", false)
+        val isCachedResult = intent.getBooleanExtra("IS_CACHED_RESULT", false)
         val proteinSource = intent.getStringExtra("PROTEIN_SOURCE")
         val barcode = intent.getStringExtra("BARCODE")
         
@@ -83,6 +84,17 @@ class ResultsActivity : AppCompatActivity() {
             proteinSource != null -> {
                 debugLog("🔍 Manual Protein Lookup")
                 processProteinLookup(proteinSource)
+            }
+            isCachedResult && barcode != null -> {
+                // Load from cached data (history/favorites) without API call
+                debugLog("📦 Loading cached result")
+                displayCachedResult(
+                    barcode = barcode,
+                    productName = intent.getStringExtra("CACHED_PRODUCT_NAME") ?: "Unknown Product",
+                    pdcaasScore = intent.getDoubleExtra("CACHED_PDCAAS_SCORE", 0.0),
+                    proteinSourcesJson = intent.getStringExtra("CACHED_PROTEIN_SOURCES_JSON") ?: "[]",
+                    proteinPer100g = intent.getDoubleExtra("CACHED_PROTEIN_PER_100G", -1.0).takeIf { it >= 0 }
+                )
             }
             barcode != null -> {
                 fetchProductData(barcode)
@@ -236,6 +248,86 @@ class ResultsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Display cached results from history/favorites without API call.
+     */
+    private fun displayCachedResult(
+        barcode: String,
+        productName: String,
+        pdcaasScore: Double,
+        proteinSourcesJson: String,
+        proteinPer100g: Double?
+    ) {
+        binding.loadingLayout.visibility = View.GONE
+        binding.resultsLayout.visibility = View.VISIBLE
+
+        // Display product info
+        binding.tvProductName.text = productName
+        binding.tvBarcode.text = "Barcode: $barcode"
+        binding.tvProteinContent.text = if (proteinPer100g != null) {
+            "Protein: ${String.format("%.1f", proteinPer100g)}g per 100g"
+        } else {
+            "Protein content: Not available"
+        }
+
+        // Store scan data
+        currentBarcode = barcode
+        currentProductName = productName
+        currentPdcaasScore = pdcaasScore
+        currentProteinSources = try {
+            gson.fromJson(proteinSourcesJson, Array<String>::class.java).toList()
+        } catch (e: Exception) {
+            emptyList()
+        }
+        currentProteinPer100g = proteinPer100g
+
+        // Check if favorite
+        checkIfFavorite(barcode)
+
+        // Display PDCAAS score
+        binding.tvPdcaasScore.text = String.format("%.2f", pdcaasScore)
+
+        // Determine quality label from score
+        val qualityLabel = when {
+            pdcaasScore >= 0.9 -> "Excellent"
+            pdcaasScore >= 0.75 -> "Good"
+            pdcaasScore >= 0.5 -> "Medium"
+            else -> "Low"
+        }
+        binding.tvQualityCategory.text = qualityLabel
+
+        val categoryColor = when (qualityLabel.lowercase()) {
+            "excellent" -> R.color.quality_excellent
+            "good" -> R.color.quality_good
+            "medium" -> R.color.quality_medium
+            else -> R.color.quality_low
+        }
+        binding.tvQualityCategory.setTextColor(ContextCompat.getColor(this, categoryColor))
+        binding.tvPdcaasScore.setTextColor(ContextCompat.getColor(this, categoryColor))
+
+        // Display found proteins (from cached list)
+        if (currentProteinSources.isNotEmpty()) {
+            binding.tvFoundProteins.text = "Found proteins:\n\n${currentProteinSources.joinToString("\n") { "• $it" }}"
+        } else {
+            binding.tvFoundProteins.text = "No protein source information cached"
+        }
+
+        // Calculate and display effective protein
+        if (proteinPer100g != null && pdcaasScore > 0) {
+            val effectiveProtein = proteinPer100g * pdcaasScore
+            binding.tvEffectiveProtein.text = "Effective protein (quality-adjusted): ${String.format("%.1f", effectiveProtein)}g per 100g"
+            binding.effectiveProteinLayout.visibility = View.VISIBLE
+        } else {
+            binding.effectiveProteinLayout.visibility = View.GONE
+        }
+
+        // Hide warnings card for cached results (we don't have the warning data cached)
+        binding.warningsCard.visibility = View.GONE
+
+        debugLog("✅ Displayed cached result for $productName")
+        showDebugInfo()
+    }
+
     private fun saveToHistory() {
         val barcode = currentBarcode ?: return
         val name = currentProductName ?: return
@@ -257,44 +349,56 @@ class ResultsActivity : AppCompatActivity() {
             try {
                 debugLog("🔍 Starting scan for barcode: $barcode")
                 
-                // Fetch product data from OpenFoodFacts
+                // Fetch product data from OpenFoodFacts with detailed error handling
                 debugLog("📡 Fetching product data from OpenFoodFacts...")
-                val productInfo = OpenFoodFactsService.fetchProductData(barcode)
+                val fetchResult = OpenFoodFactsService.fetchProductWithStatus(barcode)
                 
-                if (productInfo != null) {
-                    debugLog("✅ Product found: ${productInfo.name}")
-                    debugLog("🏭 Brand: ${productInfo.brand}")
-                    debugLog("🥗 Ingredients: ${productInfo.ingredientsText}")
-                    debugLog("💪 Protein per 100g: ${productInfo.proteinPer100g}")
-                    
-                    // Analyze protein quality locally
-                    debugLog("🧬 Starting protein analysis...")
-                    val analysis = ProteinDatabase.analyzeProteinQuality(
-                        productInfo.ingredientsText ?: "",
-                        productInfo.proteinPer100g
-                    )
-                    
-                    debugLog("📊 Analysis complete:")
-                    debugLog("   PDCAAS Score: ${analysis.weightedPdcaas}")
-                    debugLog("   Quality: ${analysis.qualityLabel}")
-                    debugLog("   Confidence: ${analysis.confidenceScore}")
-                    debugLog("   Detected proteins: ${analysis.detectedProteins.size}")
+                when (fetchResult) {
+                    is FetchResult.Success -> {
+                        val productInfo = fetchResult.product
+                        debugLog("✅ Product found: ${productInfo.name}")
+                        debugLog("🏭 Brand: ${productInfo.brand}")
+                        debugLog("🥗 Ingredients: ${productInfo.ingredientsText}")
+                        debugLog("💪 Protein per 100g: ${productInfo.proteinPer100g}")
+                        
+                        // Analyze protein quality locally
+                        debugLog("🧬 Starting protein analysis...")
+                        val analysis = ProteinDatabase.analyzeProteinQuality(
+                            productInfo.ingredientsText ?: "",
+                            productInfo.proteinPer100g
+                        )
+                        
+                        debugLog("📊 Analysis complete:")
+                        debugLog("   PDCAAS Score: ${analysis.weightedPdcaas}")
+                        debugLog("   Quality: ${analysis.qualityLabel}")
+                        debugLog("   Confidence: ${analysis.confidenceScore}")
+                        debugLog("   Detected proteins: ${analysis.detectedProteins.size}")
 
-                    for (protein in analysis.detectedProteins) {
-                        debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${protein.proteinSource.pdcaas}, Weight: ${String.format("%.1f", protein.weight)}) - matched '${protein.matchedKeyword}'")
+                        for (protein in analysis.detectedProteins) {
+                            debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${protein.proteinSource.pdcaas}, Weight: ${String.format("%.1f", protein.weight)}) - matched '${protein.matchedKeyword}'")
+                        }
+
+                        // Log detailed keyword matches
+                        logDetailedMatches(analysis)
+
+                        if (analysis.warnings.isNotEmpty()) {
+                            debugLog("⚠️ Warnings: ${analysis.warnings.joinToString(", ")}")
+                        }
+
+                        displayResults(productInfo, analysis)
                     }
-
-                    // Log detailed keyword matches
-                    logDetailedMatches(analysis)
-
-                    if (analysis.warnings.isNotEmpty()) {
-                        debugLog("⚠️ Warnings: ${analysis.warnings.joinToString(", ")}")
+                    is FetchResult.ProductNotFound -> {
+                        debugLog("❌ Product not found in OpenFoodFacts database")
+                        showError(getString(R.string.product_not_found))
                     }
-
-                    displayResults(productInfo, analysis)
-                } else {
-                    debugLog("❌ Product not found in OpenFoodFacts")
-                    showError(getString(R.string.product_not_found))
+                    is FetchResult.ApiUnavailable -> {
+                        debugLog("🚫 OpenFoodFacts API unavailable: ${fetchResult.reason}")
+                        showError("⚠️ OpenFoodFacts service is temporarily unavailable.\n\n${fetchResult.reason}\n\nPlease try again later, or use the camera to scan the ingredient list directly.")
+                    }
+                    is FetchResult.NetworkError -> {
+                        debugLog("🌐 Network error: ${fetchResult.reason}")
+                        showError("📡 Connection problem\n\n${fetchResult.reason}\n\nCheck your internet connection and try again.")
+                    }
                 }
             } catch (e: Exception) {
                 debugLog("💥 Error: ${e.message}")

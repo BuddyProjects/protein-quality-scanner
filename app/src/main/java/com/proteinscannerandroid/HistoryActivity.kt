@@ -173,6 +173,12 @@ class HistoryActivity : AppCompatActivity() {
     private fun openResults(item: ScanHistoryEntity) {
         val intent = Intent(this, ResultsActivity::class.java).apply {
             putExtra("BARCODE", item.barcode)
+            // Pass cached data so we don't need to re-fetch from API
+            putExtra("IS_CACHED_RESULT", true)
+            putExtra("CACHED_PRODUCT_NAME", item.productName)
+            putExtra("CACHED_PDCAAS_SCORE", item.pdcaasScore)
+            putExtra("CACHED_PROTEIN_SOURCES_JSON", item.proteinSourcesJson)
+            putExtra("CACHED_PROTEIN_PER_100G", item.proteinPer100g ?: -1.0)
         }
         startActivity(intent)
     }

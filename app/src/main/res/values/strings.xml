@@ -6,7 +6,7 @@
     <!-- Main Interface -->
     <string name="scan_barcode">📊 Scan Product</string>
     <string name="scan_subtitle">PDCAAS Analysis • Protein Quality • Nutrition Data</string>
-    <string name="enter_barcode_manually">⌨️ Manual Entry</string>
+    <string name="enter_barcode_manually">Manual Entry</string>
     <string name="manual_subtitle">Enter barcode for product analysis</string>
     <string name="barcode_hint">Product barcode</string>
     <string name="analyze_protein">Analyze Quality</string>
@@ -18,7 +18,7 @@
     <string name="analysis_complete">Analysis Complete</string>
     
     <!-- Results -->
-    <string name="scan_again">New Analysis</string>
+    <string name="scan_again">Scan Another Product</string>
     <string name="protein_quality_analysis">Protein Quality Analysis</string>
     <string name="pdcaas_score">PDCAAS Score</string>
     <string name="quality_rating">Quality Rating</string>

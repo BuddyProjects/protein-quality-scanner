@@ -10,21 +10,20 @@
     <!-- Header Section -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="32dp">
+        android:layout_marginBottom="16dp">
 
         <!-- Back Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnBack"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             style="@style/Widget.Material3.Button.IconButton"
             app:icon="@drawable/ic_back"
             app:iconTint="#FFFFFF"
-            app:iconSize="20dp"
+            app:iconSize="24dp"
             android:background="?android:attr/selectableItemBackgroundBorderless" />
 
         <!-- Title -->
@@ -33,13 +32,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/enter_barcode_manually"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:fontFamily="@font/blinker"
-            android:letterSpacing="0.05"
-            android:gravity="center"
-            android:layout_marginEnd="40dp" />
+            android:layout_marginStart="8dp" />
 
     </LinearLayout>
 

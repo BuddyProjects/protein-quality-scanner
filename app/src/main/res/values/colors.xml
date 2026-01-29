@@ -2,6 +2,9 @@
 <resources>
     <!-- 🧬 Protein Quality Scanner - Dark Minimalist Design System -->
     
+    <!-- Launcher Icon Background -->
+    <color name="ic_launcher_background">#1E1E1E</color>
+    
     <!-- DARK THEME - Primary -->
     <color name="background_dark">#000000</color>
     <color name="surface_dark">#111111</color>

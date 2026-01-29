@@ -132,7 +132,7 @@ class ResultsActivity : AppCompatActivity() {
     }
 
     private fun showPremiumUpsellDialog(featureName: String) {
-        AlertDialog.Builder(this, R.style.Theme_MaterialComponents_Dialog_Alert)
+        AlertDialog.Builder(this)
             .setTitle("⭐ Premium Feature")
             .setMessage("\"$featureName\" is a premium feature.\n\nUpgrade to Premium to unlock:\n• Save favorite products\n• Full scan history\n• Compare products side-by-side\n• Ad-free experience")
             .setPositiveButton("Upgrade Now") { _, _ ->

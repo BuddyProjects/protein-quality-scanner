@@ -3,10 +3,14 @@ package com.proteinscannerandroid
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.io.IOException
+import java.net.ConnectException
 import java.net.HttpURLConnection
+import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.URL
 import java.net.UnknownHostException
+import javax.net.ssl.SSLException
 
 data class ProductInfo(
     val barcode: String,
@@ -102,12 +106,31 @@ object OpenFoodFactsService {
                 }
             }
         } catch (e: UnknownHostException) {
-            FetchResult.NetworkError("No internet connection")
+            FetchResult.NetworkError("No internet connection - check if you're online")
         } catch (e: SocketTimeoutException) {
             FetchResult.NetworkError("Connection timed out - server may be slow or unavailable")
+        } catch (e: ConnectException) {
+            FetchResult.NetworkError("Cannot connect - check your internet connection")
+        } catch (e: SocketException) {
+            FetchResult.NetworkError("Connection failed - network may be unavailable")
+        } catch (e: SSLException) {
+            FetchResult.NetworkError("Secure connection failed - check your network")
+        } catch (e: IOException) {
+            // Catch-all for other IO/network issues (includes most network errors on Android)
+            val message = e.message?.lowercase() ?: ""
+            when {
+                message.contains("network") || message.contains("connect") || 
+                message.contains("unreachable") || message.contains("refused") -> {
+                    FetchResult.NetworkError("Network unavailable - check your connection")
+                }
+                else -> {
+                    e.printStackTrace()
+                    FetchResult.NetworkError("Connection error: ${e.message ?: "Unknown error"}")
+                }
+            }
         } catch (e: Exception) {
             e.printStackTrace()
-            FetchResult.NetworkError("Network error: ${e.message ?: "Unknown error"}")
+            FetchResult.NetworkError("Unexpected error: ${e.message ?: "Unknown error"}")
         }
     }
     

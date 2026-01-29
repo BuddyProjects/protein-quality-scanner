@@ -36,6 +36,18 @@
             android:textStyle="bold"
             android:fontFamily="@font/blinker" />
 
+        <!-- Clear History Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClearHistory"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="#888888"
+            app:iconSize="24dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Clear history" />
+
     </LinearLayout>
 
     <!-- Upgrade Banner (shown for free users with >5 items) -->

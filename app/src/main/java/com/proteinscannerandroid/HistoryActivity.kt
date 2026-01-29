@@ -83,6 +83,32 @@ class HistoryActivity : AppCompatActivity() {
         binding.fabCompare.setOnClickListener {
             launchCompare()
         }
+
+        binding.btnClearHistory.setOnClickListener {
+            showClearHistoryDialog()
+        }
+    }
+
+    private fun showClearHistoryDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Clear History")
+            .setMessage("Are you sure you want to delete all scan history? This cannot be undone.")
+            .setPositiveButton("Clear All") { _, _ ->
+                clearAllHistory()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun clearAllHistory() {
+        lifecycleScope.launch {
+            database.scanHistoryDao().deleteAll()
+            android.widget.Toast.makeText(
+                this@HistoryActivity,
+                "History cleared",
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun observeHistory() {

@@ -28,4 +28,7 @@ interface ScanHistoryDao {
 
     @Query("SELECT * FROM scan_history WHERE id IN (:ids)")
     suspend fun getByIds(ids: List<Long>): List<ScanHistoryEntity>
+
+    @Query("DELETE FROM scan_history")
+    suspend fun deleteAll()
 }

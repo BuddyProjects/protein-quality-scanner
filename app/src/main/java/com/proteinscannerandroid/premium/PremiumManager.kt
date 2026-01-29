@@ -10,7 +10,7 @@ object PremiumManager {
     private const val PREFS_NAME = "ProteinScannerPrefs"
     private const val KEY_IS_PREMIUM = "is_premium"
 
-    const val FREE_HISTORY_LIMIT = 5
+    const val FREE_HISTORY_LIMIT = 3
 
     private var sharedPreferences: SharedPreferences? = null
 

@@ -127,7 +127,7 @@ class ResultsActivity : AppCompatActivity() {
                 content = "Effective protein is the quality-adjusted protein content. It's calculated by multiplying the total protein by the PDCAAS score.\n\n" +
                     "Example: 25g protein × 0.85 PDCAAS = 21.3g effective protein\n\n" +
                     "This gives you a better idea of how much protein your body can actually use for muscle building and repair.",
-                note = "⚠️ Important: This is an estimate. We calculate the PDCAAS based on ingredient list order (ingredients are listed by weight). The actual protein proportions may vary by product."
+                note = "⚠️ Important: If there are several protein sources in the scanned product, the effective amount of protein per 100g is an estimate based on the ingredient list order, as ingredients are listed by weight. The actual protein proportions may vary by product."
             )
         }
 

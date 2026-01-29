@@ -133,12 +133,40 @@
 
     </LinearLayout>
 
+    <!-- Instruction hint -->
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="💡 Long-press any product to compare with others"
+        android:textSize="13sp"
+        android:textColor="#888888"
+        android:gravity="center"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:background="#1A1A2E" />
+
     <!-- History List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerHistory"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:padding="16dp" />
+
+    <!-- Compare FAB -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabCompare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="Compare"
+        android:textColor="#000000"
+        app:icon="@drawable/ic_compare"
+        app:iconTint="#000000"
+        app:backgroundTint="#00D4E6"
+        android:visibility="gone" />
 
 </LinearLayout>

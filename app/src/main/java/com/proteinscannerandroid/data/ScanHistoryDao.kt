@@ -25,4 +25,7 @@ interface ScanHistoryDao {
 
     @Query("SELECT * FROM scan_history WHERE barcode = :barcode LIMIT 1")
     suspend fun getByBarcode(barcode: String): ScanHistoryEntity?
+
+    @Query("SELECT * FROM scan_history WHERE id IN (:ids)")
+    suspend fun getByIds(ids: List<Long>): List<ScanHistoryEntity>
 }

@@ -63,9 +63,11 @@ class FavoritesActivity : AppCompatActivity() {
                 if (favoritesList.isEmpty()) {
                     binding.emptyState.visibility = View.VISIBLE
                     binding.recyclerFavorites.visibility = View.GONE
+                    binding.tvHint.visibility = View.GONE
                 } else {
                     binding.emptyState.visibility = View.GONE
                     binding.recyclerFavorites.visibility = View.VISIBLE
+                    binding.tvHint.visibility = View.VISIBLE
                     adapter.submitList(favoritesList)
                 }
             }
@@ -76,12 +78,14 @@ class FavoritesActivity : AppCompatActivity() {
         adapter.setSelectionMode(true)
         adapter.toggleSelection(initialItem.id)
         binding.tvTitle.text = "Select 2 to Compare"
+        binding.tvHint.text = "Select 2 products to compare"
         binding.btnCancelSelection.visibility = View.VISIBLE
     }
 
     private fun exitSelectionMode() {
         adapter.setSelectionMode(false)
         binding.tvTitle.text = "Favorites"
+        binding.tvHint.text = "💡 Long-press any product to compare with others"
         binding.btnCancelSelection.visibility = View.GONE
         binding.fabCompare.visibility = View.GONE
     }

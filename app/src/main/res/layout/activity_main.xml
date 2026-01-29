@@ -11,57 +11,43 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:paddingHorizontal="18dp"
-    android:paddingTop="56dp"
+    android:paddingTop="24dp"
     android:paddingBottom="24dp">
 
-    <!-- Top Bar with Settings -->
+    <!-- Top Bar - Icons Only -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="24dp">
-
-        <!-- App Title -->
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="PROTEIN QUALITY SCANNER"
-            android:textSize="24sp"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textStyle="bold"
-            android:fontFamily="@font/blinker"
-            android:letterSpacing="0.05" />
+        android:gravity="end|center_vertical"
+        android:layout_marginBottom="8dp">
 
         <!-- Info Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnInfo"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             style="@style/Widget.Material3.Button.IconButton"
             app:icon="@drawable/ic_info"
             app:iconTint="?android:attr/textColorSecondary"
-            app:iconSize="20dp"
-            android:layout_marginEnd="8dp"
+            app:iconSize="22dp"
+            android:layout_marginEnd="4dp"
             android:background="?android:attr/selectableItemBackgroundBorderless" />
 
         <!-- Settings Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSettings"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             style="@style/Widget.Material3.Button.IconButton"
             app:icon="@drawable/ic_settings"
             app:iconTint="?android:attr/textColorSecondary"
-            app:iconSize="20dp"
+            app:iconSize="22dp"
             android:background="?android:attr/selectableItemBackgroundBorderless" />
 
     </LinearLayout>
 
-    <!-- Main Logo Section -->
+    <!-- Hero Section: Logo + App Name -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,15 +57,48 @@
 
         <ImageView
             android:id="@+id/logoButton"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_marginBottom="16dp"
             android:src="@drawable/logo_button_selector"
             android:scaleType="centerInside"
             android:clickable="true"
             android:focusable="true"
             android:background="@android:color/transparent" />
+
+        <!-- App Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PROTEIN QUALITY"
+            android:textSize="26sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold"
+            android:fontFamily="@font/blinker"
+            android:letterSpacing="0.08"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SCANNER"
+            android:textSize="26sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold"
+            android:fontFamily="@font/blinker"
+            android:letterSpacing="0.08"
+            android:gravity="center"
+            android:layout_marginBottom="8dp" />
+
+        <!-- Tagline -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Analyze protein quality with PDCAAS"
+            android:textSize="14sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:fontFamily="@font/blinker"
+            android:gravity="center" />
 
     </LinearLayout>
 

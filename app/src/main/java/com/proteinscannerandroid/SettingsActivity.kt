@@ -65,6 +65,16 @@ class SettingsActivity : AppCompatActivity() {
             billingManager.queryExistingPurchases()
             Toast.makeText(this, "Checking for existing purchases...", Toast.LENGTH_SHORT).show()
         }
+
+        // Rate app button
+        binding.btnRateApp.setOnClickListener {
+            RateAppManager.openPlayStore(this)
+        }
+
+        // Send feedback button
+        binding.btnSendFeedback.setOnClickListener {
+            RateAppManager.openFeedbackEmail(this)
+        }
     }
 
     private fun loadCurrentSettings() {

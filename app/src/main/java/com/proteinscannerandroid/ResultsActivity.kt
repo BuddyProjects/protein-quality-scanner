@@ -193,10 +193,9 @@ class ResultsActivity : AppCompatActivity() {
 
     private fun showPremiumUpsellDialog(featureName: String) {
         AlertDialog.Builder(this)
-            .setTitle("⭐ Premium Feature")
-            .setMessage("\"$featureName\" is a premium feature.\n\nUpgrade to Premium to unlock:\n• Save favorite products\n• Full scan history\n• Compare products side-by-side\n• Ad-free experience")
-            .setPositiveButton("Upgrade Now") { _, _ ->
-                // Navigate to settings for upgrade
+            .setTitle("⭐ Unlock $featureName")
+            .setMessage("For less than a coffee ☕, get:\n\n✓ Save favorite products\n✓ Unlimited scan history\n✓ Compare products side-by-side\n✓ Ad-free experience\n\n🙏 Support an indie developer and help keep this app growing!")
+            .setPositiveButton("Upgrade - \$1.99") { _, _ ->
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
             .setNegativeButton("Maybe Later", null)
@@ -341,6 +340,18 @@ class ResultsActivity : AppCompatActivity() {
                 proteinPer100g = currentProteinPer100g
             )
             database.scanHistoryDao().insert(history)
+            
+            // Record scan for rate app prompt
+            RateAppManager.recordScan(this@ResultsActivity)
+            
+            // Check if we should show rate prompt (with slight delay so results show first)
+            if (RateAppManager.shouldShowRatePrompt(this@ResultsActivity)) {
+                binding.root.postDelayed({
+                    if (!isFinishing && !isDestroyed) {
+                        RateAppManager.showRatePrompt(this@ResultsActivity)
+                    }
+                }, 1500) // 1.5 second delay
+            }
         }
     }
 

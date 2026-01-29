@@ -124,12 +124,12 @@ class FavoritesActivity : AppCompatActivity() {
 
     private fun showUpgradeDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Premium Feature")
-            .setMessage("Compare products is a premium feature. Upgrade to unlock!")
-            .setPositiveButton("Upgrade") { _, _ ->
+            .setTitle("⭐ Unlock Compare")
+            .setMessage("For less than a coffee ☕, get:\n\n✓ Compare products side-by-side\n✓ Unlimited scan history\n✓ Save favorite products\n✓ Ad-free experience\n\n🙏 Support an indie developer and help keep this app growing!")
+            .setPositiveButton("Upgrade - \$1.99") { _, _ ->
                 startActivity(Intent(this, SettingsActivity::class.java))
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton("Maybe Later", null)
             .show()
     }
 

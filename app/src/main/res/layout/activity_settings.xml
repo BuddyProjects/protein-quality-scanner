@@ -199,7 +199,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Your feedback matters! We read every message and are constantly improving the app based on your suggestions."
+                        android:text="Your feedback matters! We read every message and are constantly improving the app based on your suggestions. Thank you for your support!"
                         android:textSize="13sp"
                         android:textColor="@color/text_secondary_dark"
                         android:lineSpacingExtra="2dp"

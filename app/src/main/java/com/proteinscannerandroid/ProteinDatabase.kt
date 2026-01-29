@@ -544,7 +544,11 @@ object ProteinDatabase {
             pdcaas = 0.92,
             qualityCategory = "Excellent",
             keywords = listOf("beef", "rindfleisch", "bœuf", "beef protein", "rindfleischprotein", "viande", "carne"),
-            description = "High-quality animal protein rich in essential amino acids"
+            description = "High-quality animal protein rich in essential amino acids",
+            diaas = 100,
+            limitingAminoAcids = emptyList(),
+            digestionSpeed = "Medium",
+            notes = "Complete protein with excellent amino acid profile. Rich in iron, zinc, and B12."
         ),
         ProteinSource(
             name = "Chicken Protein",
@@ -634,9 +638,9 @@ object ProteinDatabase {
             keywords = listOf("pea protein isolate", "pea isolate", "pea", "erbsenproteinisolat", "erbsenprotein", "erbsenisolat", "isolat de protéines de pois", "isolat de protéine de pois", "isolats de protéines de pois", "isolats de protéine de pois"),
             description = "Purified pea protein with improved amino acid profile",
             diaas = 70,
-            limitingAminoAcids = listOf("Methionine"),
+            limitingAminoAcids = listOf("Methionine", "Tryptophan"),
             digestionSpeed = "Medium",
-            notes = "Good plant protein, combines well with rice protein"
+            notes = "Good plant protein, combines well with rice protein to form complete amino acid profile"
         ),
         ProteinSource(
             name = "Pea Protein",
@@ -645,7 +649,7 @@ object ProteinDatabase {
             keywords = listOf("pea protein", "pea", "erbsenprotein", "protéine de pois", "protéines de pois", "split peas", "erbsen", "peas"),
             description = "Plant protein with good lysine content",
             diaas = 70,
-            limitingAminoAcids = listOf("Methionine"),
+            limitingAminoAcids = listOf("Methionine", "Tryptophan"),
             digestionSpeed = "Medium",
             notes = "Rich in lysine, complements rice and other cereals well"
         ),
@@ -715,7 +719,11 @@ object ProteinDatabase {
             pdcaas = 0.77,
             qualityCategory = "Medium",
             keywords = listOf("quinoa", "quinoa protein", "quinoaprotein"),
-            description = "Complete plant protein from ancient grain"
+            description = "Complete plant protein from ancient grain",
+            diaas = 77,
+            limitingAminoAcids = listOf("Lysine (marginal)", "Valine"),
+            digestionSpeed = "Medium",
+            notes = "Often marketed as 'complete protein' - true but has marginal limitations. Washed quinoa scores higher."
         ),
         ProteinSource(
             name = "Amaranth Protein",
@@ -740,16 +748,20 @@ object ProteinDatabase {
             keywords = listOf("rice protein", "rice", "reis", "riz", "farine de riz", "reismehl", "reisprotein", "reiseiweiß", "reiseiweiss", "reiseiweisskonzentrat", "reisproteinpulver", "protéine de riz", "protéines de riz", "brown rice protein"),
             description = "Hypoallergenic plant protein, low in lysine",
             diaas = 60,
-            limitingAminoAcids = listOf("Lysine"),
+            limitingAminoAcids = listOf("Lysine", "Threonine"),
             digestionSpeed = "Medium",
-            notes = "Hypoallergenic, complements pea protein perfectly"
+            notes = "Hypoallergenic, complements pea protein perfectly (pea provides lysine, rice provides methionine)"
         ),
         ProteinSource(
             name = "Hemp Protein",
             pdcaas = 0.46,
             qualityCategory = "Low",
             keywords = listOf("hemp protein", "hemp", "hanfprotein", "hanfeiweiss", "hanfeiweiß", "hanfproteinpulver", "protéine de chanvre", "hemp seeds", "hanfsamen"),
-            description = "Plant protein with omega fatty acids and fiber"
+            description = "Plant protein with omega fatty acids and fiber",
+            diaas = 51,
+            limitingAminoAcids = listOf("Lysine"),
+            digestionSpeed = "Medium",
+            notes = "Contains omega-3 and omega-6 fatty acids. Hemp hearts (dehulled) score higher than hemp protein concentrate."
         ),
         ProteinSource(
             name = "Pumpkin Seed Protein",
@@ -876,7 +888,11 @@ object ProteinDatabase {
             pdcaas = 0.25,
             qualityCategory = "Low",
             keywords = listOf("wheat protein", "wheat", "weizen", "hartweizen", "weizenprotein", "weizeneiweiss", "weizeneiweiß", "weizengluten", "protéine de blé", "blé", "ble", "farine de blé", "farine de ble", "froment", "farine de froment", "gluten", "vital wheat gluten", "seitan", "son", "bran", "wheat flour", "weizenmehl", "kleie", "grieß", "griess", "semolina", "dinkel", "durumhvede", "hvede", "grano duro", "grano"),
-            description = "Cereal protein low in lysine, not suitable as sole protein source"
+            description = "Cereal protein low in lysine, not suitable as sole protein source",
+            diaas = 39,
+            limitingAminoAcids = listOf("Lysine"),
+            digestionSpeed = "Medium",
+            notes = "PDCAAS of 0.25 applies to wheat gluten. Whole wheat flour scores higher (~0.42). Combine with legumes for complete profile."
         ),
         ProteinSource(
             name = "Corn Protein",
@@ -910,25 +926,25 @@ object ProteinDatabase {
         // Problematic Proteins
         ProteinSource(
             name = "Collagen",
-            pdcaas = 0.08,
-            qualityCategory = "Low",
-            keywords = listOf("collagen", "kollagen", "kollagenhydrolysat", "collagène", "collagen peptides", "collagen hydrolysate", "hydrolyzed collagen", "gelatin", "gelatine", "gélatine", "hydrolysat de gélatine"),
-            description = "Incomplete protein lacking essential amino acids, not suitable for muscle building",
+            pdcaas = 0.0,  // ZERO - completely lacks tryptophan (essential amino acid)
+            qualityCategory = "Incomplete",
+            keywords = listOf("collagen", "kollagen", "kollagenhydrolysat", "collagène", "collagen peptides", "collagen hydrolysate", "hydrolyzed collagen"),
+            description = "Incomplete protein - completely missing tryptophan, scores 0 on PDCAAS",
             diaas = 0,
-            limitingAminoAcids = listOf("Tryptophan", "Methionine", "Lysine"),
+            limitingAminoAcids = listOf("Tryptophan (absent)", "Methionine", "Histidine"),
             digestionSpeed = "Fast",
-            notes = "⚠️ LACKS TRYPTOPHAN ENTIRELY - not suitable for muscle building despite high protein claims"
+            notes = "⚠️ LACKS TRYPTOPHAN ENTIRELY - PDCAAS is 0. Not suitable as sole protein source. Good for skin/joints, not muscle building."
         ),
         ProteinSource(
             name = "Gelatin",
-            pdcaas = 0.08,
-            qualityCategory = "Low",
+            pdcaas = 0.0,  // ZERO - derived from collagen, same deficiency
+            qualityCategory = "Incomplete",
             keywords = listOf("gelatin", "gelatine", "gélatine", "beef gelatin", "pork gelatin", "gelatinehydrolysat", "hydrolyzed gelatin", "gelatin hydrolysate"),
-            description = "Incomplete protein derived from collagen, lacking essential amino acids",
+            description = "Incomplete protein derived from collagen - completely missing tryptophan",
             diaas = 0,
-            limitingAminoAcids = listOf("Tryptophan", "Methionine", "Lysine"),
+            limitingAminoAcids = listOf("Tryptophan (absent)", "Methionine", "Histidine"),
             digestionSpeed = "Fast",
-            notes = "⚠️ Same as collagen - lacks essential amino acids for muscle protein synthesis"
+            notes = "⚠️ Same as collagen - LACKS TRYPTOPHAN. PDCAAS is 0, not suitable for muscle protein synthesis."
         ),
         
         // Protein Blends
@@ -1012,7 +1028,11 @@ object ProteinDatabase {
             pdcaas = 0.89,
             qualityCategory = "Good",
             keywords = listOf("lupin", "lupine", "lupinen", "altramuz"),
-            description = "Legume protein with high protein content and complete amino profile"
+            description = "Legume protein with high protein content and complete amino profile",
+            diaas = 68,
+            limitingAminoAcids = listOf("Methionine", "Cysteine"),
+            digestionSpeed = "Medium",
+            notes = "High protein content (40%+), low in fat. Popular in European plant-based products."
         ),
         ProteinSource(
             name = "Sunflower Protein",
@@ -1065,9 +1085,13 @@ object ProteinDatabase {
         ProteinSource(
             name = "Mycoprotein",
             pdcaas = 0.91,
-            qualityCategory = "High",
-            keywords = listOf("mycoprotein", "mycoprotéine", "micoproteína", "mykoprotein"),
-            description = "Fungal protein (Quorn), high quality complete protein from fermented fungus"
+            qualityCategory = "Excellent",
+            keywords = listOf("mycoprotein", "mycoprotéine", "micoproteína", "mykoprotein", "quorn"),
+            description = "Fungal protein (Quorn), high quality complete protein from fermented fungus",
+            diaas = 91,
+            limitingAminoAcids = listOf("Methionine", "Cysteine"),
+            digestionSpeed = "Medium",
+            notes = "High quality plant-based alternative. Similar amino acid profile to meat. High in fiber."
         )
     )
     

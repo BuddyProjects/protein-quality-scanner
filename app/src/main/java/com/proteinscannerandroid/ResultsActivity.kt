@@ -5,10 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.LayoutInflater
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import android.app.AlertDialog
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.text.SpannableString
 import android.text.style.ClickableSpan
 import android.text.method.LinkMovementMethod
@@ -98,6 +103,49 @@ class ResultsActivity : AppCompatActivity() {
         binding.btnFavorite.setOnClickListener {
             toggleFavorite()
         }
+
+        // Info button click handlers
+        binding.btnInfoPdcaas.setOnClickListener {
+            showInfoDialog(
+                title = "What is PDCAAS?",
+                content = "PDCAAS (Protein Digestibility Corrected Amino Acid Score) is the gold standard for measuring protein quality, developed by the WHO/FAO.\n\n" +
+                    "It measures two things:\n" +
+                    "• How complete the amino acid profile is\n" +
+                    "• How well your body can digest and absorb the protein\n\n" +
+                    "Scores range from 0 to 1.0:\n" +
+                    "• 0.90-1.0 = Excellent (complete proteins)\n" +
+                    "• 0.75-0.89 = Good\n" +
+                    "• 0.50-0.74 = Medium\n" +
+                    "• Below 0.50 = Low quality",
+                note = "A score of 1.0 means the protein provides all essential amino acids in optimal ratios for human nutrition."
+            )
+        }
+
+        binding.btnInfoEffectiveProtein.setOnClickListener {
+            showInfoDialog(
+                title = "Effective Protein",
+                content = "Effective protein is the quality-adjusted protein content. It's calculated by multiplying the total protein by the PDCAAS score.\n\n" +
+                    "Example: 25g protein × 0.85 PDCAAS = 21.3g effective protein\n\n" +
+                    "This gives you a better idea of how much protein your body can actually use for muscle building and repair.",
+                note = "⚠️ Important: This is an estimate. We calculate the PDCAAS based on ingredient list order (ingredients are listed by weight). The actual protein proportions may vary by product."
+            )
+        }
+
+        binding.btnInfoDetectedProteins.setOnClickListener {
+            showInfoDialog(
+                title = "Understanding Protein Details",
+                content = "For each detected protein source, we show:\n\n" +
+                    "📊 PDCAAS Score - Quality rating from 0-1\n\n" +
+                    "📊 DIAAS Score - A newer, more precise measure (when available)\n\n" +
+                    "⚠️ Limiting Amino Acids - The amino acids that limit the protein's quality. These are in short supply relative to human needs.\n\n" +
+                    "⏱️ Digestion Speed - How quickly the protein is absorbed:\n" +
+                    "• Fast: 30-60 min (whey, hydrolysates)\n" +
+                    "• Medium: 2-3 hours (most proteins)\n" +
+                    "• Slow: 6-8 hours (casein)\n\n" +
+                    "💡 Notes - Additional info about the protein source.",
+                note = "Proteins listed earlier in the ingredients contribute more to the overall score, as ingredients are listed by weight."
+            )
+        }
     }
 
     private fun toggleFavorite() {
@@ -146,6 +194,39 @@ class ResultsActivity : AppCompatActivity() {
     private fun updateFavoriteIcon() {
         val icon = if (isFavorite) R.drawable.ic_heart_filled else R.drawable.ic_heart_outline
         binding.btnFavorite.setImageResource(icon)
+    }
+
+    /**
+     * Show an info dialog with title, content, and optional note.
+     */
+    private fun showInfoDialog(title: String, content: String, note: String? = null) {
+        val dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_info)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        
+        // Set width to 90% of screen width
+        val width = (resources.displayMetrics.widthPixels * 0.9).toInt()
+        dialog.window?.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
+
+        // Populate content
+        dialog.findViewById<TextView>(R.id.tvInfoTitle).text = title
+        dialog.findViewById<TextView>(R.id.tvInfoContent).text = content
+        
+        val noteView = dialog.findViewById<TextView>(R.id.tvInfoNote)
+        if (note != null) {
+            noteView.text = note
+            noteView.visibility = View.VISIBLE
+        } else {
+            noteView.visibility = View.GONE
+        }
+
+        // Close button
+        dialog.findViewById<Button>(R.id.btnCloseInfo).setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun checkIfFavorite(barcode: String) {
@@ -354,11 +435,13 @@ class ResultsActivity : AppCompatActivity() {
             binding.warningsCard.visibility = View.GONE
         }
 
-        // Calculate effective protein
+        // Calculate effective protein - use dedicated layout with info button
         val effectiveProtein = analysis.effectiveProteinPer100g
         if (effectiveProtein != null && proteinContent != null) {
-            val effectiveText = "\n\nEffective protein (quality-adjusted): ${String.format("%.1f", effectiveProtein)}g per 100g"
-            binding.tvProteinContent.text = binding.tvProteinContent.text.toString() + effectiveText
+            binding.tvEffectiveProtein.text = "Effective protein (quality-adjusted): ${String.format("%.1f", effectiveProtein)}g per 100g"
+            binding.effectiveProteinLayout.visibility = View.VISIBLE
+        } else {
+            binding.effectiveProteinLayout.visibility = View.GONE
         }
     }
 

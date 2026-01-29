@@ -123,15 +123,34 @@
                         android:padding="32dp"
                         android:gravity="center">
 
-                        <TextView
+                        <!-- PDCAAS Label with Info Button -->
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/pdcaas_score"
-                            android:textSize="16sp"
-                            android:textColor="#AAAAAA"
-                            android:fontFamily="@font/blinker"
-                            android:letterSpacing="0.1"
-                            android:layout_marginBottom="8dp" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="8dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/pdcaas_score"
+                                android:textSize="16sp"
+                                android:textColor="#AAAAAA"
+                                android:fontFamily="@font/blinker"
+                                android:letterSpacing="0.1" />
+
+                            <ImageButton
+                                android:id="@+id/btnInfoPdcaas"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginStart="8dp"
+                                android:src="@drawable/ic_info"
+                                android:background="?android:attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="What is PDCAAS?"
+                                android:padding="4dp" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvPdcaasScore"
@@ -215,6 +234,38 @@
                             android:textColor="#AAAAAA"
                             android:fontFamily="@font/blinker" />
 
+                        <!-- Effective Protein with Info Button -->
+                        <LinearLayout
+                            android:id="@+id/effectiveProteinLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginTop="8dp"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tvEffectiveProtein"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Effective protein: 21.3g per 100g"
+                                android:textSize="16sp"
+                                android:textColor="#00D4E6"
+                                android:fontFamily="@font/blinker" />
+
+                            <ImageButton
+                                android:id="@+id/btnInfoEffectiveProtein"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_marginStart="8dp"
+                                android:src="@drawable/ic_info"
+                                android:background="?android:attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="About effective protein calculation"
+                                android:padding="4dp" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -235,15 +286,34 @@
                         android:orientation="vertical"
                         android:padding="24dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <!-- Detected Proteins Header with Info Button -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/detected_proteins"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#00D4E6"
-                            android:fontFamily="@font/blinker"
-                            android:layout_marginBottom="16dp" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/detected_proteins"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="#00D4E6"
+                                android:fontFamily="@font/blinker" />
+
+                            <ImageButton
+                                android:id="@+id/btnInfoDetectedProteins"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_info"
+                                android:background="?android:attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="About protein details"
+                                android:padding="4dp" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/tvFoundProteins"

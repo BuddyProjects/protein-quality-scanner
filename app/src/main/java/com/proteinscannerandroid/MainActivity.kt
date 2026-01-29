@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity() {
     private fun showPremiumUpsellDialog(featureName: String) {
         AlertDialog.Builder(this)
             .setTitle("⭐ Unlock $featureName")
-            .setMessage("For less than a coffee ☕, get:\n\n✓ Save favorite products\n✓ Unlimited scan history\n✓ Compare products side-by-side\n✓ Ad-free experience\n\n🙏 Support an indie developer and help keep this app growing!")
+            .setMessage("For less than the price of a coffee ☕, get:\n\n✓ Save favorite products\n✓ Unlimited scan history\n✓ Compare products side-by-side\n✓ Ad-free experience\n\n🙏 Support an indie developer and help keep this app growing!")
             .setPositiveButton("Upgrade - \$1.99") { _, _ ->
                 startActivity(Intent(this, SettingsActivity::class.java))
             }

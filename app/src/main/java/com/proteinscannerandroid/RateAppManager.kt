@@ -20,8 +20,8 @@ object RateAppManager {
     private const val KEY_LAST_PROMPT_COUNT = "last_prompt_count"
     
     // Show prompt after this many scans
-    private const val FIRST_PROMPT_AT = 5
-    private const val PROMPT_INTERVAL = 15  // Ask again every 15 scans if dismissed
+    private const val FIRST_PROMPT_AT = 10
+    private const val PROMPT_INTERVAL = 25  // Ask again every 25 scans if dismissed
     
     const val FEEDBACK_EMAIL = "proteinscanner.feedback@gmail.com"
     const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.proteinscannerandroid"
@@ -80,7 +80,7 @@ object RateAppManager {
                 prefs.edit().putBoolean(KEY_RATED, true).apply()
                 openPlayStore(activity)
             }
-            .setNegativeButton("Could be better") { _, _ ->
+            .setNegativeButton("I see room for improvement") { _, _ ->
                 // Open feedback email
                 openFeedbackEmail(activity, "Feedback: Room for improvement")
             }

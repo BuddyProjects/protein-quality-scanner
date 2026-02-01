@@ -158,6 +158,61 @@ class ResultsActivity : AppCompatActivity() {
                 note = "Proteins listed earlier in the ingredients contribute more to the overall score, as ingredients are listed by weight."
             )
         }
+
+        // Protein Intake Calculator (Premium Feature)
+        binding.btnInfoIntakeCalculator.setOnClickListener {
+            showInfoDialog(
+                title = "Protein Intake Calculator",
+                content = "This calculator shows you the true amount of usable protein you've consumed based on:\n\n" +
+                    "• The amount of product you ate\n" +
+                    "• The protein content per 100g\n" +
+                    "• The PDCAAS quality score\n\n" +
+                    "Formula:\n" +
+                    "Effective protein = (amount eaten ÷ 100) × protein per 100g × PDCAAS",
+                note = "⚠️ This is an estimation. The PDCAAS score is based on the relative weight of protein sources as indicated by their position in the ingredient list. Actual proportions may vary."
+            )
+        }
+
+        binding.btnCalculateIntake.setOnClickListener {
+            calculateProteinIntake()
+        }
+    }
+
+    private fun calculateProteinIntake() {
+        val amountText = binding.etIntakeAmount.text.toString()
+        val amount = amountText.toDoubleOrNull()
+        
+        if (amount == null || amount <= 0) {
+            Toast.makeText(this, "Please enter a valid amount", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val proteinPer100g = currentProteinPer100g
+        if (proteinPer100g == null || proteinPer100g <= 0) {
+            Toast.makeText(this, "Protein content not available for this product", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Calculate effective protein consumed
+        val labelProtein = (amount / 100.0) * proteinPer100g
+        val effectiveProtein = labelProtein * currentPdcaasScore
+
+        // Display result
+        binding.intakeResultLayout.visibility = View.VISIBLE
+        binding.tvIntakeResult.text = String.format("Effective protein: %.1fg", effectiveProtein)
+        binding.tvIntakeComparison.text = String.format("(vs %.1fg on label)", labelProtein)
+    }
+
+    private fun setupIntakeCalculator() {
+        // Only show for premium users when we have valid data
+        if (PremiumManager.checkPremium() && currentProteinPer100g != null && currentProteinPer100g!! > 0) {
+            binding.intakeCalculatorCard.visibility = View.VISIBLE
+            // Reset any previous calculation
+            binding.intakeResultLayout.visibility = View.GONE
+            binding.etIntakeAmount.setText("")
+        } else {
+            binding.intakeCalculatorCard.visibility = View.GONE
+        }
     }
 
     private fun toggleFavorite() {
@@ -325,6 +380,9 @@ class ResultsActivity : AppCompatActivity() {
 
         debugLog("✅ Displayed cached result for $productName")
         showDebugInfo()
+
+        // Setup protein intake calculator (premium feature)
+        setupIntakeCalculator()
     }
 
     private fun saveToHistory() {
@@ -522,6 +580,9 @@ class ResultsActivity : AppCompatActivity() {
 
         // Show debug info
         showDebugInfo()
+
+        // Setup protein intake calculator (premium feature)
+        setupIntakeCalculator()
     }
 
     private fun displayAnalysis(analysis: ProteinAnalysis, proteinContent: Double?) {

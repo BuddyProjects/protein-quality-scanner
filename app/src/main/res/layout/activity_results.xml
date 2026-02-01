@@ -328,6 +328,154 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Protein Intake Calculator Card (Premium Feature) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/intakeCalculatorCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#252525"
+                    app:strokeColor="#333333"
+                    app:strokeWidth="1dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <!-- Header with Info Button -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Protein Intake Calculator"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="#00D4E6"
+                                android:fontFamily="@font/blinker" />
+
+                            <ImageButton
+                                android:id="@+id/btnInfoIntakeCalculator"
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_info"
+                                android:background="?android:attr/selectableItemBackgroundBorderless"
+                                android:contentDescription="About intake calculation"
+                                android:padding="4dp" />
+
+                        </LinearLayout>
+
+                        <!-- Amount Input -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Amount consumed:"
+                                android:textSize="16sp"
+                                android:textColor="#AAAAAA"
+                                android:fontFamily="@font/blinker"
+                                android:layout_marginEnd="12dp" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                app:boxBackgroundColor="#1A1A1A"
+                                app:boxStrokeColor="#00D4E6"
+                                app:hintTextColor="#888888"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/etIntakeAmount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="100"
+                                    android:inputType="numberDecimal"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="16sp"
+                                    android:gravity="center" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="g"
+                                android:textSize="16sp"
+                                android:textColor="#AAAAAA"
+                                android:fontFamily="@font/blinker"
+                                android:layout_marginStart="8dp" />
+
+                        </LinearLayout>
+
+                        <!-- Calculate Button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCalculateIntake"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:text="Calculate"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/blinker"
+                            app:backgroundTint="#00D4E6"
+                            app:cornerRadius="12dp"
+                            app:elevation="0dp"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- Result Display -->
+                        <LinearLayout
+                            android:id="@+id/intakeResultLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:padding="16dp"
+                            android:background="@drawable/rounded_dark_background">
+
+                            <TextView
+                                android:id="@+id/tvIntakeResult"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Effective protein consumed: 15.2g"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="#00D4E6"
+                                android:fontFamily="@font/blinker"
+                                android:gravity="center" />
+
+                            <TextView
+                                android:id="@+id/tvIntakeComparison"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="(vs 16.7g on label)"
+                                android:textSize="14sp"
+                                android:textColor="#888888"
+                                android:fontFamily="@font/blinker"
+                                android:gravity="center"
+                                android:layout_marginTop="4dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
                 <!-- Native Ad Container (hidden by default, shown for non-premium users) -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/nativeAdCard"

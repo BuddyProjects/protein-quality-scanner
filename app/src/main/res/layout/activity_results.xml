@@ -359,7 +359,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Protein Intake Calculator"
+                                android:text="True Protein Intake Calculator"
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="#00D4E6"
@@ -405,11 +405,12 @@
                                     android:id="@+id/etIntakeAmount"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="100"
+                                    android:text="100"
                                     android:inputType="numberDecimal"
                                     android:textColor="#FFFFFF"
                                     android:textSize="16sp"
-                                    android:gravity="center" />
+                                    android:gravity="center"
+                                    android:selectAllOnFocus="true" />
 
                             </com.google.android.material.textfield.TextInputLayout>
 

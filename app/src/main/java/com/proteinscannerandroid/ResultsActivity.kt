@@ -159,10 +159,10 @@ class ResultsActivity : AppCompatActivity() {
             )
         }
 
-        // Protein Intake Calculator (Premium Feature)
+        // True Protein Intake Calculator (Premium Feature)
         binding.btnInfoIntakeCalculator.setOnClickListener {
             showInfoDialog(
-                title = "Protein Intake Calculator",
+                title = "True Protein Intake Calculator",
                 content = "This calculator shows you the true amount of usable protein you've consumed based on:\n\n" +
                     "• The amount of product you ate\n" +
                     "• The protein content per 100g\n" +
@@ -207,9 +207,11 @@ class ResultsActivity : AppCompatActivity() {
         // Only show for premium users when we have valid data
         if (PremiumManager.checkPremium() && currentProteinPer100g != null && currentProteinPer100g!! > 0) {
             binding.intakeCalculatorCard.visibility = View.VISIBLE
-            // Reset any previous calculation
+            // Reset any previous calculation result, keep default 100g
             binding.intakeResultLayout.visibility = View.GONE
-            binding.etIntakeAmount.setText("")
+            if (binding.etIntakeAmount.text.isNullOrEmpty()) {
+                binding.etIntakeAmount.setText("100")
+            }
         } else {
             binding.intakeCalculatorCard.visibility = View.GONE
         }

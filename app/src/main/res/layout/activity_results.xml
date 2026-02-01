@@ -269,6 +269,26 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Native Ad Container (shown for non-premium users, positioned early for visibility) -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/nativeAdCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#252525"
+                    app:strokeColor="#333333"
+                    app:strokeWidth="1dp"
+                    android:visibility="gone">
+
+                    <FrameLayout
+                        android:id="@+id/nativeAdContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.card.MaterialCardView>
+
                 <!-- Protein Analysis Card -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent"
@@ -475,26 +495,6 @@
                         </LinearLayout>
 
                     </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Native Ad Container (hidden by default, shown for non-premium users) -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/nativeAdCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="#252525"
-                    app:strokeColor="#333333"
-                    app:strokeWidth="1dp"
-                    android:visibility="gone">
-
-                    <FrameLayout
-                        android:id="@+id/nativeAdContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
                 </com.google.android.material.card.MaterialCardView>
 
                 <!-- Warnings Card -->

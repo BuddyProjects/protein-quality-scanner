@@ -504,7 +504,8 @@ class ResultsActivity : AppCompatActivity() {
         currentBarcode = productInfo.barcode
         currentProductName = productInfo.name ?: "Unknown Product"
         currentPdcaasScore = analysis.weightedPdcaas
-        currentProteinSources = analysis.detectedProteins.map { it.proteinSource.name }
+        // Only include significant proteins (weight > 0) in the displayed sources
+        currentProteinSources = analysis.detectedProteins.filter { it.weight > 0.0 }.map { it.proteinSource.name }
         currentProteinPer100g = proteinContent
 
         // Check if this product is already a favorite
@@ -561,8 +562,11 @@ class ResultsActivity : AppCompatActivity() {
     }
 
     private fun displayDetectedProteins(detectedProteins: List<DetectedProtein>) {
-        if (detectedProteins.isNotEmpty()) {
-            val proteinDetails = detectedProteins.map { protein ->
+        // Filter out trace proteins (weight = 0) - they don't contribute to PDCAAS
+        val significantProteins = detectedProteins.filter { it.weight > 0.0 }
+        
+        if (significantProteins.isNotEmpty()) {
+            val proteinDetails = significantProteins.map { protein ->
                 val source = protein.proteinSource
                 var details = "${source.name} (PDCAAS: ${String.format("%.2f", source.pdcaas)}"
                 

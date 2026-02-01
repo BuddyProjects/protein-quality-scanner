@@ -105,7 +105,11 @@ class ResultsActivity : AppCompatActivity() {
         }
 
         binding.btnScanAgain.setOnClickListener {
-            finish() // Return to main screen
+            // Navigate to MainActivity (scanner) clearing the back stack
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
         }
 
         binding.btnBack.setOnClickListener {

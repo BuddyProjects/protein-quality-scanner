@@ -131,19 +131,41 @@ object ProteinDatabase {
         }
 
         // FIX: Cocoa butter exclusion for Dairy Trace Protein - cocoa butter is NOT dairy
-        if (proteinSourceName == "Dairy Trace Protein" && matchedText == "butter") {
-            // Get text immediately before the match to check for cocoa/cacao/kakao prefix
+        // Must handle multiple languages and formats:
+        // - English: "cocoa butter" (with space)
+        // - German: "kakaobutter" (compound word)
+        // - French: "beurre de cacao"
+        // Only check keywords actually in Dairy Trace Protein keywords list: butter, beurre
+        if (proteinSourceName == "Dairy Trace Protein" && 
+            matchedText in listOf("butter", "beurre")) {
+            
+            // Get the full word containing the match (for compound words like "kakaobutter")
+            val wordStart = (position - 1 downTo 0).firstOrNull { 
+                ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n') 
+            }?.plus(1) ?: 0
+            val wordEnd = (position + matchedText.length until ingredientsLower.length).firstOrNull { 
+                ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n') 
+            } ?: ingredientsLower.length
+            val fullWord = ingredientsLower.substring(wordStart, wordEnd)
+            
+            // Check if full word contains cocoa-related terms (German compound: kakaobutter, cacaobutter)
+            val cocoaTerms = listOf("kakao", "cacao", "cocoa")
+            if (cocoaTerms.any { fullWord.contains(it) }) {
+                return Pair(false, "Part of cocoa butter compound ($fullWord), not dairy")
+            }
+            
+            // Check text immediately before the match for "cocoa " (with space)
             val beforeStart = maxOf(0, position - 10)
-            val textBefore = ingredientsLower.substring(beforeStart, position)
-            // Check if "butter" is preceded by cocoa-related terms (German, English, French)
-            if (textBefore.endsWith("kakao") || textBefore.endsWith("cocoa") || textBefore.endsWith("cacao")) {
+            val textBefore = ingredientsLower.substring(beforeStart, position).trimEnd()
+            if (cocoaTerms.any { textBefore.endsWith(it) }) {
                 return Pair(false, "Part of cocoa butter, not dairy")
             }
-            // Also check for "beurre de cacao" pattern where "de cacao" follows
-            val afterEnd = minOf(ingredientsLower.length, position + matchedText.length + 12)
+            
+            // Check for romance language patterns: "beurre de cacao", "burro di cacao", "manteca de cacao"
+            val afterEnd = minOf(ingredientsLower.length, position + matchedText.length + 15)
             val textAfter = ingredientsLower.substring(position + matchedText.length, afterEnd)
-            if (textAfter.startsWith(" de cacao") || textAfter.startsWith(" de cocoa")) {
-                return Pair(false, "Part of cocoa butter (beurre de cacao), not dairy")
+            if (textAfter.matches(Regex("^\\s*(de|di)\\s+(cacao|cocoa|kakao).*"))) {
+                return Pair(false, "Part of cocoa butter (romance language pattern), not dairy")
             }
         }
 
@@ -1208,7 +1230,7 @@ object ProteinDatabase {
                     ingredientText = keyword,
                     position = index + 1, // 1-based ranking
                     matchConfidence = 0.9,
-                    weight = baseWeight // Display weight for UI purposes
+                    weight = effectiveWeight // Use effective weight (0 for trace proteins)
                 )
             )
 

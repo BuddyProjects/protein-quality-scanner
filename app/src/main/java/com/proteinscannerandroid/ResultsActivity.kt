@@ -30,8 +30,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.gson.Gson
+import com.google.android.material.snackbar.Snackbar
 import com.proteinscannerandroid.data.AppDatabase
 import com.proteinscannerandroid.data.FavoriteEntity
+import com.proteinscannerandroid.data.PendingScan
 import com.proteinscannerandroid.data.ScanHistoryEntity
 import com.proteinscannerandroid.databinding.ActivityResultsBinding
 import com.proteinscannerandroid.premium.PremiumManager
@@ -472,13 +474,55 @@ class ResultsActivity : AppCompatActivity() {
                     }
                     is FetchResult.NetworkError -> {
                         debugLog("🌐 Network error: ${fetchResult.reason}")
-                        showError("📡 Connection problem\n\n${fetchResult.reason}\n\nCheck your internet connection and try again.")
+                        // Save barcode for later retry
+                        saveForLaterRetry(barcode, fetchResult.reason)
                     }
                 }
             } catch (e: Exception) {
                 debugLog("💥 Error: ${e.message}")
                 e.printStackTrace()
                 showError("Error: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * Save a barcode for later retry when network error occurs.
+     */
+    private fun saveForLaterRetry(barcode: String, errorReason: String) {
+        lifecycleScope.launch {
+            try {
+                // Check if already in queue
+                val alreadyQueued = database.pendingScanDao().exists(barcode)
+                if (!alreadyQueued) {
+                    val pendingScan = PendingScan(
+                        barcode = barcode,
+                        errorReason = errorReason
+                    )
+                    database.pendingScanDao().insert(pendingScan)
+                }
+
+                // Show snackbar with action to view pending queue
+                binding.loadingLayout.visibility = View.GONE
+                Snackbar.make(
+                    binding.root,
+                    "📡 Offline - Barcode saved for later",
+                    Snackbar.LENGTH_LONG
+                ).setAction("View Queue") {
+                    startActivity(Intent(this@ResultsActivity, PendingScansActivity::class.java))
+                    finish()
+                }.setActionTextColor(ContextCompat.getColor(this@ResultsActivity, R.color.primary_accent))
+                .show()
+
+                // Delayed finish to let user see the snackbar
+                binding.root.postDelayed({
+                    if (!isFinishing && !isDestroyed) {
+                        finish()
+                    }
+                }, 3000)
+            } catch (e: Exception) {
+                debugLog("Failed to save for later: ${e.message}")
+                showError("📡 Connection problem\n\n$errorReason\n\nCheck your internet connection and try again.")
             }
         }
     }

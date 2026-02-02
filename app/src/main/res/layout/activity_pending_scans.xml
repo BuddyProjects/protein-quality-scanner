@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:background="@color/surface_dark">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_back"
+            app:iconTint="@color/text_primary_dark"
+            app:iconSize="24dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Pending Scans"
+            android:textSize="20sp"
+            android:textColor="@color/text_primary_dark"
+            android:textStyle="bold"
+            android:fontFamily="@font/blinker" />
+
+        <!-- Clear All Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnClearAll"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_delete"
+            app:iconTint="#888888"
+            app:iconSize="24dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Clear all pending" />
+
+    </LinearLayout>
+
+    <!-- Info Banner -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/infoBanner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="#1A3D5C"
+        app:strokeColor="#00D4E6"
+        app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_sync"
+                app:tint="#00D4E6"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Offline Queue"
+                    android:textSize="16sp"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="These barcodes couldn't be scanned due to network issues. Retry when you have a connection."
+                    android:textSize="13sp"
+                    android:textColor="#AAAAAA"
+                    android:layout_marginTop="4dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:padding="32dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_sync"
+            app:tint="#555555"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Pending Scans"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:fontFamily="@font/blinker" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All scans are up to date!"
+            android:textSize="14sp"
+            android:textColor="#888888"
+            android:layout_marginTop="8dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+    <!-- Pending List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerPending"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:padding="16dp" />
+
+    <!-- Retry All FAB -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabRetryAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="Retry All"
+        android:textColor="#000000"
+        app:icon="@drawable/ic_sync"
+        app:iconTint="#000000"
+        app:backgroundTint="#00D4E6"
+        android:visibility="gone" />
+
+</LinearLayout>

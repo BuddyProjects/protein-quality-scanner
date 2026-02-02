@@ -75,5 +75,9 @@
         <activity
             android:name=".CompareActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".PendingScansActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

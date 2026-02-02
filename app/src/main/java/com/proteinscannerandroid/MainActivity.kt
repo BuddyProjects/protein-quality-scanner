@@ -6,19 +6,25 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.proteinscannerandroid.data.AppDatabase
 import com.proteinscannerandroid.databinding.ActivityMainBinding
 import com.proteinscannerandroid.premium.PremiumManager
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val CAMERA_PERMISSION_REQUEST_CODE = 1001
     private var pendingCameraAction: (() -> Unit)? = null
     private lateinit var sharedPreferences: SharedPreferences
+    private val database by lazy { AppDatabase.getInstance(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +34,23 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE)
         
         setupClickListeners()
+        observePendingScans()
         // 3D helix now handles its own animations via OpenGL
+    }
+
+    private fun observePendingScans() {
+        lifecycleScope.launch {
+            database.pendingScanDao().getCount().collectLatest { count ->
+                if (count > 0) {
+                    binding.pendingBadge.visibility = View.VISIBLE
+                    binding.pendingBadge.text = if (count > 99) "99+" else count.toString()
+                    binding.btnPendingScans.visibility = View.VISIBLE
+                } else {
+                    binding.pendingBadge.visibility = View.GONE
+                    binding.btnPendingScans.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun setupClickListeners() {
@@ -76,6 +98,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnInfo.setOnClickListener {
             openInfo()
+        }
+
+        binding.btnPendingScans.setOnClickListener {
+            startActivity(Intent(this, PendingScansActivity::class.java))
         }
 
         binding.logoButton.setOnClickListener {

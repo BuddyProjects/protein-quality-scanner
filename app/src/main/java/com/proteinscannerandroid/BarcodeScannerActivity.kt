@@ -98,9 +98,26 @@ class BarcodeScannerActivity : AppCompatActivity() {
                     it.setAnalyzer(cameraExecutor, BarcodeAnalyzer { barcode ->
                         runOnUiThread {
                             if (!isProcessing) {
-                                isProcessing = true
-                                showScanResult(barcode)
-                                processBarcode(barcode)
+                                // Require consistent reads to prevent misreads
+                                if (barcode == lastScannedBarcode) {
+                                    consistentReadCount++
+                                    Log.d(TAG, "Consistent read #$consistentReadCount for: $barcode")
+                                } else {
+                                    lastScannedBarcode = barcode
+                                    consistentReadCount = 1
+                                    Log.d(TAG, "New barcode detected: $barcode")
+                                }
+                                
+                                // Only process after required consistent reads
+                                if (consistentReadCount >= REQUIRED_CONSISTENT_READS) {
+                                    isProcessing = true
+                                    Log.d(TAG, "Barcode confirmed: $barcode")
+                                    showScanResult(barcode)
+                                    processBarcode(barcode)
+                                } else {
+                                    // Show scanning progress
+                                    binding.tvScanResult.text = "Verifying: $barcode ($consistentReadCount/$REQUIRED_CONSISTENT_READS)"
+                                }
                             }
                         }
                     })
@@ -197,27 +214,11 @@ class BarcodeScannerActivity : AppCompatActivity() {
                                     Barcode.FORMAT_CODE_128,
                                     Barcode.FORMAT_CODE_39 -> {
                                         // Validate checksum before accepting
-                                        if (!BarcodeValidator.isValid(barcodeValue)) {
-                                            Log.w("BarcodeAnalyzer", "Invalid checksum for barcode: $barcodeValue")
-                                            return@addOnSuccessListener
-                                        }
-                                        
-                                        // Require consistent reads to avoid misreads
-                                        if (barcodeValue == lastScannedBarcode) {
-                                            consistentReadCount++
-                                            Log.d("BarcodeAnalyzer", "Consistent read #$consistentReadCount for: $barcodeValue")
-                                        } else {
-                                            // Different barcode - reset counter
-                                            lastScannedBarcode = barcodeValue
-                                            consistentReadCount = 1
-                                            Log.d("BarcodeAnalyzer", "New barcode detected: $barcodeValue")
-                                        }
-                                        
-                                        // Only accept after required consistent reads
-                                        if (consistentReadCount >= REQUIRED_CONSISTENT_READS) {
-                                            Log.d("BarcodeAnalyzer", "Barcode confirmed after $consistentReadCount reads: $barcodeValue")
+                                        if (BarcodeValidator.isValid(barcodeValue)) {
                                             listener(barcodeValue)
                                             return@addOnSuccessListener
+                                        } else {
+                                            Log.w("BarcodeAnalyzer", "Invalid checksum for barcode: $barcodeValue")
                                         }
                                     }
                                     else -> {

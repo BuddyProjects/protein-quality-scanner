@@ -1132,8 +1132,26 @@ object ProteinDatabase {
             )
         }
 
+        // Extract only the ingredients section (after "Zutaten:", "Ingredients:", etc.)
+        // This prevents matching product description text before the actual ingredients list
+        val ingredientMarkers = listOf(
+            "zutaten:", "zutaten :", "ingredients:", "ingredients :",
+            "ingrédients:", "ingrédients :", "ingredienti:", "ingredienti :",
+            "ingredientes:", "ingredientes :", "składniki:", "składniki :",
+            "ingrediënten:", "ingrediënten :", "ainekset:", "ainekset :"
+        )
+        val textLower = ingredientsText.lowercase()
+        val extractedText = ingredientMarkers
+            .mapNotNull { marker -> 
+                val idx = textLower.indexOf(marker)
+                if (idx >= 0) idx + marker.length else null
+            }
+            .minOrNull()
+            ?.let { startIdx -> ingredientsText.substring(startIdx).trim() }
+            ?: ingredientsText  // Fallback: use full text if no marker found
+
         // Strip underscores and asterisks used for markdown formatting (e.g., "_Blé_" -> "Blé", "blé*" -> "blé")
-        val ingredientsLower = ingredientsText.replace("_", "").replace("*", "").lowercase()
+        val ingredientsLower = extractedText.replace("_", "").replace("*", "").lowercase()
         val detectedProteins = mutableListOf<DetectedProtein>()
         val debugMatches = mutableListOf<DebugMatchInfo>()
         var totalScore = 0.0
@@ -1271,7 +1289,7 @@ object ProteinDatabase {
             warnings = warnings,
             detectedProteins = detectedProteins,
             debugMatches = debugMatches.sortedBy { it.charPosition },
-            rawIngredientText = ingredientsText
+            rawIngredientText = extractedText
         )
     }
 }

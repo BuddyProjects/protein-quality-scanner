@@ -25,6 +25,11 @@ class BarcodeScannerActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private val barcodeScanner = BarcodeScanning.getClient()
     private var isProcessing = false
+    
+    // Require consistent reads to avoid misreads
+    private var lastScannedBarcode: String? = null
+    private var consistentReadCount = 0
+    private val REQUIRED_CONSISTENT_READS = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +55,19 @@ class BarcodeScannerActivity : AppCompatActivity() {
     private fun setupButtons() {
         binding.btnSubmit.setOnClickListener {
             val barcode = binding.etBarcodeManual.text.toString().trim()
-            if (barcode.isNotEmpty()) {
-                processBarcode(barcode)
-            } else {
+            if (barcode.isEmpty()) {
                 Toast.makeText(this, "Please enter a barcode", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+            
+            // Validate barcode checksum
+            val validation = BarcodeValidator.validate(barcode)
+            if (!validation.isValid) {
+                Toast.makeText(this, "Invalid barcode: ${validation.reason}", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+            
+            processBarcode(barcode)
         }
 
         binding.btnBack.setOnClickListener {
@@ -183,8 +196,29 @@ class BarcodeScannerActivity : AppCompatActivity() {
                                     Barcode.FORMAT_UPC_E,
                                     Barcode.FORMAT_CODE_128,
                                     Barcode.FORMAT_CODE_39 -> {
-                                        listener(barcodeValue)
-                                        return@addOnSuccessListener
+                                        // Validate checksum before accepting
+                                        if (!BarcodeValidator.isValid(barcodeValue)) {
+                                            Log.w("BarcodeAnalyzer", "Invalid checksum for barcode: $barcodeValue")
+                                            return@addOnSuccessListener
+                                        }
+                                        
+                                        // Require consistent reads to avoid misreads
+                                        if (barcodeValue == lastScannedBarcode) {
+                                            consistentReadCount++
+                                            Log.d("BarcodeAnalyzer", "Consistent read #$consistentReadCount for: $barcodeValue")
+                                        } else {
+                                            // Different barcode - reset counter
+                                            lastScannedBarcode = barcodeValue
+                                            consistentReadCount = 1
+                                            Log.d("BarcodeAnalyzer", "New barcode detected: $barcodeValue")
+                                        }
+                                        
+                                        // Only accept after required consistent reads
+                                        if (consistentReadCount >= REQUIRED_CONSISTENT_READS) {
+                                            Log.d("BarcodeAnalyzer", "Barcode confirmed after $consistentReadCount reads: $barcodeValue")
+                                            listener(barcodeValue)
+                                            return@addOnSuccessListener
+                                        }
                                     }
                                     else -> {
                                         // Ignore other barcode formats

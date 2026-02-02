@@ -192,13 +192,13 @@ class PendingScansActivity : AppCompatActivity() {
                     }
                     is FetchResult.ProductNotFound -> {
                         // Product not in database - remove from queue with message
-                        android.util.Log.d("PendingScans", "NOT FOUND for ${pendingScan.barcode}")
+                        android.util.Log.d("PendingScans", "NOT FOUND for ${pendingScan.barcode}: ${result.reason}")
                         database.pendingScanDao().deleteById(pendingScan.id)
                         showRetryError(
                             title = "Product Not Found",
                             message = "Product not found in database",
                             barcode = pendingScan.barcode,
-                            debugInfo = "Result: ProductNotFound\nBarcode: ${pendingScan.barcode}"
+                            debugInfo = "Result: ProductNotFound\nBarcode: ${pendingScan.barcode}\nReason: ${result.reason}"
                         )
                     }
                     is FetchResult.ApiUnavailable -> {

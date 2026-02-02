@@ -26,7 +26,7 @@ data class ProductInfo(
  */
 sealed class FetchResult {
     data class Success(val product: ProductInfo) : FetchResult()
-    data class ProductNotFound(val barcode: String) : FetchResult()
+    data class ProductNotFound(val barcode: String, val reason: String = "API returned status=0") : FetchResult()
     data class ApiUnavailable(val reason: String) : FetchResult()
     data class NetworkError(val reason: String) : FetchResult()
 }
@@ -99,6 +99,7 @@ object OpenFoodFactsService {
                             )
                         )
                     } else {
+                        android.util.Log.d("OpenFoodFacts", "Product not found: status=${jsonResponse.optInt("status", -1)} for $barcode")
                         FetchResult.ProductNotFound(barcode)
                     }
                 }
@@ -125,7 +126,8 @@ object OpenFoodFactsService {
         } catch (e: JSONException) {
             // API returned data but in unexpected format - treat as product not found
             e.printStackTrace()
-            FetchResult.ProductNotFound(barcode)
+            android.util.Log.e("OpenFoodFacts", "JSONException for $barcode - treating as not found: ${e.message}")
+            FetchResult.ProductNotFound(barcode, "JSONException: ${e.message}")
         } catch (e: IOException) {
             // Log for debugging
             e.printStackTrace()
@@ -148,7 +150,8 @@ object OpenFoodFactsService {
             } else {
                 // Non-network IOExceptions (e.g., parsing issues) → treat as not found
                 // This prevents false "offline" messages
-                FetchResult.ProductNotFound(barcode)
+                android.util.Log.e("OpenFoodFacts", "IOException (non-network) for $barcode - treating as not found: ${e.message}")
+                FetchResult.ProductNotFound(barcode, "IOException: ${e.message}")
             }
         } catch (e: Exception) {
             // Log the actual exception type for debugging
@@ -165,7 +168,8 @@ object OpenFoodFactsService {
                 else -> {
                     // Treat non-network exceptions as "product not found" to avoid
                     // misleading users about their connection status
-                    FetchResult.ProductNotFound(barcode)
+                    android.util.Log.e("OpenFoodFacts", "Generic exception for $barcode - treating as not found: ${e.javaClass.simpleName}: ${e.message}")
+                    FetchResult.ProductNotFound(barcode, "${e.javaClass.simpleName}: ${e.message}")
                 }
             }
         }

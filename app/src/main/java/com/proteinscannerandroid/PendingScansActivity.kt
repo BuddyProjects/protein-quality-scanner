@@ -29,8 +29,8 @@ class PendingScansActivity : AppCompatActivity() {
         binding = ActivityPendingScansBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Read debug preference
-        val sharedPreferences = getSharedPreferences("app_settings", MODE_PRIVATE)
+        // Read debug preference (must match SettingsActivity.PREFS_NAME)
+        val sharedPreferences = getSharedPreferences(SettingsActivity.PREFS_NAME, MODE_PRIVATE)
         isDebugMode = sharedPreferences.getBoolean(SettingsActivity.KEY_DEBUG_ENABLED, false)
 
         setupRecyclerView()

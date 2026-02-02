@@ -129,8 +129,14 @@ class PendingScansActivity : AppCompatActivity() {
                     is FetchResult.Success -> {
                         // Success! Remove from queue and open results with prefetched data
                         // (avoid second API call which could fail)
-                        database.pendingScanDao().deleteById(pendingScan.id)
                         val product = result.product
+                        android.util.Log.d("PendingScans", "SUCCESS for ${pendingScan.barcode}")
+                        android.util.Log.d("PendingScans", "  Name: ${product.name}")
+                        android.util.Log.d("PendingScans", "  Brand: ${product.brand}")
+                        android.util.Log.d("PendingScans", "  Ingredients: ${product.ingredientsText?.take(100)}...")
+                        android.util.Log.d("PendingScans", "  Protein: ${product.proteinPer100g}")
+                        
+                        database.pendingScanDao().deleteById(pendingScan.id)
                         val intent = Intent(this@PendingScansActivity, ResultsActivity::class.java)
                         intent.putExtra("BARCODE", pendingScan.barcode)
                         intent.putExtra("PREFETCHED_PRODUCT", true)
@@ -142,6 +148,7 @@ class PendingScansActivity : AppCompatActivity() {
                     }
                     is FetchResult.ProductNotFound -> {
                         // Product not in database - remove from queue with message
+                        android.util.Log.d("PendingScans", "NOT FOUND for ${pendingScan.barcode}")
                         database.pendingScanDao().deleteById(pendingScan.id)
                         Snackbar.make(
                             binding.root,
@@ -150,6 +157,7 @@ class PendingScansActivity : AppCompatActivity() {
                         ).show()
                     }
                     is FetchResult.ApiUnavailable -> {
+                        android.util.Log.d("PendingScans", "API UNAVAILABLE for ${pendingScan.barcode}: ${result.reason}")
                         Snackbar.make(
                             binding.root,
                             "Server unavailable, try again later",
@@ -157,6 +165,7 @@ class PendingScansActivity : AppCompatActivity() {
                         ).show()
                     }
                     is FetchResult.NetworkError -> {
+                        android.util.Log.d("PendingScans", "NETWORK ERROR for ${pendingScan.barcode}: ${result.reason}")
                         Snackbar.make(
                             binding.root,
                             "Still offline - check your connection",

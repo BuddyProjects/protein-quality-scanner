@@ -127,10 +127,17 @@ class PendingScansActivity : AppCompatActivity() {
 
                 when (result) {
                     is FetchResult.Success -> {
-                        // Success! Remove from queue and open results
+                        // Success! Remove from queue and open results with prefetched data
+                        // (avoid second API call which could fail)
                         database.pendingScanDao().deleteById(pendingScan.id)
+                        val product = result.product
                         val intent = Intent(this@PendingScansActivity, ResultsActivity::class.java)
                         intent.putExtra("BARCODE", pendingScan.barcode)
+                        intent.putExtra("PREFETCHED_PRODUCT", true)
+                        intent.putExtra("PRODUCT_NAME", product.name)
+                        intent.putExtra("PRODUCT_BRAND", product.brand)
+                        intent.putExtra("PRODUCT_INGREDIENTS", product.ingredientsText)
+                        intent.putExtra("PRODUCT_PROTEIN_100G", product.proteinPer100g ?: -1.0)
                         startActivity(intent)
                     }
                     is FetchResult.ProductNotFound -> {

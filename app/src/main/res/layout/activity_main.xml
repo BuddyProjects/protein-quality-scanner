@@ -38,7 +38,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_sync"
-                app:tint="#FFB84D" />
+                app:tint="@color/primary_accent" />
 
             <!-- Badge -->
             <TextView

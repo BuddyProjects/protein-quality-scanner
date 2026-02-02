@@ -70,6 +70,7 @@ class ResultsActivity : AppCompatActivity() {
         // Check what type of result this is
         val isOcrResult = intent.getBooleanExtra("IS_OCR_RESULT", false)
         val isCachedResult = intent.getBooleanExtra("IS_CACHED_RESULT", false)
+        val isPrefetchedProduct = intent.getBooleanExtra("PREFETCHED_PRODUCT", false)
         val proteinSource = intent.getStringExtra("PROTEIN_SOURCE")
         val barcode = intent.getStringExtra("BARCODE")
         
@@ -97,6 +98,19 @@ class ResultsActivity : AppCompatActivity() {
                     proteinSourcesJson = intent.getStringExtra("CACHED_PROTEIN_SOURCES_JSON") ?: "[]",
                     proteinPer100g = intent.getDoubleExtra("CACHED_PROTEIN_PER_100G", -1.0).takeIf { it >= 0 }
                 )
+            }
+            isPrefetchedProduct && barcode != null -> {
+                // Product data already fetched (e.g., from offline queue retry)
+                // Analyze without making another API call
+                debugLog("📦 Processing prefetched product data")
+                val productInfo = ProductInfo(
+                    barcode = barcode,
+                    name = intent.getStringExtra("PRODUCT_NAME"),
+                    brand = intent.getStringExtra("PRODUCT_BRAND"),
+                    ingredientsText = intent.getStringExtra("PRODUCT_INGREDIENTS"),
+                    proteinPer100g = intent.getDoubleExtra("PRODUCT_PROTEIN_100G", -1.0).takeIf { it >= 0 }
+                )
+                processPrefetchedProduct(productInfo)
             }
             barcode != null -> {
                 fetchProductData(barcode)
@@ -480,6 +494,50 @@ class ResultsActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 debugLog("💥 Error: ${e.message}")
+                e.printStackTrace()
+                showError("Error: ${e.message}")
+            }
+        }
+    }
+
+    /**
+     * Process product data that was already fetched (e.g., from offline queue retry).
+     * Skips the API call since we already have the data.
+     */
+    private fun processPrefetchedProduct(productInfo: ProductInfo) {
+        lifecycleScope.launch {
+            try {
+                debugLog("✅ Processing prefetched product: ${productInfo.name}")
+                debugLog("🏭 Brand: ${productInfo.brand}")
+                debugLog("🥗 Ingredients: ${productInfo.ingredientsText}")
+                debugLog("💪 Protein per 100g: ${productInfo.proteinPer100g}")
+
+                // Analyze protein quality locally
+                debugLog("🧬 Starting protein analysis...")
+                val analysis = ProteinDatabase.analyzeProteinQuality(
+                    productInfo.ingredientsText ?: "",
+                    productInfo.proteinPer100g
+                )
+
+                debugLog("📊 Analysis complete:")
+                debugLog("   PDCAAS Score: ${analysis.weightedPdcaas}")
+                debugLog("   Quality: ${analysis.qualityLabel}")
+                debugLog("   Confidence: ${analysis.confidenceScore}")
+                debugLog("   Detected proteins: ${analysis.detectedProteins.size}")
+
+                for (protein in analysis.detectedProteins) {
+                    debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${protein.proteinSource.pdcaas}, Weight: ${String.format("%.1f", protein.weight)}) - matched '${protein.matchedKeyword}'")
+                }
+
+                logDetailedMatches(analysis)
+
+                if (analysis.warnings.isNotEmpty()) {
+                    debugLog("⚠️ Warnings: ${analysis.warnings.joinToString(", ")}")
+                }
+
+                displayResults(productInfo, analysis)
+            } catch (e: Exception) {
+                debugLog("💥 Error processing prefetched product: ${e.message}")
                 e.printStackTrace()
                 showError("Error: ${e.message}")
             }

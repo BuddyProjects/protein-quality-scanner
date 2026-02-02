@@ -127,21 +127,47 @@ object OpenFoodFactsService {
             e.printStackTrace()
             FetchResult.ProductNotFound(barcode)
         } catch (e: IOException) {
-            // Catch-all for other IO/network issues (includes most network errors on Android)
+            // Log for debugging
+            e.printStackTrace()
+            android.util.Log.e("OpenFoodFacts", "IOException: ${e.javaClass.simpleName}, message: ${e.message}")
+            
+            // Check if this is a real network error or just a data/parsing issue
             val message = e.message?.lowercase() ?: ""
-            when {
-                message.contains("network") || message.contains("connect") || 
-                message.contains("unreachable") || message.contains("refused") -> {
-                    FetchResult.NetworkError("Network unavailable - check your connection")
-                }
-                else -> {
-                    e.printStackTrace()
-                    FetchResult.NetworkError("Connection error: ${e.message ?: "Unknown error"}")
-                }
+            val isNetworkError = message.contains("network") || 
+                                 message.contains("connect") || 
+                                 message.contains("unreachable") || 
+                                 message.contains("refused") ||
+                                 message.contains("reset") ||
+                                 message.contains("closed") ||
+                                 message.contains("timeout") ||
+                                 message.contains("host") ||
+                                 message.contains("route")
+            
+            if (isNetworkError) {
+                FetchResult.NetworkError("Network unavailable - check your connection")
+            } else {
+                // Non-network IOExceptions (e.g., parsing issues) → treat as not found
+                // This prevents false "offline" messages
+                FetchResult.ProductNotFound(barcode)
             }
         } catch (e: Exception) {
+            // Log the actual exception type for debugging
             e.printStackTrace()
-            FetchResult.NetworkError("Unexpected error: ${e.message ?: "Unknown error"}")
+            android.util.Log.e("OpenFoodFacts", "Unexpected exception type: ${e.javaClass.simpleName}, message: ${e.message}")
+            
+            // Only treat actual network-related exceptions as NetworkError
+            // Everything else is likely a parsing/data issue, not a connectivity problem
+            when (e) {
+                is java.net.ProtocolException,
+                is java.io.InterruptedIOException -> {
+                    FetchResult.NetworkError("Connection interrupted: ${e.message ?: "Unknown error"}")
+                }
+                else -> {
+                    // Treat non-network exceptions as "product not found" to avoid
+                    // misleading users about their connection status
+                    FetchResult.ProductNotFound(barcode)
+                }
+            }
         }
     }
     

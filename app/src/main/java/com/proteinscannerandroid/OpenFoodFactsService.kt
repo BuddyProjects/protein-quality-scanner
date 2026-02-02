@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException
 import java.net.URL
 import java.net.UnknownHostException
 import javax.net.ssl.SSLException
+import org.json.JSONException
 
 data class ProductInfo(
     val barcode: String,
@@ -68,8 +69,14 @@ object OpenFoodFactsService {
                     val response = connection.inputStream.bufferedReader().use { it.readText() }
                     val jsonResponse = JSONObject(response)
 
-                    if (jsonResponse.getInt("status") == 1) {
-                        val product = jsonResponse.getJSONObject("product")
+                    // Use optInt with default 0 to safely handle missing/invalid status
+                    if (jsonResponse.optInt("status", 0) == 1) {
+                        val product = jsonResponse.optJSONObject("product")
+                        
+                        // If product object is missing despite status=1, treat as not found
+                        if (product == null) {
+                            return@withContext FetchResult.ProductNotFound(barcode)
+                        }
 
                         val productName = product.optString("product_name", null).takeIf { it.isNotBlank() }
                         val brand = product.optString("brands", null).takeIf { it.isNotBlank() }
@@ -115,6 +122,10 @@ object OpenFoodFactsService {
             FetchResult.NetworkError("Connection failed - network may be unavailable")
         } catch (e: SSLException) {
             FetchResult.NetworkError("Secure connection failed - check your network")
+        } catch (e: JSONException) {
+            // API returned data but in unexpected format - treat as product not found
+            e.printStackTrace()
+            FetchResult.ProductNotFound(barcode)
         } catch (e: IOException) {
             // Catch-all for other IO/network issues (includes most network errors on Android)
             val message = e.message?.lowercase() ?: ""

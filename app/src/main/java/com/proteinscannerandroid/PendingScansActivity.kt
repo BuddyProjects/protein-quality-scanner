@@ -22,11 +22,16 @@ class PendingScansActivity : AppCompatActivity() {
     private lateinit var adapter: PendingScanAdapter
     private val database by lazy { AppDatabase.getInstance(this) }
     private var isRetrying = false
+    private var isDebugMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPendingScansBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Read debug preference
+        val sharedPreferences = getSharedPreferences("app_settings", MODE_PRIVATE)
+        isDebugMode = sharedPreferences.getBoolean(SettingsActivity.KEY_DEBUG_ENABLED, false)
 
         setupRecyclerView()
         setupClickListeners()
@@ -136,49 +141,92 @@ class PendingScansActivity : AppCompatActivity() {
                         android.util.Log.d("PendingScans", "  Ingredients: ${product.ingredientsText?.take(100)}...")
                         android.util.Log.d("PendingScans", "  Protein: ${product.proteinPer100g}")
                         
-                        database.pendingScanDao().deleteById(pendingScan.id)
-                        val intent = Intent(this@PendingScansActivity, ResultsActivity::class.java)
-                        intent.putExtra("BARCODE", pendingScan.barcode)
-                        intent.putExtra("PREFETCHED_PRODUCT", true)
-                        intent.putExtra("PRODUCT_NAME", product.name)
-                        intent.putExtra("PRODUCT_BRAND", product.brand)
-                        intent.putExtra("PRODUCT_INGREDIENTS", product.ingredientsText)
-                        intent.putExtra("PRODUCT_PROTEIN_100G", product.proteinPer100g ?: -1.0)
-                        startActivity(intent)
+                        // In debug mode, show what data we got before opening results
+                        if (isDebugMode) {
+                            val debugInfo = buildString {
+                                appendLine("✅ API SUCCESS")
+                                appendLine("━━━━━━━━━━━━━━━━━━━━━━")
+                                appendLine("Barcode: ${pendingScan.barcode}")
+                                appendLine("Name: ${product.name ?: "(null)"}")
+                                appendLine("Brand: ${product.brand ?: "(null)"}")
+                                appendLine("Protein/100g: ${product.proteinPer100g ?: "(null)"}")
+                                appendLine("━━━━━━━━━━━━━━━━━━━━━━")
+                                appendLine("Ingredients:")
+                                appendLine(product.ingredientsText ?: "(null/empty)")
+                            }
+                            AlertDialog.Builder(this@PendingScansActivity)
+                                .setTitle("🔧 DEBUG: Retry Success")
+                                .setMessage(debugInfo)
+                                .setPositiveButton("Continue") { _, _ ->
+                                    lifecycleScope.launch {
+                                        database.pendingScanDao().deleteById(pendingScan.id)
+                                    }
+                                    val intent = Intent(this@PendingScansActivity, ResultsActivity::class.java)
+                                    intent.putExtra("BARCODE", pendingScan.barcode)
+                                    intent.putExtra("PREFETCHED_PRODUCT", true)
+                                    intent.putExtra("PRODUCT_NAME", product.name)
+                                    intent.putExtra("PRODUCT_BRAND", product.brand)
+                                    intent.putExtra("PRODUCT_INGREDIENTS", product.ingredientsText)
+                                    intent.putExtra("PRODUCT_PROTEIN_100G", product.proteinPer100g ?: -1.0)
+                                    startActivity(intent)
+                                }
+                                .setNeutralButton("Copy Info") { _, _ ->
+                                    val clipboard = getSystemService(CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                                    val clip = android.content.ClipData.newPlainText("Debug Info", debugInfo)
+                                    clipboard.setPrimaryClip(clip)
+                                    Toast.makeText(this@PendingScansActivity, "Copied! Tap Continue to proceed", Toast.LENGTH_SHORT).show()
+                                }
+                                .setCancelable(false)
+                                .show()
+                        } else {
+                            database.pendingScanDao().deleteById(pendingScan.id)
+                            val intent = Intent(this@PendingScansActivity, ResultsActivity::class.java)
+                            intent.putExtra("BARCODE", pendingScan.barcode)
+                            intent.putExtra("PREFETCHED_PRODUCT", true)
+                            intent.putExtra("PRODUCT_NAME", product.name)
+                            intent.putExtra("PRODUCT_BRAND", product.brand)
+                            intent.putExtra("PRODUCT_INGREDIENTS", product.ingredientsText)
+                            intent.putExtra("PRODUCT_PROTEIN_100G", product.proteinPer100g ?: -1.0)
+                            startActivity(intent)
+                        }
                     }
                     is FetchResult.ProductNotFound -> {
                         // Product not in database - remove from queue with message
                         android.util.Log.d("PendingScans", "NOT FOUND for ${pendingScan.barcode}")
                         database.pendingScanDao().deleteById(pendingScan.id)
-                        Snackbar.make(
-                            binding.root,
-                            "Product not found in database",
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        showRetryError(
+                            title = "Product Not Found",
+                            message = "Product not found in database",
+                            barcode = pendingScan.barcode,
+                            debugInfo = "Result: ProductNotFound\nBarcode: ${pendingScan.barcode}"
+                        )
                     }
                     is FetchResult.ApiUnavailable -> {
                         android.util.Log.d("PendingScans", "API UNAVAILABLE for ${pendingScan.barcode}: ${result.reason}")
-                        Snackbar.make(
-                            binding.root,
-                            "Server unavailable, try again later",
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        showRetryError(
+                            title = "Server Unavailable",
+                            message = "Server unavailable, try again later",
+                            barcode = pendingScan.barcode,
+                            debugInfo = "Result: ApiUnavailable\nBarcode: ${pendingScan.barcode}\nReason: ${result.reason}"
+                        )
                     }
                     is FetchResult.NetworkError -> {
                         android.util.Log.d("PendingScans", "NETWORK ERROR for ${pendingScan.barcode}: ${result.reason}")
-                        Snackbar.make(
-                            binding.root,
-                            "Still offline - check your connection",
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        showRetryError(
+                            title = "Connection Problem",
+                            message = "Still offline - check your connection",
+                            barcode = pendingScan.barcode,
+                            debugInfo = "Result: NetworkError\nBarcode: ${pendingScan.barcode}\nReason: ${result.reason}"
+                        )
                     }
                 }
             } catch (e: Exception) {
-                Snackbar.make(
-                    binding.root,
-                    "Retry failed: ${e.message}",
-                    Snackbar.LENGTH_LONG
-                ).show()
+                showRetryError(
+                    title = "Retry Failed",
+                    message = "Retry failed: ${e.message}",
+                    barcode = pendingScan.barcode,
+                    debugInfo = "Exception: ${e.javaClass.simpleName}\nMessage: ${e.message}\nBarcode: ${pendingScan.barcode}"
+                )
             } finally {
                 isRetrying = false
             }
@@ -257,6 +305,29 @@ class PendingScansActivity : AppCompatActivity() {
                 // All succeeded, go back to main
                 Toast.makeText(this@PendingScansActivity, "All scans completed!", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    /**
+     * Show retry error - as Snackbar normally, or as detailed AlertDialog in debug mode.
+     */
+    private fun showRetryError(title: String, message: String, barcode: String, debugInfo: String) {
+        if (isDebugMode) {
+            // Show detailed AlertDialog in debug mode
+            AlertDialog.Builder(this)
+                .setTitle("🔧 DEBUG: $title")
+                .setMessage("$message\n\n━━━━━━━━━━━━━━━━━━━━━━\n📋 Debug Info:\n$debugInfo")
+                .setPositiveButton("OK", null)
+                .setNeutralButton("Copy Info") { _, _ ->
+                    val clipboard = getSystemService(CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                    val clip = android.content.ClipData.newPlainText("Debug Info", debugInfo)
+                    clipboard.setPrimaryClip(clip)
+                    Toast.makeText(this, "Debug info copied", Toast.LENGTH_SHORT).show()
+                }
+                .show()
+        } else {
+            // Show simple Snackbar in normal mode
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_LONG).show()
         }
     }
 }

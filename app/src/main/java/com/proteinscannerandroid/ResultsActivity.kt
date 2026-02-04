@@ -460,13 +460,13 @@ class ResultsActivity : AppCompatActivity() {
                         )
                         
                         debugLog("📊 Analysis complete:")
-                        debugLog("   PDCAAS Score: ${analysis.weightedPdcaas}")
+                        debugLog("   PDCAAS Score: ${String.format("%.2f", analysis.weightedPdcaas)}")
                         debugLog("   Quality: ${analysis.qualityLabel}")
                         debugLog("   Confidence: ${analysis.confidenceScore}")
                         debugLog("   Detected proteins: ${analysis.detectedProteins.size}")
 
                         for (protein in analysis.detectedProteins) {
-                            debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${protein.proteinSource.pdcaas}, Weight: ${String.format("%.1f", protein.weight)}) - matched '${protein.matchedKeyword}'")
+                            debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${String.format("%.2f", protein.proteinSource.pdcaas)}, Weight: ${String.format("%.1f", protein.weight)}) - matched '${protein.matchedKeyword}'")
                         }
 
                         // Log detailed keyword matches
@@ -520,13 +520,13 @@ class ResultsActivity : AppCompatActivity() {
                 )
 
                 debugLog("📊 Analysis complete:")
-                debugLog("   PDCAAS Score: ${analysis.weightedPdcaas}")
+                debugLog("   PDCAAS Score: ${String.format("%.2f", analysis.weightedPdcaas)}")
                 debugLog("   Quality: ${analysis.qualityLabel}")
                 debugLog("   Confidence: ${analysis.confidenceScore}")
                 debugLog("   Detected proteins: ${analysis.detectedProteins.size}")
 
                 for (protein in analysis.detectedProteins) {
-                    debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${protein.proteinSource.pdcaas}, Weight: ${String.format("%.1f", protein.weight)}) - matched '${protein.matchedKeyword}'")
+                    debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${String.format("%.2f", protein.proteinSource.pdcaas)}, Weight: ${String.format("%.1f", protein.weight)}) - matched '${protein.matchedKeyword}'")
                 }
 
                 logDetailedMatches(analysis)
@@ -775,7 +775,7 @@ class ResultsActivity : AppCompatActivity() {
                 val analysis = ProteinDatabase.analyzeProteinQuality(proteinSourceName, null)
 
                 debugLog("📊 Lookup complete:")
-                debugLog("   PDCAAS Score: ${analysis.weightedPdcaas}")
+                debugLog("   PDCAAS Score: ${String.format("%.2f", analysis.weightedPdcaas)}")
                 debugLog("   Quality: ${analysis.qualityLabel}")
                 debugLog("   Detected proteins: ${analysis.detectedProteins.size}")
 
@@ -823,12 +823,12 @@ class ResultsActivity : AppCompatActivity() {
                 val analysis = ProteinDatabase.analyzeProteinQuality(ingredientText, null)
 
                 debugLog("✅ Analysis complete")
-                debugLog("   PDCAAS Score: ${analysis.weightedPdcaas}")
+                debugLog("   PDCAAS Score: ${String.format("%.2f", analysis.weightedPdcaas)}")
                 debugLog("   Quality: ${analysis.qualityLabel}")
                 debugLog("   Detected proteins: ${analysis.detectedProteins.size}")
 
                 for (protein in analysis.detectedProteins) {
-                    debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${protein.proteinSource.pdcaas}) - matched '${protein.matchedKeyword}'")
+                    debugLog("   • #${protein.position} ${protein.proteinSource.name} (PDCAAS: ${String.format("%.2f", protein.proteinSource.pdcaas)}) - matched '${protein.matchedKeyword}'")
                 }
 
                 // Log detailed keyword matches

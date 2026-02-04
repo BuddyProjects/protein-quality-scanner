@@ -484,7 +484,9 @@ object ProteinDatabase {
             name = "Whey Protein Concentrate",
             pdcaas = 1.0,
             qualityCategory = "Excellent",
-            keywords = listOf("whey protein concentrate", "whey concentrate", "whey powder", "whey", "molkenproteinkonzentrat", "molkenprotein", "molkenpulver", "molkeneiweiß", "molkeneiweiss", "concentré de protéines de lactosérum", "poudre de lactosérum"),
+            // REMOVED "molkenprotein" - it's a substring of "molkenproteinisolat" causing double-matches
+            // Generic German whey terms: molkeneiweiß, molkeneiweiss, molkenpulver
+            keywords = listOf("whey protein concentrate", "whey concentrate", "whey powder", "whey", "molkenproteinkonzentrat", "molkenpulver", "molkeneiweiß", "molkeneiweiss", "concentré de protéines de lactosérum", "poudre de lactosérum"),
             description = "High-quality milk protein with excellent amino acid profile",
             diaas = 109,
             limitingAminoAcids = emptyList(),
@@ -495,7 +497,9 @@ object ProteinDatabase {
             name = "Whey Protein Isolate",
             pdcaas = 1.0,
             qualityCategory = "Excellent", 
-            keywords = listOf("whey protein isolate", "whey isolate", "molkenproteinisolat", "molkenprotein", "molkeneiweiß", "molkeneiweiss", "isolat de protéines de lactosérum"),
+            // REMOVED generic terms: "molkenprotein", "molkeneiweiß", "molkeneiweiss" - these now only match Concentrate
+            // Isolate should only match when "isolat/isolate" is explicitly mentioned
+            keywords = listOf("whey protein isolate", "whey isolate", "molkenproteinisolat", "molkenisolat", "isolat de protéines de lactosérum"),
             description = "Highly purified whey protein with minimal lactose and fat",
             diaas = 109,
             limitingAminoAcids = emptyList(),
@@ -622,7 +626,9 @@ object ProteinDatabase {
             name = "Soy Protein Isolate",
             pdcaas = 0.95,
             qualityCategory = "Excellent",
-            keywords = listOf("soy protein isolate", "soy isolate", "soy", "sojaproteinisolat", "sojaprotein", "sojaisolat", "isolat de protéine de soja", "isolat de protéines de soja"),
+            // REMOVED generic terms: "soy", "sojaprotein" - these now only match generic Soy Protein
+            // Isolate should only match when "isolat/isolate" is explicitly mentioned
+            keywords = listOf("soy protein isolate", "soy isolate", "sojaproteinisolat", "sojaisolat", "isolat de protéine de soja", "isolat de protéines de soja"),
             description = "Highly purified plant protein with complete amino acid profile",
             diaas = 91,
             limitingAminoAcids = listOf("Methionine"),
@@ -633,7 +639,9 @@ object ProteinDatabase {
             name = "Soy Protein Concentrate",
             pdcaas = 0.91,
             qualityCategory = "Excellent",
-            keywords = listOf("soy protein concentrate", "soy concentrate", "soy", "sojaproteinkonzentrat", "sojaprotein", "sojakonzentrat"),
+            // REMOVED generic "soy" - too broad, use generic Soy Protein for that
+            // Concentrate should match when "concentrate/konzentrat" is explicit
+            keywords = listOf("soy protein concentrate", "soy concentrate", "sojaproteinkonzentrat", "sojakonzentrat"),
             description = "Concentrated soy protein with good biological value",
             diaas = 91,
             limitingAminoAcids = listOf("Methionine"),
@@ -644,7 +652,9 @@ object ProteinDatabase {
             name = "Soy Protein",
             pdcaas = 0.85,
             qualityCategory = "Good",
-            keywords = listOf("soy protein", "soja", "soya", "soya flour", "sojaprotein", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soja beans", "sojabohnen"),
+            // REMOVED "sojaprotein" - it's a substring of "sojaproteinisolat" causing double-matches
+            // Generic German soy terms: sojaeiweiß, sojaeiweiss, soja
+            keywords = listOf("soy protein", "soja", "soya", "soya flour", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soja beans", "sojabohnen"),
             description = "Plant-based complete protein from soybeans",
             diaas = 91,
             limitingAminoAcids = listOf("Methionine"),
@@ -657,7 +667,9 @@ object ProteinDatabase {
             name = "Pea Protein Isolate",
             pdcaas = 0.85,
             qualityCategory = "Good",
-            keywords = listOf("pea protein isolate", "pea isolate", "pea", "erbsenproteinisolat", "erbsenprotein", "erbsenisolat", "isolat de protéines de pois", "isolat de protéine de pois", "isolats de protéines de pois", "isolats de protéine de pois"),
+            // REMOVED generic terms: "pea", "erbsenprotein" - these now only match generic Pea Protein
+            // Isolate should only match when "isolat/isolate" is explicitly mentioned
+            keywords = listOf("pea protein isolate", "pea isolate", "erbsenproteinisolat", "erbsenisolat", "isolat de protéines de pois", "isolat de protéine de pois", "isolats de protéines de pois", "isolats de protéine de pois"),
             description = "Purified pea protein with improved amino acid profile",
             diaas = 70,
             limitingAminoAcids = listOf("Methionine", "Tryptophan"),
@@ -668,7 +680,9 @@ object ProteinDatabase {
             name = "Pea Protein",
             pdcaas = 0.73,
             qualityCategory = "Medium",
-            keywords = listOf("pea protein", "pea", "erbsenprotein", "protéine de pois", "protéines de pois", "split peas", "erbsen", "peas"),
+            // REMOVED "erbsenprotein" - it's a substring of "erbsenproteinisolat" causing double-matches
+            // Generic German pea terms: erbsen
+            keywords = listOf("pea protein", "pea", "protéine de pois", "protéines de pois", "split peas", "erbsen", "peas"),
             description = "Plant protein with good lysine content",
             diaas = 70,
             limitingAminoAcids = listOf("Methionine", "Tryptophan"),
@@ -767,7 +781,8 @@ object ProteinDatabase {
             name = "Rice Protein",
             pdcaas = 0.47,
             qualityCategory = "Low",
-            keywords = listOf("rice protein", "rice", "reis", "riz", "farine de riz", "reismehl", "reisprotein", "reiseiweiß", "reiseiweiss", "reiseiweisskonzentrat", "reisproteinpulver", "protéine de riz", "protéines de riz", "brown rice protein"),
+            // REMOVED: "reis", "rice", "riz", "reismehl", "farine de riz" - these are base ingredients/flour, not protein sources
+            keywords = listOf("rice protein", "reisprotein", "reiseiweiß", "reiseiweiss", "reiseiweisskonzentrat", "reisproteinpulver", "protéine de riz", "protéines de riz", "brown rice protein"),
             description = "Hypoallergenic plant protein, low in lysine",
             diaas = 60,
             limitingAminoAcids = listOf("Lysine", "Threonine"),
@@ -1160,6 +1175,12 @@ object ProteinDatabase {
         // Find protein sources and their positions for ordinal ranking
         val proteinMatches = mutableListOf<Triple<ProteinSource, String, Int>>() // protein, keyword, position
 
+        // Base keywords that could be substrings of isolate/concentrate forms
+        // These should not partial-match when the compound contains "isolat" or "konzentrat"
+        val proteinBaseKeywords = setOf(
+            "soja", "soya", "erbsen", "peas", "pea", "reis", "rice", "whey", "molke", "molken"
+        )
+        
         for (proteinSource in proteinSources) {
             for (keyword in proteinSource.keywords) {
                 var match: MatchResult? = null
@@ -1178,7 +1199,31 @@ object ProteinDatabase {
                     if (match == null) {
                         // Check if keyword appears anywhere (for German compounds)
                         regex = "${Regex.escape(keyword)}".toRegex(RegexOption.IGNORE_CASE)
-                        match = regex.find(ingredientsLower)
+                        val partialMatch = regex.find(ingredientsLower)
+                        
+                        if (partialMatch != null) {
+                            // For base protein keywords, check if the compound word contains isolat/konzentrat
+                            // If so, skip the partial match (let the isolate/concentrate match instead)
+                            if (keyword.lowercase() in proteinBaseKeywords) {
+                                // Find the full compound word containing this match
+                                val matchStart = partialMatch.range.first
+                                val matchEnd = partialMatch.range.last + 1
+                                val wordStart = (matchStart - 1 downTo 0).firstOrNull { 
+                                    ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n')
+                                }?.plus(1) ?: 0
+                                val wordEnd = (matchEnd until ingredientsLower.length).firstOrNull {
+                                    ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n')
+                                } ?: ingredientsLower.length
+                                val fullWord = ingredientsLower.substring(wordStart, wordEnd)
+                                
+                                // Skip if the compound contains isolat/konzentrat (more specific match exists)
+                                if (!fullWord.contains("isolat") && !fullWord.contains("konzentrat")) {
+                                    match = partialMatch
+                                }
+                            } else {
+                                match = partialMatch
+                            }
+                        }
                     }
                 }
 
@@ -1224,8 +1269,59 @@ object ProteinDatabase {
 
         // Sort by position (earlier ingredients first) and assign ordinal weights
         val sortedMatches = proteinMatches.sortedBy { it.third }
+        
+        // ============================================================
+        // SMART DETECTION: Isolated proteins vs base ingredients
+        // If isolated proteins (whey, casein, pea isolate, etc.) are found,
+        // ignore base ingredients (wheat, corn, rice flour, etc.)
+        // ============================================================
+        val isolatedProteinNames = setOf(
+            // Dairy isolates
+            "Whey Protein Concentrate", "Whey Protein Isolate", "Whey Protein Hydrolysate",
+            "Casein Protein", "Milk Protein",
+            // Plant isolates
+            "Soy Protein Isolate", "Soy Protein Concentrate", "Soy Protein",
+            "Pea Protein Isolate", "Pea Protein",
+            "Rice Protein", "Hemp Protein",
+            // Egg
+            "Egg Protein",
+            // Meat proteins (when explicitly listed as protein source)
+            "Beef Protein", "Chicken Protein", "Turkey Protein", "Fish Protein",
+            "Pork Protein", "Lamb Protein", "Duck Protein",
+            "Tuna Protein", "Salmon Protein",
+            // Other quality proteins
+            "Collagen", "Gelatin", "Mycoprotein", "Potato Protein",
+            "Plant Protein Blend", "Complete Protein Blend"
+        )
+        
+        val baseIngredientNames = setOf(
+            // Grains/flours (protein incidental, not primary purpose)
+            "Wheat Protein", "Corn Protein", "Oat Protein", "Barley Protein", "Rye Protein",
+            "Millet Protein", "Spelt Protein", "Farro Protein", "Teff Protein",
+            "Buckwheat Protein", "Quinoa Protein", "Amaranth Protein",
+            // Nuts/seeds (usually for flavor/texture, not protein)
+            "Mixed Nut Protein", "Almond Protein", "Walnut Protein", "Cashew Protein",
+            "Hazelnut Protein", "Pecan Protein", "Brazil Nut Protein", "Macadamia Protein",
+            "Pistachio Protein", "Pine Nut Protein", "Coconut Protein",
+            "Sunflower Seed Protein", "Sunflower Protein", "Pumpkin Seed Protein",
+            "Chia Protein", "Flax Protein", "Sesame Protein", "Poppy Seed Protein",
+            // Legumes when whole (not isolated)
+            "Lentil Protein", "Bean Protein", "Chickpea Protein", 
+            "Black Bean Protein", "Kidney Bean Protein", "Peanut Protein",
+            // Trace/incidental
+            "Dairy Trace Protein", "Yeast Protein"
+        )
+        
+        val hasIsolatedProtein = sortedMatches.any { it.first.name in isolatedProteinNames }
+        
+        // Filter matches: if isolated proteins exist, remove base ingredients
+        val filteredMatches = if (hasIsolatedProtein) {
+            sortedMatches.filter { it.first.name in isolatedProteinNames || it.first.name !in baseIngredientNames }
+        } else {
+            sortedMatches // Keep all matches if no isolated proteins found
+        }
 
-        for ((index, match) in sortedMatches.withIndex()) {
+        for ((index, match) in filteredMatches.withIndex()) {
             val (proteinSource, keyword, position) = match
 
             // Ordinal ranking: 1st = 1.0, 2nd = 0.7, 3rd = 0.5, 4th+ = 0.3

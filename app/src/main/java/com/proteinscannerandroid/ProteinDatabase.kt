@@ -1,5 +1,9 @@
 package com.proteinscannerandroid
 
+import android.util.Log
+
+private const val TAG = "ProteinDebug"
+
 data class ProteinSource(
     val name: String,
     val pdcaas: Double,
@@ -32,6 +36,12 @@ data class DebugMatchInfo(
     val rejectionReason: String? = null
 )
 
+data class FilteredProteinInfo(
+    val proteinName: String,
+    val reason: String,
+    val wasFiltered: Boolean
+)
+
 data class ProteinAnalysis(
     val weightedPdcaas: Double,
     val qualityLabel: String,
@@ -41,7 +51,9 @@ data class ProteinAnalysis(
     val warnings: List<String>,
     val detectedProteins: List<DetectedProtein>,
     val debugMatches: List<DebugMatchInfo> = emptyList(),
-    val rawIngredientText: String = ""
+    val rawIngredientText: String = "",
+    val filteredProteins: List<FilteredProteinInfo> = emptyList(),
+    val hasIsolatedProtein: Boolean = false
 )
 
 object ProteinDatabase {
@@ -1180,6 +1192,10 @@ object ProteinDatabase {
         val proteinBaseKeywords = setOf(
             "soja", "soya", "erbsen", "peas", "pea", "reis", "rice", "whey", "molke", "molken"
         )
+
+        Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        Log.d(TAG, "🔍 STARTING PROTEIN DETECTION...")
+        Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
         
         for (proteinSource in proteinSources) {
             for (keyword in proteinSource.keywords) {
@@ -1242,6 +1258,13 @@ object ProteinDatabase {
                         keyword, matchedText, position, ingredientsLower, proteinSource.name
                     )
 
+                    // Log match attempt
+                    if (isValidMatch) {
+                        Log.d(TAG, "🎯 MATCH: '${proteinSource.name}' keyword='$keyword' pos=$position context='...$contextBefore[$matchedText]$contextAfter...'")
+                    } else {
+                        Log.d(TAG, "❌ REJECTED: '${proteinSource.name}' keyword='$keyword' pos=$position reason='$rejectionReason'")
+                    }
+
                     // Add to debug matches (both accepted and rejected)
                     debugMatches.add(
                         DebugMatchInfo(
@@ -1258,8 +1281,12 @@ object ProteinDatabase {
 
                     if (isValidMatch) {
                         // Check if we already detected this protein source (avoid duplicates)
-                        if (proteinMatches.none { it.first.name == proteinSource.name }) {
+                        val existingMatch = proteinMatches.find { it.first.name == proteinSource.name }
+                        if (existingMatch == null) {
+                            Log.d(TAG, "✅ ADDED: '${proteinSource.name}' via keyword '$keyword' at pos $position")
                             proteinMatches.add(Triple(proteinSource, keyword, position))
+                        } else {
+                            Log.d(TAG, "⛔ DUPLICATE BLOCKED: '${proteinSource.name}' via '$keyword' at pos $position (already matched via '${existingMatch.second}' at pos ${existingMatch.third})")
                         }
                         break // Found this protein, move to next
                     }
@@ -1267,14 +1294,26 @@ object ProteinDatabase {
             }
         }
 
+        // Log final protein matches before sorting
+        Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        Log.d(TAG, "📊 PROTEIN MATCHES COLLECTED: ${proteinMatches.size}")
+        proteinMatches.forEachIndexed { idx, (protein, kw, pos) ->
+            Log.d(TAG, "  [$idx] ${protein.name} (PDCAAS: ${protein.pdcaas}) via '$kw' at pos $pos")
+        }
+        Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+
         // Sort by position (earlier ingredients first) and assign ordinal weights
         val sortedMatches = proteinMatches.sortedBy { it.third }
         
-        // ============================================================
-        // SMART DETECTION: Isolated proteins vs base ingredients
-        // If isolated proteins (whey, casein, pea isolate, etc.) are found,
-        // ignore base ingredients (wheat, corn, rice flour, etc.)
-        // ============================================================
+        Log.d(TAG, "📊 AFTER SORTING BY POSITION:")
+        sortedMatches.forEachIndexed { idx, (protein, kw, pos) ->
+            val weight = when (idx) { 0 -> 1.0; 1 -> 0.7; 2 -> 0.5; else -> 0.3 }
+            Log.d(TAG, "  #${idx+1} ${protein.name} @ pos $pos → weight $weight")
+        }
+
+        // === ISOLATED vs BASE INGREDIENT FILTERING ===
+        // If isolated proteins (whey, soy isolate, etc.) are found, filter out base ingredients (wheat, corn)
+        // This prevents wheat flour from diluting the PDCAAS of a whey protein bar
         val isolatedProteinNames = setOf(
             // Dairy isolates
             "Whey Protein Concentrate", "Whey Protein Isolate", "Whey Protein Hydrolysate",
@@ -1314,13 +1353,40 @@ object ProteinDatabase {
         
         val hasIsolatedProtein = sortedMatches.any { it.first.name in isolatedProteinNames }
         
+        Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+        Log.d(TAG, "🔬 ISOLATED vs BASE FILTERING:")
+        Log.d(TAG, "   Has isolated protein: $hasIsolatedProtein")
+        
+        // Build filtered proteins info for debug UI
+        val filteredProteinsInfo = mutableListOf<FilteredProteinInfo>()
+        
+        sortedMatches.forEach { (protein, _, _) ->
+            val isIsolated = protein.name in isolatedProteinNames
+            val isBase = protein.name in baseIngredientNames
+            val (status, wasFiltered) = when {
+                isIsolated -> "ISOLATED ✓ (counts toward PDCAAS)" to false
+                isBase && hasIsolatedProtein -> "BASE ingredient → FILTERED OUT (isolated proteins present)" to true
+                isBase -> "BASE ingredient (kept - no isolated proteins found)" to false
+                else -> "OTHER" to false
+            }
+            Log.d(TAG, "   ${protein.name}: $status")
+            
+            filteredProteinsInfo.add(FilteredProteinInfo(
+                proteinName = protein.name,
+                reason = status,
+                wasFiltered = wasFiltered
+            ))
+        }
+        
         // Filter matches: if isolated proteins exist, remove base ingredients
         val filteredMatches = if (hasIsolatedProtein) {
             sortedMatches.filter { it.first.name in isolatedProteinNames || it.first.name !in baseIngredientNames }
         } else {
             sortedMatches // Keep all matches if no isolated proteins found
         }
-
+        
+        Log.d(TAG, "📊 AFTER FILTERING: ${filteredMatches.size} proteins (was ${sortedMatches.size})")
+        Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
         for ((index, match) in filteredMatches.withIndex()) {
             val (proteinSource, keyword, position) = match
 
@@ -1385,7 +1451,9 @@ object ProteinDatabase {
             warnings = warnings,
             detectedProteins = detectedProteins,
             debugMatches = debugMatches.sortedBy { it.charPosition },
-            rawIngredientText = extractedText
+            rawIngredientText = extractedText,
+            filteredProteins = filteredProteinsInfo,
+            hasIsolatedProtein = hasIsolatedProtein
         )
     }
 }

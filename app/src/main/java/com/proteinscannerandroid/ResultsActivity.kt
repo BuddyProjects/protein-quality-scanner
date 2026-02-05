@@ -639,6 +639,25 @@ class ResultsActivity : AppCompatActivity() {
             debugLog("   No keyword matches found in ingredient text")
         }
 
+        // Show isolated vs base filtering info
+        if (analysis.filteredProteins.isNotEmpty()) {
+            debugLog("")
+            debugLog("🔬 ISOLATED vs BASE FILTERING:")
+            debugLog("   Has isolated protein: ${if (analysis.hasIsolatedProtein) "YES" else "NO"}")
+            debugLog("")
+            for (filtered in analysis.filteredProteins) {
+                val icon = if (filtered.wasFiltered) "❌" else "✓"
+                debugLog("   $icon ${filtered.proteinName}")
+                debugLog("      └─ ${filtered.reason}")
+                debugLog("")
+            }
+            
+            val filteredCount = analysis.filteredProteins.count { it.wasFiltered }
+            if (filteredCount > 0) {
+                debugLog("   📊 Result: $filteredCount protein(s) filtered out")
+            }
+        }
+
         debugLog("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     }
 

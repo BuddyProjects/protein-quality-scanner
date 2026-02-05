@@ -1420,19 +1420,25 @@ object ProteinDatabase {
             val isTraceProtein = proteinSource.name.contains("Trace")
             val isBaseIngredient = proteinSource.name in baseIngredientNames
             
+            // Check if the matched keyword indicates a purpose-built protein source
+            // e.g., "weizenprotein" should be primary even though Wheat Protein is normally a base ingredient
+            val purposeBuiltKeywords = listOf("protein", "eiweiß", "eiweiss", "isolat", "konzentrat", "pulver")
+            val isPurposeBuiltMatch = purposeBuiltKeywords.any { keyword.lowercase().contains(it) }
+            
             // Weight calculation:
             // - Trace proteins: 0 (show in results but don't affect PDCAAS)
-            // - Base ingredients when isolated proteins present: 0.1x (secondary contribution)
+            // - Base ingredients when isolated proteins present AND not purpose-built: 0.1x
+            // - Purpose-built matches (e.g., "weizenprotein"): full weight
             // - Otherwise: full ordinal weight
             val effectiveWeight = when {
                 isTraceProtein -> 0.0
-                hasIsolatedProtein && isBaseIngredient -> baseWeight * 0.1
+                hasIsolatedProtein && isBaseIngredient && !isPurposeBuiltMatch -> baseWeight * 0.1
                 else -> baseWeight
             }
 
-            // Primary = isolated/concentrated protein OR any protein when no isolates present
-            // Secondary = base ingredients when isolated proteins are present
-            val isPrimaryProtein = !hasIsolatedProtein || !isBaseIngredient
+            // Primary = isolated protein OR purpose-built match OR any protein when no isolates present
+            // Secondary = base ingredients when isolated proteins are present (and not purpose-built)
+            val isPrimaryProtein = !hasIsolatedProtein || !isBaseIngredient || isPurposeBuiltMatch
             
             detectedProteins.add(
                 DetectedProtein(

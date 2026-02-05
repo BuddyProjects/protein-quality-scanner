@@ -1374,6 +1374,12 @@ object ProteinDatabase {
         
         val hasIsolatedProtein = sortedMatches.any { it.first.name in isolatedProteinNames }
         
+        // Find the position of the FIRST isolated protein in the ingredients
+        // Base ingredients appearing BEFORE this position should be treated as primary
+        val firstIsolatedProteinPosition = sortedMatches
+            .filter { it.first.name in isolatedProteinNames }
+            .minOfOrNull { it.third } ?: Int.MAX_VALUE
+        
         Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
         Log.d(TAG, "🔬 ISOLATED vs BASE WEIGHTING:")
         Log.d(TAG, "   Has isolated protein: $hasIsolatedProtein")
@@ -1435,20 +1441,25 @@ object ProteinDatabase {
             )
             val isPurposeBuiltMatch = purposeBuiltKeywords.any { keyword.lowercase().contains(it) }
             
+            // Check if this base ingredient appears BEFORE any isolated protein
+            // If so, it's intentionally added as a protein source, not incidental
+            val appearsBeforeIsolated = position < firstIsolatedProteinPosition
+            
             // Weight calculation:
             // - Trace proteins: 0 (show in results but don't affect PDCAAS)
-            // - Base ingredients when isolated proteins present AND not purpose-built: 0.1x
+            // - Base ingredients when isolated proteins present AND not purpose-built AND after isolated: 0.1x
             // - Purpose-built matches (e.g., "weizenprotein"): full weight
+            // - Base ingredients appearing BEFORE isolated proteins: full weight (intentional)
             // - Otherwise: full ordinal weight
             val effectiveWeight = when {
                 isTraceProtein -> 0.0
-                hasIsolatedProtein && isBaseIngredient && !isPurposeBuiltMatch -> baseWeight * 0.1
+                hasIsolatedProtein && isBaseIngredient && !isPurposeBuiltMatch && !appearsBeforeIsolated -> baseWeight * 0.1
                 else -> baseWeight
             }
 
-            // Primary = isolated protein OR purpose-built match OR any protein when no isolates present
-            // Secondary = base ingredients when isolated proteins are present (and not purpose-built)
-            val isPrimaryProtein = !hasIsolatedProtein || !isBaseIngredient || isPurposeBuiltMatch
+            // Primary = isolated protein OR purpose-built match OR appears before isolated OR no isolates present
+            // Secondary = base ingredients appearing AFTER isolated proteins (and not purpose-built)
+            val isPrimaryProtein = !hasIsolatedProtein || !isBaseIngredient || isPurposeBuiltMatch || appearsBeforeIsolated
             
             detectedProteins.add(
                 DetectedProtein(

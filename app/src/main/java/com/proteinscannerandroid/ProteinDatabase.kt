@@ -793,13 +793,25 @@ object ProteinDatabase {
             name = "Rice Protein",
             pdcaas = 0.47,
             qualityCategory = "Low",
-            // REMOVED: "reis", "rice", "riz", "reismehl", "farine de riz" - these are base ingredients/flour, not protein sources
+            // Isolated/concentrated rice protein - for explicit protein ingredients
             keywords = listOf("rice protein", "reisprotein", "reiseiweiß", "reiseiweiss", "reiseiweisskonzentrat", "reisproteinpulver", "protéine de riz", "protéines de riz", "brown rice protein"),
             description = "Hypoallergenic plant protein, low in lysine",
             diaas = 60,
             limitingAminoAcids = listOf("Lysine", "Threonine"),
             digestionSpeed = "Medium",
             notes = "Hypoallergenic, complements pea protein perfectly (pea provides lysine, rice provides methionine)"
+        ),
+        ProteinSource(
+            name = "Rice Grain Protein",
+            pdcaas = 0.47,
+            qualityCategory = "Low",
+            // Base rice ingredients (flour, whole rice) - weighted lower when isolated proteins present
+            keywords = listOf("reis", "rice", "riz", "reismehl", "rice flour", "farine de riz", "rijst", "arroz", "riso", "riisi"),
+            description = "Protein from rice grain/flour - contributes to total protein but not a primary source",
+            diaas = 60,
+            limitingAminoAcids = listOf("Lysine", "Threonine"),
+            digestionSpeed = "Medium",
+            notes = "Base ingredient protein - weighted at 0.1x when purpose-built proteins are present"
         ),
         ProteinSource(
             name = "Hemp Protein",
@@ -1338,6 +1350,7 @@ object ProteinDatabase {
             "Wheat Protein", "Corn Protein", "Oat Protein", "Barley Protein", "Rye Protein",
             "Millet Protein", "Spelt Protein", "Farro Protein", "Teff Protein",
             "Buckwheat Protein", "Quinoa Protein", "Amaranth Protein",
+            "Rice Grain Protein", // Base rice (flour, whole grain) - not isolated rice protein
             // Nuts/seeds (usually for flavor/texture, not protein)
             "Mixed Nut Protein", "Almond Protein", "Walnut Protein", "Cashew Protein",
             "Hazelnut Protein", "Pecan Protein", "Brazil Nut Protein", "Macadamia Protein",
@@ -1354,7 +1367,7 @@ object ProteinDatabase {
         val hasIsolatedProtein = sortedMatches.any { it.first.name in isolatedProteinNames }
         
         Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-        Log.d(TAG, "🔬 ISOLATED vs BASE FILTERING:")
+        Log.d(TAG, "🔬 ISOLATED vs BASE WEIGHTING:")
         Log.d(TAG, "   Has isolated protein: $hasIsolatedProtein")
         
         // Build filtered proteins info for debug UI
@@ -1364,9 +1377,9 @@ object ProteinDatabase {
             val isIsolated = protein.name in isolatedProteinNames
             val isBase = protein.name in baseIngredientNames
             val (status, wasFiltered) = when {
-                isIsolated -> "ISOLATED ✓ (counts toward PDCAAS)" to false
-                isBase && hasIsolatedProtein -> "BASE ingredient → FILTERED OUT (isolated proteins present)" to true
-                isBase -> "BASE ingredient (kept - no isolated proteins found)" to false
+                isIsolated -> "ISOLATED ✓ (full weight toward PDCAAS)" to false
+                isBase && hasIsolatedProtein -> "BASE ingredient → 0.1x weight (isolated proteins present)" to false
+                isBase -> "BASE ingredient (full weight - no isolated proteins found)" to false
                 else -> "OTHER" to false
             }
             Log.d(TAG, "   ${protein.name}: $status")
@@ -1378,16 +1391,13 @@ object ProteinDatabase {
             ))
         }
         
-        // Filter matches: if isolated proteins exist, remove base ingredients
-        val filteredMatches = if (hasIsolatedProtein) {
-            sortedMatches.filter { it.first.name in isolatedProteinNames || it.first.name !in baseIngredientNames }
-        } else {
-            sortedMatches // Keep all matches if no isolated proteins found
-        }
+        // Keep ALL matches - but weight base ingredients at 0.1x when isolated proteins present
+        // This reflects that base ingredients (flour, grains) still contribute protein,
+        // just not as the primary source when purpose-built proteins are present
         
-        Log.d(TAG, "📊 AFTER FILTERING: ${filteredMatches.size} proteins (was ${sortedMatches.size})")
+        Log.d(TAG, "📊 WEIGHTING: ${sortedMatches.size} proteins (base ingredients at 0.1x when isolated present)")
         Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-        for ((index, match) in filteredMatches.withIndex()) {
+        for ((index, match) in sortedMatches.withIndex()) {
             val (proteinSource, keyword, position) = match
 
             // Ordinal ranking: 1st = 1.0, 2nd = 0.7, 3rd = 0.5, 4th+ = 0.3
@@ -1398,10 +1408,19 @@ object ProteinDatabase {
                 else -> 0.3 // Fourth and later get 30%
             }
 
-            // FIX: Trace proteins (e.g., "Dairy Trace Protein") should show in results
-            // but NOT contribute to PDCAAS calculation
+            // Determine protein type and apply appropriate weighting
             val isTraceProtein = proteinSource.name.contains("Trace")
-            val effectiveWeight = if (isTraceProtein) 0.0 else baseWeight
+            val isBaseIngredient = proteinSource.name in baseIngredientNames
+            
+            // Weight calculation:
+            // - Trace proteins: 0 (show in results but don't affect PDCAAS)
+            // - Base ingredients when isolated proteins present: 0.1x (secondary contribution)
+            // - Otherwise: full ordinal weight
+            val effectiveWeight = when {
+                isTraceProtein -> 0.0
+                hasIsolatedProtein && isBaseIngredient -> baseWeight * 0.1
+                else -> baseWeight
+            }
 
             detectedProteins.add(
                 DetectedProtein(
@@ -1419,8 +1438,10 @@ object ProteinDatabase {
             totalWeight += effectiveWeight
         }
 
-        // Calculate weighted PDCAAS
-        val weightedPdcaas = if (totalWeight > 0) totalScore / totalWeight else 0.0
+        // Calculate weighted PDCAAS (rounded to 2 decimal places)
+        val weightedPdcaas = if (totalWeight > 0) {
+            kotlin.math.round((totalScore / totalWeight) * 100) / 100.0
+        } else 0.0
 
         // Determine quality label and feedback
         val (qualityLabel, feedbackText) = when {
@@ -1439,8 +1460,10 @@ object ProteinDatabase {
             warnings.add("No recognizable protein sources found")
         }
 
-        // Calculate effective protein
-        val effectiveProtein = proteinPer100g?.let { it * weightedPdcaas }
+        // Calculate effective protein (rounded to 1 decimal place for display)
+        val effectiveProtein = proteinPer100g?.let { 
+            kotlin.math.round(it * weightedPdcaas * 10) / 10.0 
+        }
 
         return ProteinAnalysis(
             weightedPdcaas = weightedPdcaas,

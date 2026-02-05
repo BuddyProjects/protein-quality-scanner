@@ -22,7 +22,8 @@ data class DetectedProtein(
     val ingredientText: String,
     val position: Int,
     val matchConfidence: Double,
-    val weight: Double
+    val weight: Double,
+    val isPrimary: Boolean = true  // Primary = isolated/concentrated proteins OR all proteins when no isolates present
 )
 
 data class DebugMatchInfo(
@@ -54,7 +55,11 @@ data class ProteinAnalysis(
     val rawIngredientText: String = "",
     val filteredProteins: List<FilteredProteinInfo> = emptyList(),
     val hasIsolatedProtein: Boolean = false
-)
+) {
+    // Helper properties for UI display
+    val primaryProteins: List<DetectedProtein> get() = detectedProteins.filter { it.isPrimary }
+    val secondaryProteins: List<DetectedProtein> get() = detectedProteins.filter { !it.isPrimary }
+}
 
 object ProteinDatabase {
     
@@ -1244,8 +1249,11 @@ object ProteinDatabase {
                                 } ?: ingredientsLower.length
                                 val fullWord = ingredientsLower.substring(wordStart, wordEnd)
                                 
-                                // Skip if the compound contains isolat/konzentrat (more specific match exists)
-                                if (!fullWord.contains("isolat") && !fullWord.contains("konzentrat")) {
+                                // Skip if the compound contains protein-related suffixes (more specific match exists)
+                                // This prevents "reis" from matching inside "reiseiweiß", "reisprotein", etc.
+                                val proteinSuffixes = listOf("isolat", "konzentrat", "eiweiß", "eiweiss", "protein", "pulver")
+                                val hasProteinSuffix = proteinSuffixes.any { fullWord.contains(it) }
+                                if (!hasProteinSuffix) {
                                     match = partialMatch
                                 }
                             } else {
@@ -1422,6 +1430,10 @@ object ProteinDatabase {
                 else -> baseWeight
             }
 
+            // Primary = isolated/concentrated protein OR any protein when no isolates present
+            // Secondary = base ingredients when isolated proteins are present
+            val isPrimaryProtein = !hasIsolatedProtein || !isBaseIngredient
+            
             detectedProteins.add(
                 DetectedProtein(
                     proteinSource = proteinSource,
@@ -1429,7 +1441,8 @@ object ProteinDatabase {
                     ingredientText = keyword,
                     position = index + 1, // 1-based ranking
                     matchConfidence = 0.9,
-                    weight = effectiveWeight // Use effective weight (0 for trace proteins)
+                    weight = effectiveWeight, // Use effective weight (0 for trace proteins)
+                    isPrimary = isPrimaryProtein
                 )
             )
 

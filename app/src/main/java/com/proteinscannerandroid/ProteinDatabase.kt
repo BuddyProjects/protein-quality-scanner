@@ -56,9 +56,9 @@ data class ProteinAnalysis(
     val filteredProteins: List<FilteredProteinInfo> = emptyList(),
     val hasIsolatedProtein: Boolean = false
 ) {
-    // Helper properties for UI display
-    val primaryProteins: List<DetectedProtein> get() = detectedProteins.filter { it.isPrimary }
-    val secondaryProteins: List<DetectedProtein> get() = detectedProteins.filter { !it.isPrimary }
+    // Helper properties for UI display - sorted by weight (highest contribution first)
+    val primaryProteins: List<DetectedProtein> get() = detectedProteins.filter { it.isPrimary }.sortedByDescending { it.weight }
+    val secondaryProteins: List<DetectedProtein> get() = detectedProteins.filter { !it.isPrimary }.sortedByDescending { it.weight }
 }
 
 object ProteinDatabase {

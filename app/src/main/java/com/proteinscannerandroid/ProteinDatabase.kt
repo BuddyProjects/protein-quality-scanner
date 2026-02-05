@@ -503,7 +503,7 @@ object ProteinDatabase {
             qualityCategory = "Excellent",
             // REMOVED "molkenprotein" - it's a substring of "molkenproteinisolat" causing double-matches
             // Generic German whey terms: molkeneiweiß, molkeneiweiss, molkenpulver
-            keywords = listOf("whey protein concentrate", "whey concentrate", "whey powder", "whey", "molkenproteinkonzentrat", "molkenpulver", "molkeneiweiß", "molkeneiweiss", "concentré de protéines de lactosérum", "poudre de lactosérum"),
+            keywords = listOf("whey protein concentrate", "whey concentrate", "whey powder", "whey", "molkenprotein", "molkenproteinkonzentrat", "molkenpulver", "molkeneiweiß", "molkeneiweiss", "concentré de protéines de lactosérum", "poudre de lactosérum"),
             description = "High-quality milk protein with excellent amino acid profile",
             diaas = 109,
             limitingAminoAcids = emptyList(),

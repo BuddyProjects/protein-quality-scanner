@@ -689,8 +689,9 @@ class ResultsActivity : AppCompatActivity() {
         currentBarcode = productInfo.barcode
         currentProductName = productInfo.name ?: "Unknown Product"
         currentPdcaasScore = analysis.weightedPdcaas
-        // Only include significant proteins (weight > 0) in the displayed sources
-        currentProteinSources = analysis.detectedProteins.filter { it.weight > 0.0 }.map { it.proteinSource.name }
+        // Include proteins sorted by weight (primary first, then secondary)
+        val sortedProteins = (analysis.primaryProteins + analysis.secondaryProteins).filter { it.weight > 0.0 }
+        currentProteinSources = sortedProteins.map { it.proteinSource.name }
         currentProteinPer100g = proteinContent
 
         // Check if this product is already a favorite
@@ -750,36 +751,56 @@ class ResultsActivity : AppCompatActivity() {
     }
 
     private fun displayDetectedProteins(detectedProteins: List<DetectedProtein>) {
-        // Filter out trace proteins (weight = 0) - they don't contribute to PDCAAS
-        val significantProteins = detectedProteins.filter { it.weight > 0.0 }
+        // This overload maintains backward compatibility - calls the new version
+        // by wrapping in a simple analysis check
+        val primary = detectedProteins.filter { it.isPrimary && it.weight > 0.0 }.sortedByDescending { it.weight }
+        val secondary = detectedProteins.filter { !it.isPrimary && it.weight > 0.0 }.sortedByDescending { it.weight }
+        displayDetectedProteinsSplit(primary, secondary)
+    }
+    
+    private fun displayDetectedProteinsSplit(primaryProteins: List<DetectedProtein>, secondaryProteins: List<DetectedProtein>) {
+        val sections = mutableListOf<String>()
         
-        if (significantProteins.isNotEmpty()) {
-            val proteinDetails = significantProteins.map { protein ->
-                val source = protein.proteinSource
-                var details = "${source.name} (PDCAAS: ${String.format("%.2f", source.pdcaas)}"
-                
-                // Add DIAAS if available
-                source.diaas?.let { details += ", DIAAS: $it" }
-                
-                details += ")"
-                
-                // Add limiting amino acids if any
-                if (source.limitingAminoAcids.isNotEmpty()) {
-                    details += "\n   ⚠️ Limiting: ${source.limitingAminoAcids.joinToString(", ")}"
-                }
-                
-                // Add digestion speed
-                details += "\n   ⏱️ Digestion: ${source.digestionSpeed}"
-                
-                // Add notes if important
-                if (source.notes.isNotEmpty()) {
-                    details += "\n   💡 ${source.notes}"
-                }
-                
-                details
+        // Format a single protein's details
+        fun formatProtein(protein: DetectedProtein): String {
+            val source = protein.proteinSource
+            var details = "${source.name} (PDCAAS: ${String.format("%.2f", source.pdcaas)}"
+            
+            // Add DIAAS if available
+            source.diaas?.let { details += ", DIAAS: $it" }
+            
+            details += ")"
+            
+            // Add limiting amino acids if any
+            if (source.limitingAminoAcids.isNotEmpty()) {
+                details += "\n   ⚠️ Limiting: ${source.limitingAminoAcids.joinToString(", ")}"
             }
             
-            binding.tvFoundProteins.text = "Found proteins:\n\n${proteinDetails.joinToString("\n\n")}"
+            // Add digestion speed
+            details += "\n   ⏱️ Digestion: ${source.digestionSpeed}"
+            
+            // Add notes if important
+            if (source.notes.isNotEmpty()) {
+                details += "\n   💡 ${source.notes}"
+            }
+            
+            return details
+        }
+        
+        // Primary Protein Sources (sorted by weight, highest first)
+        if (primaryProteins.isNotEmpty()) {
+            val primaryDetails = primaryProteins.map { formatProtein(it) }
+            sections.add("🥇 Primary Protein Sources:\n\n${primaryDetails.joinToString("\n\n")}")
+        }
+        
+        // Secondary Protein Sources (sorted by weight, highest first)
+        if (secondaryProteins.isNotEmpty()) {
+            val secondaryDetails = secondaryProteins.map { formatProtein(it) }
+            sections.add("🥈 Secondary Protein Sources:\n\n${secondaryDetails.joinToString("\n\n")}")
+        }
+        
+        if (sections.isNotEmpty()) {
+            binding.tvFoundProteins.text = sections.joinToString("\n\n")
         } else {
             binding.tvFoundProteins.text = "No recognizable protein sources found"
         }

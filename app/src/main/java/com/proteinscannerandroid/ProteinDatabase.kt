@@ -748,7 +748,7 @@ object ProteinDatabase {
             name = "Chickpea Protein",
             pdcaas = 0.71,
             qualityCategory = "Medium",
-            keywords = listOf("chickpea", "kichererbse", "kichererbsen", "kichererbsenprotein", "kichererbseneiweiss", "kichererbseneiweiß", "pois chiche", "garbanzo", "hummus", "chickpea protein"),
+            keywords = listOf("chickpea protein", "kichererbsenprotein", "kichererbseneiweiss", "kichererbseneiweiß", "chickpea", "kichererbse", "kichererbsen", "pois chiche", "garbanzo", "hummus"),
             description = "Mediterranean legume protein with moderate biological value"
         ),
         ProteinSource(
@@ -953,7 +953,7 @@ object ProteinDatabase {
             name = "Wheat Protein",
             pdcaas = 0.25,
             qualityCategory = "Low",
-            keywords = listOf("wheat protein", "wheat", "weizen", "hartweizen", "weizenprotein", "weizeneiweiss", "weizeneiweiß", "weizengluten", "protéine de blé", "blé", "ble", "farine de blé", "farine de ble", "froment", "farine de froment", "gluten", "vital wheat gluten", "seitan", "son", "bran", "wheat flour", "weizenmehl", "kleie", "grieß", "griess", "semolina", "dinkel", "durumhvede", "hvede", "grano duro", "grano"),
+            keywords = listOf("wheat protein", "weizenprotein", "weizeneiweiss", "weizeneiweiß", "weizengluten", "protéine de blé", "vital wheat gluten", "wheat flour", "weizenmehl", "wheat", "weizen", "hartweizen", "blé", "ble", "farine de blé", "farine de ble", "froment", "farine de froment", "gluten", "seitan", "son", "bran", "kleie", "grieß", "griess", "semolina", "dinkel", "durumhvede", "hvede", "grano duro", "grano"),
             description = "Cereal protein low in lysine, not suitable as sole protein source",
             diaas = 39,
             limitingAminoAcids = listOf("Lysine"),
@@ -964,14 +964,14 @@ object ProteinDatabase {
             name = "Corn Protein",
             pdcaas = 0.44,
             qualityCategory = "Low",
-            keywords = listOf("corn protein", "corn", "maize", "maïs", "maisprotein", "maiseiweiss", "maiseiweiß", "maisgluten", "protéine de maïs", "corn gluten", "zein", "mais"),
+            keywords = listOf("corn protein", "maisprotein", "maiseiweiss", "maiseiweiß", "maisgluten", "protéine de maïs", "corn gluten", "corn", "maize", "maïs", "zein", "mais"),
             description = "Cereal protein low in lysine and tryptophan"
         ),
         ProteinSource(
             name = "Oat Protein",
             pdcaas = 0.57,
             qualityCategory = "Medium",
-            keywords = listOf("oat protein", "oat", "oats", "haferprotein", "hafereiweiss", "hafereiweiß", "haferproteinpulver", "protéine d'avoine", "hafer", "avoine", "oat flakes", "rolled oats", "haferflocken"),
+            keywords = listOf("oat protein", "haferprotein", "hafereiweiss", "hafereiweiß", "haferproteinpulver", "protéine d'avoine", "oat", "oats", "hafer", "avoine", "oat flakes", "rolled oats", "haferflocken"),
             description = "Cereal protein with beta-glucan fiber"
         ),
         ProteinSource(

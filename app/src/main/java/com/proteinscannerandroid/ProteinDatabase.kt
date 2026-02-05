@@ -671,7 +671,7 @@ object ProteinDatabase {
             qualityCategory = "Good",
             // REMOVED "sojaprotein" - it's a substring of "sojaproteinisolat" causing double-matches
             // Generic German soy terms: sojaeiweiß, sojaeiweiss, soja
-            keywords = listOf("soy protein", "soja", "soya", "soya flour", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soja beans", "sojabohnen"),
+            keywords = listOf("soy protein", "sojaprotein", "soja", "soya", "soya flour", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soja beans", "sojabohnen"),
             description = "Plant-based complete protein from soybeans",
             diaas = 91,
             limitingAminoAcids = listOf("Methionine"),
@@ -699,7 +699,7 @@ object ProteinDatabase {
             qualityCategory = "Medium",
             // REMOVED "erbsenprotein" - it's a substring of "erbsenproteinisolat" causing double-matches
             // Generic German pea terms: erbsen
-            keywords = listOf("pea protein", "pea", "protéine de pois", "protéines de pois", "split peas", "erbsen", "peas"),
+            keywords = listOf("pea protein", "erbsenprotein", "pea", "protéine de pois", "protéines de pois", "split peas", "erbsen", "peas"),
             description = "Plant protein with good lysine content",
             diaas = 70,
             limitingAminoAcids = listOf("Methionine", "Tryptophan"),

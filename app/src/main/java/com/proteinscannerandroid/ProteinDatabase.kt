@@ -1422,7 +1422,17 @@ object ProteinDatabase {
             
             // Check if the matched keyword indicates a purpose-built protein source
             // e.g., "weizenprotein" should be primary even though Wheat Protein is normally a base ingredient
-            val purposeBuiltKeywords = listOf("protein", "eiweiß", "eiweiss", "isolat", "konzentrat", "pulver")
+            // Multi-language support: EN, DE, FR, ES, IT, NL, PT
+            val purposeBuiltKeywords = listOf(
+                // Protein
+                "protein", "eiweiß", "eiweiss", "protéine", "proteine", "proteína", "proteina", "proteïne", "eiwit",
+                // Isolate
+                "isolat", "isolate", "aislado", "isolato", "isolaat",
+                // Concentrate
+                "konzentrat", "concentrate", "concentré", "concentre", "concentrado", "concentrato", "concentraat",
+                // Powder
+                "pulver", "powder", "poudre", "polvo", "polvere", "poeder"
+            )
             val isPurposeBuiltMatch = purposeBuiltKeywords.any { keyword.lowercase().contains(it) }
             
             // Weight calculation:

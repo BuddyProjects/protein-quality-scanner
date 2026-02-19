@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Barcode scanner frame with barcode lines -->
+    
+    <!-- Top left corner -->
+    <path
+        android:pathData="M4,4h4V2H2v6h2V4z"
+        android:fillColor="#FFFFFF"/>
+    
+    <!-- Top right corner -->
+    <path
+        android:pathData="M20,4v4h2V2h-6v2h4z"
+        android:fillColor="#FFFFFF"/>
+    
+    <!-- Bottom left corner -->
+    <path
+        android:pathData="M4,20h4v2H2v-6h2v4z"
+        android:fillColor="#FFFFFF"/>
+    
+    <!-- Bottom right corner -->
+    <path
+        android:pathData="M20,20v-4h2v6h-6v-2h4z"
+        android:fillColor="#FFFFFF"/>
+    
+    <!-- Barcode lines -->
+    <path
+        android:pathData="M7,7h1v10H7V7z"
+        android:fillColor="#FFFFFF"/>
+    <path
+        android:pathData="M9,7h2v10H9V7z"
+        android:fillColor="#FFFFFF"/>
+    <path
+        android:pathData="M12,7h1v10h-1V7z"
+        android:fillColor="#FFFFFF"/>
+    <path
+        android:pathData="M15,7h2v10h-2V7z"
+        android:fillColor="#FFFFFF"/>
+    
+    <!-- Scanning line -->
+    <path
+        android:pathData="M5,12h14"
+        android:strokeWidth="0.5"
+        android:strokeColor="#00D4E6"/>
+</vector>

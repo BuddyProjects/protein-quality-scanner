@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Image - Edge to edge -->
+    <!-- Image - Edge to edge for photos, centered for vectors -->
     <ImageView
         android:id="@+id/ivIcon"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:contentDescription="@null" />
 
     <!-- Text content with padding -->

@@ -44,17 +44,17 @@ class OnboardingActivity : AppCompatActivity() {
     private fun setupOnboardingPages() {
         val pages = listOf(
             OnboardingPage(
-                iconRes = R.drawable.ic_barcode_scanner,
+                iconRes = R.drawable.onboarding_1,
                 title = "Scan Products",
                 description = "Point your camera at a product barcode to scan it. You can also enter barcodes manually if scanning doesn't work."
             ),
             OnboardingPage(
-                iconRes = R.drawable.ic_score,
+                iconRes = R.drawable.onboarding_2,
                 title = "Understand Your Score",
                 description = "Each product gets a PDCAAS score from 0–100. Higher means better protein quality. We also show which protein sources were detected."
             ),
             OnboardingPage(
-                iconRes = R.drawable.ic_info_outline,
+                iconRes = R.drawable.onboarding_3,
                 title = "Quality Insights",
                 description = "Products with collagen or other low-quality proteins are flagged. The score reflects real nutritional value, not just label claims."
             )

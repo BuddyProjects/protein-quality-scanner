@@ -30,6 +30,7 @@ class OnboardingAdapter(
 
         fun bind(page: OnboardingPage) {
             binding.ivIcon.setImageResource(page.iconRes)
+            binding.ivIcon.imageTintList = null  // No tint - use actual image colors
             binding.tvTitle.text = page.title
             binding.tvDescription.text = page.description
         }

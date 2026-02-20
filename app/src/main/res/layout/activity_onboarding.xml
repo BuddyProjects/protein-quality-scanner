@@ -43,7 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Next/Got it Button -->
+    <!-- Next/Got it Button - Grey style matching main menu -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNext"
         android:layout_width="0dp"
@@ -53,9 +53,11 @@
         android:layout_marginBottom="32dp"
         android:text="Next"
         android:textSize="16sp"
-        android:textColor="#000000"
-        app:backgroundTint="@color/primary_accent"
-        app:cornerRadius="12dp"
+        android:textColor="@color/text_primary_dark"
+        app:backgroundTint="#252525"
+        app:cornerRadius="10dp"
+        app:strokeColor="#333333"
+        app:strokeWidth="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/background_dark">
 
-    <!-- Guideline at 50% - where grey text area roughly starts -->
+    <!-- Guideline for Skip button position -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineMiddle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_percent="0.12" />
 
     <!-- ViewPager for onboarding pages - now full height from top -->
     <androidx.viewpager2.widget.ViewPager2

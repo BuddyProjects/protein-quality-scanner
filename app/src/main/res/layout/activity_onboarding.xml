@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
+        app:layout_constraintGuide_percent="0.06" />
 
     <!-- ViewPager for onboarding pages - now full height from top -->
     <androidx.viewpager2.widget.ViewPager2

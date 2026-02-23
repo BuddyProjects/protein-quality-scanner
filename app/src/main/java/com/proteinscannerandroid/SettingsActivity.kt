@@ -17,10 +17,17 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var billingManager: BillingManager
+    
+    // Hidden debug mode toggle (tap version 7 times)
+    private var tapCount = 0
+    private var lastTapTime = 0L
 
     companion object {
         const val PREFS_NAME = "ProteinScannerPrefs"
         const val KEY_DEBUG_ENABLED = "debug_enabled"
+        const val KEY_DEBUG_PREMIUM_ENABLED = "debug_premium_enabled"
+        private const val TAP_TIMEOUT_MS = 2000L
+        private const val TAPS_REQUIRED = 7
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,16 +50,27 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
-        // Premium debug toggle
-        binding.switchPremiumDebug.setOnCheckedChangeListener { _, isChecked ->
-            PremiumManager.setPremium(isChecked)
-            val status = if (isChecked) "enabled" else "disabled"
-            Toast.makeText(this, "Premium mode $status", Toast.LENGTH_SHORT).show()
-        }
-
-        // Debug toggle
-        binding.switchDebug.setOnCheckedChangeListener { _, isChecked ->
-            saveDebugPreference(isChecked)
+        // Hidden debug mode: tap version 7 times to toggle
+        binding.tvVersion.setOnClickListener {
+            val now = System.currentTimeMillis()
+            
+            // Reset counter if too much time has passed
+            if (now - lastTapTime > TAP_TIMEOUT_MS) {
+                tapCount = 0
+            }
+            lastTapTime = now
+            tapCount++
+            
+            // Show progress hints at tap 4, 5, 6
+            when (tapCount) {
+                4 -> Toast.makeText(this, "3 more taps...", Toast.LENGTH_SHORT).show()
+                5 -> Toast.makeText(this, "2 more taps...", Toast.LENGTH_SHORT).show()
+                6 -> Toast.makeText(this, "1 more tap...", Toast.LENGTH_SHORT).show()
+                TAPS_REQUIRED -> {
+                    tapCount = 0
+                    toggleDebugMode()
+                }
+            }
         }
 
         // Upgrade button
@@ -76,20 +94,32 @@ class SettingsActivity : AppCompatActivity() {
             RateAppManager.openFeedbackEmail(this)
         }
     }
-
-    private fun loadCurrentSettings() {
-        // Load debug setting (default: OFF)
-        val debugEnabled = sharedPreferences.getBoolean(KEY_DEBUG_ENABLED, false)
-        binding.switchDebug.isChecked = debugEnabled
-
-        // Load premium debug setting
-        binding.switchPremiumDebug.isChecked = PremiumManager.checkPremium()
+    
+    private fun toggleDebugMode() {
+        val currentDebug = sharedPreferences.getBoolean(KEY_DEBUG_ENABLED, false)
+        val currentPremiumDebug = sharedPreferences.getBoolean(KEY_DEBUG_PREMIUM_ENABLED, false)
+        
+        // Toggle both debug flags together
+        val newState = !currentDebug
+        
+        sharedPreferences.edit()
+            .putBoolean(KEY_DEBUG_ENABLED, newState)
+            .putBoolean(KEY_DEBUG_PREMIUM_ENABLED, newState)
+            .apply()
+        
+        // Update PremiumManager for premium debug
+        PremiumManager.setPremium(newState)
+        
+        val status = if (newState) "enabled 🔧" else "disabled"
+        Toast.makeText(this, "Debug mode $status", Toast.LENGTH_LONG).show()
     }
 
-    private fun saveDebugPreference(enabled: Boolean) {
-        sharedPreferences.edit()
-            .putBoolean(KEY_DEBUG_ENABLED, enabled)
-            .apply()
+    private fun loadCurrentSettings() {
+        // Load saved debug states (applies premium debug if it was enabled)
+        val premiumDebugEnabled = sharedPreferences.getBoolean(KEY_DEBUG_PREMIUM_ENABLED, false)
+        if (premiumDebugEnabled) {
+            PremiumManager.setPremium(true)
+        }
     }
 
     private fun observePremiumState() {

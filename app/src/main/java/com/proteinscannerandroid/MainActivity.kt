@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.logoButton.setOnClickListener {
             // Could add easter egg or info screen here
-            Toast.makeText(this, "Protein Quality Scanner v1.0", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Protein Quality Scanner v1.0.3", Toast.LENGTH_SHORT).show()
         }
     }
 

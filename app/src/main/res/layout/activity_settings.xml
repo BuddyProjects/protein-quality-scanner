@@ -273,7 +273,7 @@
                         android:id="@+id/tvVersion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Version 1.0.0"
+                        android:text="Version 1.0.3"
                         android:textSize="13sp"
                         android:textColor="@color/text_secondary_dark"
                         android:fontFamily="sans-serif"

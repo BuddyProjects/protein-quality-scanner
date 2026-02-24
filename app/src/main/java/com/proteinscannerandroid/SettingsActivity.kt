@@ -25,7 +25,6 @@ class SettingsActivity : AppCompatActivity() {
     companion object {
         const val PREFS_NAME = "ProteinScannerPrefs"
         const val KEY_DEBUG_ENABLED = "debug_enabled"
-        const val KEY_DEBUG_PREMIUM_ENABLED = "debug_premium_enabled"
         private const val TAP_TIMEOUT_MS = 2000L
         private const val TAPS_REQUIRED = 7
     }
@@ -97,29 +96,18 @@ class SettingsActivity : AppCompatActivity() {
     
     private fun toggleDebugMode() {
         val currentDebug = sharedPreferences.getBoolean(KEY_DEBUG_ENABLED, false)
-        val currentPremiumDebug = sharedPreferences.getBoolean(KEY_DEBUG_PREMIUM_ENABLED, false)
-        
-        // Toggle both debug flags together
         val newState = !currentDebug
         
         sharedPreferences.edit()
             .putBoolean(KEY_DEBUG_ENABLED, newState)
-            .putBoolean(KEY_DEBUG_PREMIUM_ENABLED, newState)
             .apply()
-        
-        // Update PremiumManager for premium debug
-        PremiumManager.setPremium(newState)
         
         val status = if (newState) "enabled 🔧" else "disabled"
         Toast.makeText(this, "Debug mode $status", Toast.LENGTH_LONG).show()
     }
 
     private fun loadCurrentSettings() {
-        // Load saved debug states (applies premium debug if it was enabled)
-        val premiumDebugEnabled = sharedPreferences.getBoolean(KEY_DEBUG_PREMIUM_ENABLED, false)
-        if (premiumDebugEnabled) {
-            PremiumManager.setPremium(true)
-        }
+        // Settings loaded from SharedPreferences as needed
     }
 
     private fun observePremiumState() {

@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_dark"
+    android:orientation="vertical">
+
+    <!-- Top Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:background="@color/surface_dark">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            style="@style/Widget.Material3.Button.IconButton"
+            app:icon="@drawable/ic_back"
+            app:iconTint="@color/text_primary_dark"
+            app:iconSize="24dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="DAILY INTAKE"
+            android:textSize="20sp"
+            android:textColor="@color/text_primary_dark"
+            android:textStyle="bold"
+            android:fontFamily="@font/blinker"
+            android:letterSpacing="0.05" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Progress Ring Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/refined_card_background"
+                android:padding="24dp"
+                android:layout_marginBottom="12dp">
+
+                <com.proteinscannerandroid.widget.CircularProgressView
+                    android:id="@+id/progressRing"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    app:cpv_strokeWidth="14dp"
+                    app:cpv_showText="true"
+                    android:layout_marginBottom="12dp" />
+
+                <TextView
+                    android:id="@+id/tvProgressDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0g / 150g"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:fontFamily="@font/blinker"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvProgressSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="of daily goal"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_secondary_dark"
+                    android:fontFamily="@font/blinker" />
+
+            </LinearLayout>
+
+            <!-- Streak Card -->
+            <LinearLayout
+                android:id="@+id/streakCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/refined_card_background"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvStreakEmoji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\uD83D\uDD25"
+                    android:textSize="28sp"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvStreakCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5 Day Streak!"
+                        android:textSize="16sp"
+                        android:textColor="@color/text_primary_dark"
+                        android:fontFamily="@font/blinker"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvStreakSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Keep it going!"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary_dark"
+                        android:fontFamily="@font/blinker" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Quick Add Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/refined_card_background"
+                android:padding="20dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="QUICK ADD"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_primary_dark"
+                    android:fontFamily="@font/blinker"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="12dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        app:boxBackgroundMode="outline"
+                        app:boxStrokeColor="@color/border_dark"
+                        app:hintTextColor="@color/text_hint_dark"
+                        android:hint="Protein (g)">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etQuickProtein"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/text_primary_dark"
+                            android:fontFamily="@font/blinker"
+                            android:textSize="15sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        app:boxBackgroundMode="outline"
+                        app:boxStrokeColor="@color/border_dark"
+                        app:hintTextColor="@color/text_hint_dark"
+                        android:hint="Description (optional)">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etQuickDescription"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="@color/text_primary_dark"
+                            android:fontFamily="@font/blinker"
+                            android:textSize="15sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnQuickAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="ADD"
+                    android:textSize="15sp"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    app:backgroundTint="#00D4E6"
+                    app:cornerRadius="10dp" />
+
+            </LinearLayout>
+
+            <!-- Today's Log Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/refined_card_background"
+                android:padding="20dp"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TODAY'S LOG"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_dark"
+                        android:fontFamily="@font/blinker"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05" />
+
+                    <TextView
+                        android:id="@+id/btnClearAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clear All"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_hint_dark"
+                        android:fontFamily="@font/blinker"
+                        android:clickable="true"
+                        android:focusable="true" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTodayLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false" />
+
+                <TextView
+                    android:id="@+id/tvEmptyLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="No entries yet today. Scan a product or use Quick Add!"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_hint_dark"
+                    android:fontFamily="@font/blinker"
+                    android:gravity="center"
+                    android:paddingVertical="20dp" />
+
+            </LinearLayout>
+
+            <!-- Goal Setting Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/refined_card_background"
+                android:paddingVertical="16dp"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DAILY GOAL"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary_dark"
+                        android:fontFamily="@font/blinker"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05" />
+
+                    <TextView
+                        android:id="@+id/tvCurrentGoal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="150g protein"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary_dark"
+                        android:fontFamily="@font/blinker" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnChangeGoal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Change"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_primary_dark"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    app:strokeColor="@color/border_dark"
+                    app:cornerRadius="10dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

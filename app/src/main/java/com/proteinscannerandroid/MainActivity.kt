@@ -46,6 +46,25 @@ class MainActivity : AppCompatActivity() {
         // 3D helix now handles its own animations via OpenGL
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshDailyIntakeProgress()
+    }
+
+    private fun refreshDailyIntakeProgress() {
+        lifecycleScope.launch {
+            val today = DailyIntakeManager.todayDateString()
+            val goal = DailyIntakeManager.getGoal(this@MainActivity)
+            database.dailyIntakeDao().getTotalForDate(today).collectLatest { total ->
+                val current = total ?: 0.0
+                val progress = (current / goal).coerceIn(0.0, 1.0).toFloat()
+                binding.mainProgressRing.setProgress(progress)
+                val percent = DailyIntakeManager.progressPercent(current, goal)
+                binding.tvDailyIntakeSubtitle.text = "${String.format("%.0f", current)}g / ${String.format("%.0f", goal)}g ($percent%)"
+            }
+        }
+    }
+
     private fun observePendingScans() {
         lifecycleScope.launch {
             database.pendingScanDao().getCount().collectLatest { count ->
@@ -98,6 +117,10 @@ class MainActivity : AppCompatActivity() {
             } else {
                 showPremiumUpsellDialog("Favorites")
             }
+        }
+
+        binding.btnDailyIntake.setOnClickListener {
+            startActivity(Intent(this, DailyIntakeActivity::class.java))
         }
 
         binding.btnSettings.setOnClickListener {

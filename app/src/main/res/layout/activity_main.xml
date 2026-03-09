@@ -351,6 +351,73 @@
 
         </LinearLayout>
 
+        <!-- Daily Intake Tracker -->
+        <LinearLayout
+            android:id="@+id/btnDailyIntake"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/refined_card_background"
+            android:paddingVertical="18dp"
+            android:paddingHorizontal="16dp"
+            android:layout_marginBottom="10dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <!-- Progress Ring -->
+            <FrameLayout
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="12dp">
+
+                <com.proteinscannerandroid.widget.CircularProgressView
+                    android:id="@+id/mainProgressRing"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:cpv_showText="false"
+                    app:cpv_strokeWidth="3dp" />
+
+            </FrameLayout>
+
+            <!-- Content -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DAILY INTAKE"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_sophisticated_primary"
+                    android:fontFamily="@font/blinker"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tvDailyIntakeSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Track your protein today"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_sophisticated_tertiary"
+                    android:fontFamily="@font/blinker" />
+
+            </LinearLayout>
+
+            <!-- Action Icon -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="#00D4E6" />
+
+        </LinearLayout>
+
         <!-- Fifth Action - History -->
         <LinearLayout
             android:id="@+id/btnHistory"

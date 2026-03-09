@@ -81,6 +81,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".DailyIntakeActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".OnboardingActivity"
             android:screenOrientation="portrait" />
     </application>

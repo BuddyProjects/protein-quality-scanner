@@ -196,6 +196,11 @@ class ResultsActivity : AppCompatActivity() {
         binding.btnCalculateIntake.setOnClickListener {
             calculateProteinIntake()
         }
+
+        // Add to Daily Intake button
+        binding.btnAddToIntake.setOnClickListener {
+            showAddToIntakeDialog()
+        }
     }
 
     private fun calculateProteinIntake() {
@@ -235,6 +240,74 @@ class ResultsActivity : AppCompatActivity() {
         } else {
             binding.intakeCalculatorCard.visibility = View.GONE
         }
+
+        // Show "Add to Intake" button when we have protein data
+        setupAddToIntakeButton()
+    }
+
+    private fun setupAddToIntakeButton() {
+        if (currentProteinPer100g != null && currentProteinPer100g!! > 0) {
+            binding.btnAddToIntake.visibility = View.VISIBLE
+        } else {
+            binding.btnAddToIntake.visibility = View.GONE
+        }
+    }
+
+    private fun showAddToIntakeDialog() {
+        val proteinPer100g = currentProteinPer100g
+        if (proteinPer100g == null || proteinPer100g <= 0) {
+            Toast.makeText(this, "Protein data not available", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Pre-fill from intake calculator if available
+        val prefill = binding.etIntakeAmount.text.toString().takeIf { it.isNotBlank() } ?: "100"
+
+        val editText = android.widget.EditText(this).apply {
+            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+            setText(prefill)
+            setSelection(text.length)
+            setPadding(60, 40, 60, 40)
+            hint = "Amount in grams"
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Add to Today's Intake")
+            .setMessage("How many grams of this product did you consume?")
+            .setView(editText)
+            .setPositiveButton("Add") { _, _ ->
+                val amount = editText.text.toString().toDoubleOrNull()
+                if (amount == null || amount <= 0) {
+                    Toast.makeText(this, "Enter a valid amount", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+
+                val proteinGrams = (amount / 100.0) * proteinPer100g
+                val productName = currentProductName ?: "Unknown Product"
+
+                lifecycleScope.launch {
+                    database.dailyIntakeDao().insert(
+                        com.proteinscannerandroid.data.DailyIntakeEntity(
+                            date = DailyIntakeManager.todayDateString(),
+                            productName = productName,
+                            proteinGrams = proteinGrams,
+                            pdcaasScore = currentPdcaasScore,
+                            effectiveProteinGrams = proteinGrams * currentPdcaasScore,
+                            barcode = currentBarcode
+                        )
+                    )
+                }
+
+                Snackbar.make(
+                    binding.root,
+                    "Added ${String.format("%.1f", proteinGrams)}g protein to today's intake",
+                    Snackbar.LENGTH_LONG
+                ).setAction("View") {
+                    startActivity(Intent(this, DailyIntakeActivity::class.java))
+                }.show()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun toggleFavorite() {

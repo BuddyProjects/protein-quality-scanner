@@ -497,6 +497,24 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Add to Daily Intake Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddToIntake"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="ADD TO TODAY'S INTAKE"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/blinker"
+                    app:backgroundTint="#00D4E6"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_score"
+                    app:iconTint="#000000"
+                    app:iconGravity="textStart"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone" />
+
                 <!-- Warnings Card -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/warningsCard"

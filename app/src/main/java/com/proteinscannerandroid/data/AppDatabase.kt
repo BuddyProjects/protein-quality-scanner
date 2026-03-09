@@ -9,8 +9,8 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [ScanHistoryEntity::class, FavoriteEntity::class, PendingScan::class],
-    version = 2,
+    entities = [ScanHistoryEntity::class, FavoriteEntity::class, PendingScan::class, DailyIntakeEntity::class],
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -18,6 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun scanHistoryDao(): ScanHistoryDao
     abstract fun favoriteDao(): FavoriteDao
     abstract fun pendingScanDao(): PendingScanDao
+    abstract fun dailyIntakeDao(): DailyIntakeDao
 
     companion object {
         @Volatile
@@ -37,6 +38,24 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        // Migration from version 2 to 3: Add daily_intake table
+        private val MIGRATION_2_3 = object : Migration(2, 3) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("""
+                    CREATE TABLE IF NOT EXISTS daily_intake (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        date TEXT NOT NULL,
+                        productName TEXT NOT NULL,
+                        proteinGrams REAL NOT NULL,
+                        pdcaasScore REAL,
+                        effectiveProteinGrams REAL,
+                        barcode TEXT,
+                        timestamp INTEGER NOT NULL
+                    )
+                """.trimIndent())
+            }
+        }
+
         fun getInstance(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -44,7 +63,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "protein_scanner_database"
                 )
-                .addMigrations(MIGRATION_1_2)
+                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                 .build()
                 INSTANCE = instance
                 instance

@@ -34,7 +34,7 @@
             android:textSize="20sp"
             android:textColor="@color/text_primary_dark"
             android:textStyle="bold"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:letterSpacing="0.05" />
 
     </LinearLayout>
@@ -75,7 +75,7 @@
                     android:text="0g / 150g"
                     android:textSize="16sp"
                     android:textColor="@color/text_primary_dark"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold" />
 
                 <TextView
@@ -85,7 +85,7 @@
                     android:text="of daily goal"
                     android:textSize="13sp"
                     android:textColor="@color/text_secondary_dark"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
@@ -123,7 +123,7 @@
                         android:text="5 Day Streak!"
                         android:textSize="16sp"
                         android:textColor="@color/text_primary_dark"
-                        android:fontFamily="@font/blinker"
+                        android:fontFamily="@font/inter"
                         android:textStyle="bold" />
 
                     <TextView
@@ -133,7 +133,7 @@
                         android:text="Keep it going!"
                         android:textSize="13sp"
                         android:textColor="@color/text_secondary_dark"
-                        android:fontFamily="@font/blinker" />
+                        android:fontFamily="@font/inter" />
 
                 </LinearLayout>
 
@@ -154,7 +154,7 @@
                     android:text="QUICK ADD"
                     android:textSize="14sp"
                     android:textColor="@color/text_primary_dark"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
                     android:layout_marginBottom="12dp" />
@@ -182,7 +182,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="numberDecimal"
                             android:textColor="@color/text_primary_dark"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:textSize="15sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -202,7 +202,7 @@
                             android:layout_height="wrap_content"
                             android:inputType="text"
                             android:textColor="@color/text_primary_dark"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:textSize="15sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
@@ -245,7 +245,7 @@
                         android:text="TODAY'S LOG"
                         android:textSize="14sp"
                         android:textColor="@color/text_primary_dark"
-                        android:fontFamily="@font/blinker"
+                        android:fontFamily="@font/inter"
                         android:textStyle="bold"
                         android:letterSpacing="0.05" />
 
@@ -256,7 +256,7 @@
                         android:text="Clear All"
                         android:textSize="13sp"
                         android:textColor="@color/text_hint_dark"
-                        android:fontFamily="@font/blinker"
+                        android:fontFamily="@font/inter"
                         android:clickable="true"
                         android:focusable="true" />
 
@@ -275,7 +275,7 @@
                     android:text="No entries yet today. Scan a product or use Quick Add!"
                     android:textSize="13sp"
                     android:textColor="@color/text_hint_dark"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:gravity="center"
                     android:paddingVertical="20dp" />
 
@@ -304,7 +304,7 @@
                         android:text="DAILY GOAL"
                         android:textSize="14sp"
                         android:textColor="@color/text_primary_dark"
-                        android:fontFamily="@font/blinker"
+                        android:fontFamily="@font/inter"
                         android:textStyle="bold"
                         android:letterSpacing="0.05" />
 
@@ -315,7 +315,7 @@
                         android:text="150g protein"
                         android:textSize="13sp"
                         android:textColor="@color/text_secondary_dark"
-                        android:fontFamily="@font/blinker" />
+                        android:fontFamily="@font/inter" />
 
                 </LinearLayout>
 

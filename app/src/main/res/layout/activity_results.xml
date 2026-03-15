@@ -33,7 +33,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:layout_marginStart="8dp" />
 
         <!-- Favorite Button -->
@@ -81,7 +81,7 @@
                     android:text="@string/loading"
                     android:textSize="18sp"
                     android:textColor="#FFFFFF"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:gravity="center" />
 
@@ -91,7 +91,7 @@
                     android:text="Computing molecular analysis..."
                     android:textSize="14sp"
                     android:textColor="#AAAAAA"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:layout_marginTop="8dp"
                     android:gravity="center" />
 
@@ -123,55 +123,87 @@
                         android:padding="32dp"
                         android:gravity="center">
 
-                        <!-- PDCAAS Label with Info Button -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginBottom="8dp">
+                        <!-- Circular Progress Ring with Score Inside -->
+                        <FrameLayout
+                            android:layout_width="180dp"
+                            android:layout_height="180dp"
+                            android:layout_marginBottom="16dp">
 
-                            <TextView
+                            <com.proteinscannerandroid.widget.CircularProgressView
+                                android:id="@+id/qualityProgressRing"
+                                android:layout_width="180dp"
+                                android:layout_height="180dp"
+                                app:cpv_showText="false"
+                                app:cpv_trackColor="#333333"
+                                app:cpv_strokeWidth="8dp" />
+
+                            <!-- Score Number + PDCAAS Label centered inside ring -->
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/pdcaas_score"
-                                android:textSize="16sp"
-                                android:textColor="#AAAAAA"
-                                android:fontFamily="@font/blinker"
-                                android:letterSpacing="0.1" />
+                                android:layout_gravity="center"
+                                android:orientation="vertical"
+                                android:gravity="center">
 
+                                <TextView
+                                    android:id="@+id/tvPdcaasScore"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="77"
+                                    android:textSize="48sp"
+                                    android:textStyle="bold"
+                                    android:fontFamily="@font/inter"
+                                    android:textColor="@color/quality_good" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="PDCAAS"
+                                    android:textSize="14sp"
+                                    android:textColor="#AAAAAA"
+                                    android:fontFamily="@font/inter"
+                                    android:letterSpacing="0.1"
+                                    android:layout_marginTop="-4dp" />
+
+                            </LinearLayout>
+
+                            <!-- Info Button top-right -->
                             <ImageButton
                                 android:id="@+id/btnInfoPdcaas"
                                 android:layout_width="28dp"
                                 android:layout_height="28dp"
-                                android:layout_marginStart="8dp"
+                                android:layout_gravity="top|end"
                                 android:src="@drawable/ic_info"
                                 android:background="?android:attr/selectableItemBackgroundBorderless"
                                 android:contentDescription="What is PDCAAS?"
                                 android:padding="4dp" />
 
-                        </LinearLayout>
+                        </FrameLayout>
 
-                        <TextView
-                            android:id="@+id/tvPdcaasScore"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0.85"
-                            android:textSize="48sp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/blinker"
-                            android:textColor="@color/quality_good"
-                            android:layout_marginBottom="12dp" />
-
+                        <!-- Quality Badge -->
                         <TextView
                             android:id="@+id/tvQualityCategory"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Good Quality Protein"
-                            android:textSize="20sp"
+                            android:text="Good"
+                            android:textSize="15sp"
                             android:textStyle="bold"
-                            android:fontFamily="@font/blinker"
-                            android:textColor="@color/quality_good"
+                            android:fontFamily="@font/inter"
+                            android:textColor="#000000"
+                            android:background="@drawable/quality_badge_background"
+                            android:paddingHorizontal="24dp"
+                            android:paddingVertical="6dp"
+                            android:layout_marginBottom="12dp" />
+
+                        <!-- Description Text -->
+                        <TextView
+                            android:id="@+id/tvQualityDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Good protein quality (PDCAAS: 0.77)"
+                            android:textSize="14sp"
+                            android:textColor="#AAAAAA"
+                            android:fontFamily="@font/inter"
                             android:gravity="center" />
 
                     </LinearLayout>
@@ -201,7 +233,7 @@
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="#00D4E6"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:layout_marginBottom="16dp" />
 
                         <TextView
@@ -212,7 +244,7 @@
                             android:textSize="20sp"
                             android:textStyle="bold"
                             android:textColor="#FFFFFF"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:layout_marginBottom="8dp" />
 
                         <TextView
@@ -232,7 +264,7 @@
                             android:text="Protein: 25g per 100g"
                             android:textSize="16sp"
                             android:textColor="#AAAAAA"
-                            android:fontFamily="@font/blinker" />
+                            android:fontFamily="@font/inter" />
 
                         <!-- Effective Protein with Info Button -->
                         <LinearLayout
@@ -252,7 +284,7 @@
                                 android:text="Effective protein: 21.3g per 100g"
                                 android:textSize="16sp"
                                 android:textColor="#00D4E6"
-                                android:fontFamily="@font/blinker" />
+                                android:fontFamily="@font/inter" />
 
                             <ImageButton
                                 android:id="@+id/btnInfoEffectiveProtein"
@@ -268,6 +300,24 @@
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
+                <!-- Add to Daily Intake Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddToIntake"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="ADD TO TODAY'S INTAKE"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/inter"
+                    app:backgroundTint="#00D4E6"
+                    app:cornerRadius="12dp"
+                    app:icon="@drawable/ic_score"
+                    app:iconTint="#000000"
+                    app:iconGravity="textStart"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone" />
 
                 <!-- Native Ad Container (shown for non-premium users, positioned early for visibility) -->
                 <com.google.android.material.card.MaterialCardView
@@ -322,7 +372,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="#00D4E6"
-                                android:fontFamily="@font/blinker" />
+                                android:fontFamily="@font/inter" />
 
                             <ImageButton
                                 android:id="@+id/btnInfoDetectedProteins"
@@ -342,7 +392,7 @@
                             android:text="Found proteins: Whey, Casein"
                             android:textSize="16sp"
                             android:textColor="#FFFFFF"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:lineSpacingExtra="4dp" />
 
                     </LinearLayout>
@@ -383,7 +433,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="#00D4E6"
-                                android:fontFamily="@font/blinker" />
+                                android:fontFamily="@font/inter" />
 
                             <ImageButton
                                 android:id="@+id/btnInfoIntakeCalculator"
@@ -410,7 +460,7 @@
                                 android:text="Amount consumed:"
                                 android:textSize="16sp"
                                 android:textColor="#AAAAAA"
-                                android:fontFamily="@font/blinker"
+                                android:fontFamily="@font/inter"
                                 android:layout_marginEnd="12dp" />
 
                             <com.google.android.material.textfield.TextInputLayout
@@ -440,7 +490,7 @@
                                 android:text="g"
                                 android:textSize="16sp"
                                 android:textColor="#AAAAAA"
-                                android:fontFamily="@font/blinker"
+                                android:fontFamily="@font/inter"
                                 android:layout_marginStart="8dp" />
 
                         </LinearLayout>
@@ -454,7 +504,7 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="#000000"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             app:backgroundTint="#00D4E6"
                             app:cornerRadius="12dp"
                             app:elevation="0dp"
@@ -478,7 +528,7 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold"
                                 android:textColor="#00D4E6"
-                                android:fontFamily="@font/blinker"
+                                android:fontFamily="@font/inter"
                                 android:gravity="center" />
 
                             <TextView
@@ -488,7 +538,7 @@
                                 android:text="(vs 16.7g on label)"
                                 android:textSize="14sp"
                                 android:textColor="#888888"
-                                android:fontFamily="@font/blinker"
+                                android:fontFamily="@font/inter"
                                 android:gravity="center"
                                 android:layout_marginTop="4dp" />
 
@@ -496,24 +546,6 @@
 
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-
-                <!-- Add to Daily Intake Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAddToIntake"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:text="ADD TO TODAY'S INTAKE"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/blinker"
-                    app:backgroundTint="#00D4E6"
-                    app:cornerRadius="12dp"
-                    app:icon="@drawable/ic_score"
-                    app:iconTint="#000000"
-                    app:iconGravity="textStart"
-                    android:layout_marginBottom="16dp"
-                    android:visibility="gone" />
 
                 <!-- Warnings Card -->
                 <com.google.android.material.card.MaterialCardView
@@ -541,7 +573,7 @@
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:textColor="@color/quality_low"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:layout_marginBottom="12dp" />
 
                         <TextView
@@ -550,7 +582,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="16sp"
                             android:textColor="#FF8A80"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:lineSpacingExtra="4dp" />
 
                     </LinearLayout>
@@ -582,7 +614,7 @@
                             android:textSize="16sp"
                             android:textStyle="bold"
                             android:textColor="#888888"
-                            android:fontFamily="@font/blinker"
+                            android:fontFamily="@font/inter"
                             android:layout_marginBottom="12dp" />
 
                         <TextView
@@ -606,7 +638,7 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="#000000"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     app:backgroundTint="#00D4E6"
                     app:cornerRadius="16dp"
                     app:elevation="0dp"

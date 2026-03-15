@@ -187,7 +187,7 @@ object ProteinDatabase {
         }
 
         // Sunflower oil/lecithin exclusion - check if THIS match is part of oil/lecithin phrase
-        if (proteinSourceName == "Sunflower Seed Protein" || proteinSourceName == "Sunflower Protein") {
+        if (proteinSourceName == "Sunflower Seed Protein") {
             // Get text immediately after the match (up to 15 chars)
             val afterMatchEnd = minOf(ingredientsLower.length, position + matchedText.length + 15)
             val textAfterMatch = ingredientsLower.substring(position + matchedText.length, afterMatchEnd).trimStart()
@@ -574,11 +574,11 @@ object ProteinDatabase {
             pdcaas = 1.0,
             qualityCategory = "Excellent",
             keywords = listOf("egg protein", "eiprotein", "eiweiß", "eiweiss", "protéine d'œuf", "albumin", "whole egg", "ganzes ei", "egg white", "hühnereiweiß", "hühnereiweiss", "blanc d'œuf", "eggs", "egg", "egg yolk", "eigelb", "jaune d'œuf", "eier", "œuf", "œufs", "oeufs", "oeuf", "uova", "huevo"),
-            description = "Gold standard protein with perfect amino acid balance",
-            diaas = 108,
+            description = "The most widely used standard for protein with perfect amino acid balance",
+            diaas = 113,
             limitingAminoAcids = emptyList(),
             digestionSpeed = "Medium",
-            notes = "Gold standard for amino acid balance, original protein reference"
+            notes = "The most widely used standard for amino acid balance, original protein reference"
         ),
         
         // Animal Proteins
@@ -588,21 +588,21 @@ object ProteinDatabase {
             qualityCategory = "Excellent",
             keywords = listOf("beef", "rindfleisch", "bœuf", "beef protein", "rindfleischprotein", "viande", "carne"),
             description = "High-quality animal protein rich in essential amino acids",
-            diaas = 100,
+            diaas = 112,
             limitingAminoAcids = emptyList(),
             digestionSpeed = "Medium",
             notes = "Complete protein with excellent amino acid profile. Rich in iron, zinc, and B12."
         ),
         ProteinSource(
             name = "Chicken Protein",
-            pdcaas = 1.0,
+            pdcaas = 0.95,
             qualityCategory = "Excellent",
             keywords = listOf("chicken", "huhn", "hähnchen", "hühnchen", "poulet", "chicken protein", "hühnerprotein", "geflügel"),
             description = "Lean animal protein with excellent biological value"
         ),
         ProteinSource(
             name = "Turkey Protein",
-            pdcaas = 1.0,
+            pdcaas = 0.91,
             qualityCategory = "Excellent",
             keywords = listOf("turkey", "pute", "truthahn", "dinde", "pavo", "turkey protein"),
             description = "Lean poultry protein with complete amino acid profile"
@@ -645,7 +645,7 @@ object ProteinDatabase {
             qualityCategory = "Excellent",
             // REMOVED generic terms: "soy", "sojaprotein" - these now only match generic Soy Protein
             // Isolate should only match when "isolat/isolate" is explicitly mentioned
-            keywords = listOf("soy protein isolate", "soy isolate", "sojaproteinisolat", "sojaisolat", "isolat de protéine de soja", "isolat de protéines de soja"),
+            keywords = listOf("soy protein isolate", "soy isolate", "isolated soy protein", "sojaproteinisolat", "sojaisolat", "isolat de protéine de soja", "isolat de protéines de soja"),
             description = "Highly purified plant protein with complete amino acid profile",
             diaas = 91,
             limitingAminoAcids = listOf("Methionine"),
@@ -667,11 +667,11 @@ object ProteinDatabase {
         ),
         ProteinSource(
             name = "Soy Protein",
-            pdcaas = 0.85,
-            qualityCategory = "Good",
+            pdcaas = 0.91,
+            qualityCategory = "Excellent",
             // REMOVED "sojaprotein" - it's a substring of "sojaproteinisolat" causing double-matches
             // Generic German soy terms: sojaeiweiß, sojaeiweiss, soja
-            keywords = listOf("soy protein", "sojaprotein", "soja", "soya", "soya flour", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soja beans", "sojabohnen"),
+            keywords = listOf("soy protein", "sojaprotein", "soja", "soya", "soya flour", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soy beans", "soja beans", "sojabohnen"),
             description = "Plant-based complete protein from soybeans",
             diaas = 91,
             limitingAminoAcids = listOf("Methionine"),
@@ -796,7 +796,7 @@ object ProteinDatabase {
         // Other Plant Proteins
         ProteinSource(
             name = "Rice Protein",
-            pdcaas = 0.47,
+            pdcaas = 0.50,
             qualityCategory = "Low",
             // Isolated/concentrated rice protein - for explicit protein ingredients
             keywords = listOf("rice protein", "reisprotein", "reiseiweiß", "reiseiweiss", "reiseiweisskonzentrat", "reisproteinpulver", "protéine de riz", "protéines de riz", "brown rice protein"),
@@ -833,7 +833,7 @@ object ProteinDatabase {
             name = "Pumpkin Seed Protein",
             pdcaas = 0.69,
             qualityCategory = "Medium",
-            keywords = listOf("pumpkin seed protein", "kürbiskernprotein", "pumpkin seeds", "pumpkin seed", "kürbiskerne", "graines de courge"),
+            keywords = listOf("pumpkin seed protein", "kürbiskernprotein", "pumpkin seeds", "pumpkin seed", "kürbiskerne", "graines de courge", "pipas de calabaza"),
             description = "Seed protein rich in minerals and healthy fats"
         ),
         
@@ -843,7 +843,7 @@ object ProteinDatabase {
             name = "Sunflower Seed Protein",
             pdcaas = 0.58,
             qualityCategory = "Medium",
-            keywords = listOf("sunflower seed", "sunflower grain", "sunflower", "sonnenblumenkerne", "sonnenblumenprotein", "sonnenblumenkernprotein", "graines de tournesol", "sunflower protein"),
+            keywords = listOf("sunflower seed", "sunflower seeds", "sunflower grain", "sunflower", "sonnenblumenkerne", "sonnenblumenprotein", "sonnenblumenkernprotein", "graines de tournesol", "sunflower protein", "pipas"),
             description = "Seed protein with moderate biological value"
         ),
         ProteinSource(
@@ -953,7 +953,7 @@ object ProteinDatabase {
             name = "Wheat Protein",
             pdcaas = 0.25,
             qualityCategory = "Low",
-            keywords = listOf("wheat protein", "weizenprotein", "weizeneiweiss", "weizeneiweiß", "weizengluten", "protéine de blé", "vital wheat gluten", "wheat flour", "weizenmehl", "wheat", "weizen", "hartweizen", "blé", "ble", "farine de blé", "farine de ble", "froment", "farine de froment", "gluten", "seitan", "son", "bran", "kleie", "grieß", "griess", "semolina", "dinkel", "durumhvede", "hvede", "grano duro", "grano"),
+            keywords = listOf("wheat protein", "weizenprotein", "weizeneiweiss", "weizeneiweiß", "weizengluten", "protéine de blé", "vital wheat gluten", "wheat flour", "weizenmehl", "wheat", "weizen", "hartweizen", "blé", "ble", "farine de blé", "farine de ble", "froment", "farine de froment", "gluten", "seitan", "son", "bran", "kleie", "grieß", "griess", "semolina", "durumhvede", "hvede", "grano duro", "grano"),
             description = "Cereal protein low in lysine, not suitable as sole protein source",
             diaas = 39,
             limitingAminoAcids = listOf("Lysine"),
@@ -1005,7 +1005,7 @@ object ProteinDatabase {
             name = "Gelatin",
             pdcaas = 0.0,  // ZERO - derived from collagen, same deficiency
             qualityCategory = "Incomplete",
-            keywords = listOf("gelatin", "gelatine", "gélatine", "beef gelatin", "pork gelatin", "gelatinehydrolysat", "hydrolyzed gelatin", "gelatin hydrolysate"),
+            keywords = listOf("gelatin", "gelatine", "gélatine", "beef gelatin", "pork gelatin", "gelatinehydrolysat", "hydrolyzed gelatin", "gelatin hydrolysate", "hydrolysat de gélatine", "gélatine hydrolysée"),
             description = "Incomplete protein derived from collagen - completely missing tryptophan",
             diaas = 0,
             limitingAminoAcids = listOf("Tryptophan (absent)", "Methionine", "Histidine"),
@@ -1073,7 +1073,7 @@ object ProteinDatabase {
             pdcaas = 0.68,
             qualityCategory = "Medium",
             keywords = listOf("teff"),
-            description = "Ancient Ethiopian grain with complete amino acid profile"
+            description = "Ancient Ethiopian grain with superior amino acid profile compared to most cereals"
         ),
         ProteinSource(
             name = "Pine Nut Protein",
@@ -1100,20 +1100,8 @@ object ProteinDatabase {
             digestionSpeed = "Medium",
             notes = "High protein content (40%+), low in fat. Popular in European plant-based products."
         ),
-        ProteinSource(
-            name = "Sunflower Protein",
-            pdcaas = 0.58,
-            qualityCategory = "Medium",
-            keywords = listOf("sunflower seeds", "graines de tournesol", "pipas", "sonnenblumenkerne"),
-            description = "Seed protein rich in vitamin E and healthy fats"
-        ),
-        ProteinSource(
-            name = "Pumpkin Seed Protein",
-            pdcaas = 0.69,
-            qualityCategory = "Medium",
-            keywords = listOf("pumpkin seeds", "graines de courge", "pipas de calabaza", "kürbiskerne"),
-            description = "Seed protein rich in minerals, zinc, and healthy fats"
-        ),
+        // Sunflower Protein merged into Sunflower Seed Protein above
+        // Pumpkin Seed Protein merged into Pumpkin Seed Protein above
         
         // FINAL TRAINING DISCOVERY - 100% ACCURACY ACHIEVED
         ProteinSource(
@@ -1143,8 +1131,8 @@ object ProteinDatabase {
         // ADDITIONAL PROTEINS FROM TRAINING RUN 2026-01-27
         ProteinSource(
             name = "Potato Protein",
-            pdcaas = 0.60,
-            qualityCategory = "Medium",
+            pdcaas = 0.93,
+            qualityCategory = "Excellent",
             keywords = listOf("potato protein", "kartoffelprotein", "protéine de pomme de terre", "proteína de patata"),
             description = "Plant protein from potatoes, often used in vegan products"
         ),
@@ -1195,7 +1183,9 @@ object ProteinDatabase {
             ?: ingredientsText  // Fallback: use full text if no marker found
 
         // Strip underscores and asterisks used for markdown formatting (e.g., "_Blé_" -> "Blé", "blé*" -> "blé")
+        // Also collapse multiple whitespace into single spaces (OCR artifacts)
         val ingredientsLower = extractedText.replace("_", "").replace("*", "").lowercase()
+            .replace(Regex("\\s+"), " ")
         val detectedProteins = mutableListOf<DetectedProtein>()
         val debugMatches = mutableListOf<DebugMatchInfo>()
         var totalScore = 0.0
@@ -1363,7 +1353,7 @@ object ProteinDatabase {
             "Mixed Nut Protein", "Almond Protein", "Walnut Protein", "Cashew Protein",
             "Hazelnut Protein", "Pecan Protein", "Brazil Nut Protein", "Macadamia Protein",
             "Pistachio Protein", "Pine Nut Protein", "Coconut Protein",
-            "Sunflower Seed Protein", "Sunflower Protein", "Pumpkin Seed Protein",
+            "Sunflower Seed Protein", "Pumpkin Seed Protein",
             "Chia Protein", "Flax Protein", "Sesame Protein", "Poppy Seed Protein",
             // Legumes when whole (not isolated)
             "Lentil Protein", "Bean Protein", "Chickpea Protein", 

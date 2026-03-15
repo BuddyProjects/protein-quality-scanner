@@ -16,7 +16,7 @@ class CircularProgressView @JvmOverloads constructor(
 
     private var progress = 0f // 0..1
     private var trackColor = Color.parseColor("#333333")
-    private var progressStartColor = Color.parseColor("#00D4AA")
+    private var progressStartColor = Color.parseColor("#00D4E6")
     private var progressEndColor = Color.parseColor("#00D4E6")
     private var strokeWidth = 12f
     private var showText = true
@@ -105,6 +105,12 @@ class CircularProgressView @JvmOverloads constructor(
 
     fun setCenterText(text: String) {
         centerText = text
+        invalidate()
+    }
+
+    fun setProgressColor(color: Int) {
+        progressStartColor = color
+        progressEndColor = color
         invalidate()
     }
 

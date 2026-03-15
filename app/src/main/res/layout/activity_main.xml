@@ -106,25 +106,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PROTEIN QUALITY"
-            android:textSize="26sp"
+            android:text="PROTEIN QUALITY SCANNER"
+            android:textSize="18sp"
             android:textColor="?android:attr/textColorPrimary"
             android:textStyle="bold"
-            android:fontFamily="@font/blinker"
-            android:letterSpacing="0.08"
-            android:gravity="center" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SCANNER"
-            android:textSize="26sp"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textStyle="bold"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:letterSpacing="0.08"
             android:gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="4dp" />
 
         <!-- Tagline -->
         <TextView
@@ -133,7 +122,7 @@
             android:text="Analyze protein quality with PDCAAS"
             android:textSize="14sp"
             android:textColor="?android:attr/textColorSecondary"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:gravity="center" />
 
     </LinearLayout>
@@ -152,14 +141,19 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/refined_card_background"
-            android:paddingVertical="20dp"
+            android:paddingVertical="14dp"
             android:paddingHorizontal="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true">
 
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_barcode"
+                app:tint="#00D4E6"
+                android:layout_marginEnd="16dp" />
 
-            <!-- Content -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -170,29 +164,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SCAN BARCODE"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/text_sophisticated_primary"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Quick database lookup"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/text_sophisticated_tertiary"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
-            <!-- Action Icon -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_barcode"
-                app:tint="#00D4E6" />
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/text_hint_dark" />
 
         </LinearLayout>
 
@@ -204,14 +197,19 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/refined_card_background"
-            android:paddingVertical="20dp"
+            android:paddingVertical="14dp"
             android:paddingHorizontal="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true">
 
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_camera"
+                app:tint="#00D4E6"
+                android:layout_marginEnd="16dp" />
 
-            <!-- Content -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -222,29 +220,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="SCAN INGREDIENTS"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/text_sophisticated_primary"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Photo of ingredient list"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/text_sophisticated_tertiary"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
-            <!-- Action Icon -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_camera"
-                app:tint="#00D4E6" />
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/text_hint_dark" />
 
         </LinearLayout>
 
@@ -256,14 +253,19 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/refined_card_background"
-            android:paddingVertical="18dp"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="10dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true">
 
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_edit"
+                app:tint="#00D4E6"
+                android:layout_marginEnd="16dp" />
 
-            <!-- Content -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -274,29 +276,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MANUAL ENTRY"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/text_sophisticated_primary"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Enter barcode manually"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/text_sophisticated_tertiary"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
-            <!-- Action Icon -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_edit"
-                app:tint="#00D4E6" />
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/text_hint_dark" />
 
         </LinearLayout>
 
@@ -308,13 +309,19 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/refined_card_background"
-            android:paddingVertical="18dp"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="10dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true">
 
-            <!-- Content -->
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_search"
+                app:tint="#00D4E6"
+                android:layout_marginEnd="16dp" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -325,29 +332,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="PROTEIN LOOKUP"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/text_sophisticated_primary"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Search protein database"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/text_sophisticated_tertiary"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
-            <!-- Action Icon -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_search"
-                app:tint="#00D4E6" />
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/text_hint_dark" />
 
         </LinearLayout>
 
@@ -359,28 +365,26 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/refined_card_background"
-            android:paddingVertical="18dp"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="10dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true">
 
-            <!-- Progress Ring -->
             <FrameLayout
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="12dp">
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="16dp">
 
                 <com.proteinscannerandroid.widget.CircularProgressView
                     android:id="@+id/mainProgressRing"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
                     app:cpv_showText="false"
-                    app:cpv_strokeWidth="3dp" />
+                    app:cpv_strokeWidth="2dp" />
 
             </FrameLayout>
 
-            <!-- Content -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -391,30 +395,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="DAILY INTAKE"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/text_sophisticated_primary"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="1dp" />
 
                 <TextView
                     android:id="@+id/tvDailyIntakeSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Track your protein today"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/text_sophisticated_tertiary"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
-            <!-- Action Icon -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:src="@drawable/ic_chevron_right"
-                app:tint="#00D4E6" />
+                app:tint="@color/text_hint_dark" />
 
         </LinearLayout>
 
@@ -426,13 +429,19 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/refined_card_background"
-            android:paddingVertical="18dp"
-            android:paddingHorizontal="16dp"
-            android:layout_marginBottom="10dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true">
 
-            <!-- Content -->
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_history"
+                app:tint="#00D4E6"
+                android:layout_marginEnd="16dp" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -443,29 +452,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HISTORY"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/text_sophisticated_primary"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="View past scans"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/text_sophisticated_tertiary"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
-            <!-- Action Icon -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_history"
-                app:tint="#00D4E6" />
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/text_hint_dark" />
 
         </LinearLayout>
 
@@ -477,13 +485,19 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:background="@drawable/refined_card_background"
-            android:paddingVertical="18dp"
-            android:paddingHorizontal="16dp"
+            android:paddingVertical="14dp"
+            android:paddingHorizontal="20dp"
             android:layout_marginBottom="32dp"
             android:clickable="true"
             android:focusable="true">
 
-            <!-- Content -->
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_heart_filled"
+                app:tint="#00D4E6"
+                android:layout_marginEnd="16dp" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -494,29 +508,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="FAVORITES"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textColor="@color/text_sophisticated_primary"
-                    android:fontFamily="@font/blinker"
+                    android:fontFamily="@font/inter"
                     android:textStyle="bold"
                     android:letterSpacing="0.05"
-                    android:layout_marginBottom="4dp" />
+                    android:layout_marginBottom="1dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Saved products"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textColor="@color/text_sophisticated_tertiary"
-                    android:fontFamily="@font/blinker" />
+                    android:fontFamily="@font/inter" />
 
             </LinearLayout>
 
-            <!-- Action Icon -->
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_heart_filled"
-                app:tint="#00D4E6" />
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_chevron_right"
+                app:tint="@color/text_hint_dark" />
 
         </LinearLayout>
 

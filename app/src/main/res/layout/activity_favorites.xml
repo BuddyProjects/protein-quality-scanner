@@ -39,7 +39,7 @@
                 android:textSize="20sp"
                 android:textColor="@color/text_primary_dark"
                 android:textStyle="bold"
-                android:fontFamily="@font/blinker" />
+                android:fontFamily="@font/inter" />
 
             <!-- Cancel selection button (visible in selection mode) -->
             <com.google.android.material.button.MaterialButton
@@ -78,7 +78,7 @@
                 android:textSize="20sp"
                 android:textColor="#FFFFFF"
                 android:textStyle="bold"
-                android:fontFamily="@font/blinker" />
+                android:fontFamily="@font/inter" />
 
             <TextView
                 android:layout_width="wrap_content"

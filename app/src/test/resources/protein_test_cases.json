@@ -495,7 +495,7 @@
       "source": "openfoodfacts",
       "barcode": "8908005144649",
       "ingredients": "60% Whole Grains (Rolled Oats, Brown Rice Flakes, Quinoa Flakes), 17% Dried Fruits (Raisins, Apricots, Cranberry, Blackcurrants), 14% Seeds & Nuts (Pumpkin, Almonds, Chia, Flax), Strawberry Powder, Date Syrup, Jaggery, Rice Bran Oil, Himalayan Pink Salt",
-      "expected_detected": ["Oat Protein", "Rice Protein", "Quinoa Protein", "Almond Protein"],
+      "expected_detected": ["Oat Protein", "Rice Grain Protein", "Quinoa Protein", "Almond Protein"],
       "expected_not_detected": [],
       "notes": "Healthy muesli - only detects proteins with clear keywords (Pumpkin/Chia/Flax are abbreviations without 'seeds')"
     },
@@ -1023,7 +1023,7 @@
       "source": "openfoodfacts",
       "barcode": "00681551",
       "ingredients": "Chicken Breast (73%), Wheatflour contains Gluten (with Wheatflour, Calcium Carbonate, Iron, Niacin, Thiamin), Water, Rapeseed Oil, Durum Wheat Semolina (contains Gluten), Rice Flour, Wheat Gluten, Salt, Wheat Starch (contains Gluten), Wheat Protein (contains Gluten), Chicken Stock, Yeast, Vinegar, Dried Garlic, Dried Onions, Sugar, Yeast Extract, Ground White Pepper, Dried Sage.",
-      "expected_detected": ["Chicken Protein", "Wheat Protein", "Rice Protein"],
+      "expected_detected": ["Chicken Protein", "Wheat Protein", "Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "Breaded chicken fillets with wheat gluten and rice flour"
     },
@@ -1083,7 +1083,7 @@
       "source": "openfoodfacts",
       "barcode": "00595445",
       "ingredients": "Chicken Breast (57%), Wheatflour contains Gluten (with Wheatflour, Calcium Carbonate, Iron, Niacin, Thiamin), Water, Rapeseed Oil, Salt, Durum Wheat Semolina (contains Gluten), Rice Flour, Wheat Protein (contains Gluten), Wheat Starch (contains Gluten), Wheat Gluten, Yeast, Dried Vinegar, Dried Garlic, Dried Onions, Sugar, Yeast Extract, Dried Lemon, Ground White Pepper, Herb Extract, Spice Extract, Dried Sage.",
-      "expected_detected": ["Chicken Protein", "Wheat Protein", "Rice Protein"],
+      "expected_detected": ["Chicken Protein", "Wheat Protein", "Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "Breaded chicken nuggets with wheat and rice"
     },
@@ -1323,9 +1323,9 @@
       "source": "openfoodfacts",
       "barcode": "5060221203753",
       "ingredients": "Chocolat blanc avec édulcorant (20%), édulcorant: maltitol, beurre de cacao, poudre de lait entier, cacao, émulsifiant: lécithine de soja, arômes, Protéines de lait (caséinate de calcium, isolat de protéines de lait, isolat de protéines de lactosérum (lait)), Hydrolysat de gélatine, Agent de charge polydextrose, Humectant: glycérol, Arachides (8,8%), Huile de soja, Poudre de lait écrémé, Edulcorants: xylitol et sucralose, Arômes, Sel, Emulsifiant: lécithine de soja. Peut contenir du blé, du gluten, des oeufs, des noix, des arachides et des graines de sésame.",
-      "expected_detected": ["Milk Protein", "Dairy Trace Protein", "Casein Protein", "Whey Protein Isolate", "Collagen", "Peanut Protein"],
+      "expected_detected": ["Milk Protein", "Casein Protein", "Whey Protein Isolate", "Gelatin", "Peanut Protein"],
       "expected_not_detected": ["Soy Protein", "Wheat Protein", "Egg Protein", "Sesame Protein"],
-      "notes": "EDGE CASE: UK protein bar - multiple milk proteins, collagen (gélatine), soy lecithin/oil NOT protein. Long trace warning at end"
+      "notes": "EDGE CASE: UK protein bar - multiple milk proteins, gelatin (hydrolysat de gélatine), soy lecithin/oil NOT protein. Long trace warning at end"
     },
     {
       "id": "off_5053990101542",
@@ -1443,7 +1443,7 @@
       "source": "openfoodfacts",
       "barcode": "3168930010890",
       "ingredients": "AVOINE complète (37%), chocolat au lait (13%) (sucre, LAIT en poudre, pâte de cacao, beurre de cacao, émulsifiant (lécithine de SOJA)), huile de tournesol, sucre, BLÉ complet (9%), sirop de glucose, oligofructose, farine de riz, farine de BLÉ, noix de coco, mélasse, sel, arôme naturel de caramel aux pommes, antioxydant (tocophérol)",
-      "expected_detected": ["Oat Protein", "Milk Protein", "Dairy Trace Protein", "Wheat Protein", "Rice Protein", "Coconut Protein"],
+      "expected_detected": ["Oat Protein", "Milk Protein", "Wheat Protein", "Rice Grain Protein", "Coconut Protein"],
       "expected_not_detected": ["Soy Protein", "Sunflower Seed Protein"],
       "notes": "French cereal - avoine, lait en poudre, blé, riz, coco. Soy is only lecithin, sunflower is oil"
     },
@@ -1573,7 +1573,7 @@
       "source": "synthetic",
       "barcode": "N/A",
       "ingredients": "Rice, water. May contain traces of wheat. Kann Spuren von Milch enthalten. Peut contenir des traces de soja. Traces éventuelles de fruits à coque.",
-      "expected_detected": ["Rice Protein"],
+      "expected_detected": ["Rice Grain Protein"],
       "expected_not_detected": ["Wheat Protein", "Milk Protein", "Soy Protein"],
       "notes": "Test multiple trace warning formats in English, German, French"
     },
@@ -1763,7 +1763,7 @@
       "source": "openfoodfacts",
       "barcode": "4056489009191",
       "ingredients": "53% fourrage aux épinards et à la Ricotta (35% Ricotta (lactosérum (lait), acidifiant: acide citrique; sel), 20% épinards, flocons de pommes de terre (pommes de terre, antioxydant: extraits de romarin ; chapelure (farine de blé, levure, sel), huile de colza, poudre de lactosérum (lait), 5% Mascarpone (crème (lait), lait écrémé, acidifiant : acide citrique ; poudre de lactosérum (lait)), huile de colza totalement hydrogénée, farine de riz, sel iodé (sel, iodure de potassium), arôme naturel (contient lait), pâte d'ail (ail, sel), muscade moulue), 47% pâtes aux œufs (farine de blé, 30% œuf*, semoule de blé dur). *Issu de poules élevées au sol. Traces éventuelles de poissons, de crustacés, de fruits à coque, de sulfites, de céleri, de moutarde et de soja.",
-      "expected_detected": ["Milk Protein", "Wheat Protein", "Egg Protein", "Rice Protein", "Yeast Protein"],
+      "expected_detected": ["Milk Protein", "Wheat Protein", "Egg Protein", "Rice Grain Protein", "Yeast Protein"],
       "expected_not_detected": ["Fish Protein", "Soy Protein"],
       "notes": "French tortelloni. Ricotta/lait/lactosérum = milk. farine de blé/semoule = wheat. œuf = egg. farine de riz = rice. levure = yeast. Traces éventuelles = trace warning."
     },
@@ -1903,7 +1903,7 @@
       "source": "openfoodfacts",
       "barcode": "5010003064744",
       "ingredients": "Wheat Flour (Calcium, Iron, Niacin, Thiamin), Water, Seed Mix 13% (Toasted Brown Linseed, Toasted Sunflower Seeds, Pumpkin Seeds, Sunflower Seeds, Millet Seeds, Golden Linseed, Poppy Seeds), Yeast, Wheat  Protein, Salt, Soya Flour, Malted Barley Flour, Granulated Sugar, Barley Flour, Preservative (E282), Caramelised Sugar, Barley Fibre, Emulsifier (E472e), Flour Treatment Agent (Ascorbic Acid).",
-      "expected_detected": ["Wheat Protein", "Flax Protein", "Sunflower Seed Protein", "Sunflower Protein", "Pumpkin Seed Protein", "Millet Protein", "Poppy Seed Protein", "Yeast Protein", "Soy Protein", "Barley Protein"],
+      "expected_detected": ["Wheat Protein", "Flax Protein", "Sunflower Seed Protein", "Pumpkin Seed Protein", "Millet Protein", "Poppy Seed Protein", "Yeast Protein", "Soy Protein", "Barley Protein"],
       "expected_not_detected": [],
       "notes": "Seeded bread with many protein sources. Soya Flour is actual ingredient (not lecithin). Sunflower detected by both entries."
     },
@@ -1923,7 +1923,7 @@
       "source": "openfoodfacts",
       "barcode": "5057967395088",
       "ingredients": "Wheat Flour [Wheat Flour, Calcium Carbonate, Iron, Niacin, Thiamin], Water, Wholemeal Wheat Flour, Malted Wheat Flakes, Rye Flour, Millet Seed (2%), Golden Linseed (2%), Sunflower Seed (2%), Rapeseed Oil, Fermented Wheat Flour, Salt, Poppy Seeds (0.6%), Molasses, Malted Wheat Flour, Flour Treatment Agent (Ascorbic Acid), Rice Flour.",
-      "expected_detected": ["Wheat Protein", "Millet Protein", "Flax Protein", "Sunflower Seed Protein", "Poppy Seed Protein", "Rice Protein"],
+      "expected_detected": ["Wheat Protein", "Millet Protein", "Flax Protein", "Sunflower Seed Protein", "Poppy Seed Protein", "Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "Seeded sourdough with multiple grains and seeds."
     },
@@ -2203,7 +2203,7 @@
       "source": "openfoodfacts",
       "barcode": "5060317350033",
       "ingredients": "British Pork (97%), Seasoning (Salt, Gluten Free Rice Flour, Spices, Sugar, Preservative (Sodium Sulphite**), Antioxidant (Ascorbic Acid))",
-      "expected_detected": ["Pork Protein", "Rice Protein"],
+      "expected_detected": ["Pork Protein", "Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "English pork sausages. Pork is protein source, rice flour may trigger Rice Protein."
     },
@@ -2213,7 +2213,7 @@
       "source": "openfoodfacts",
       "barcode": "5060055251548",
       "ingredients": "British or Irish Pork (90%), Water, Sea Salt, Flavouring, Rice Flour, Chickpea Flour, Ground Spices (Coriander, White Pepper, Nutmeg), Dried Onion, Antioxidant: Ascorbic Acid; Salt, Cornflour, Dextrose. Sausages filled into natural vegetable casings.",
-      "expected_detected": ["Pork Protein", "Rice Protein", "Chickpea Protein", "Processed Meat Protein"],
+      "expected_detected": ["Pork Protein", "Rice Grain Protein", "Chickpea Protein", "Processed Meat Protein"],
       "expected_not_detected": [],
       "notes": "English pork sausages with chickpea flour and rice flour. Cornflour is corn starch, not protein."
     },
@@ -2223,7 +2223,7 @@
       "source": "openfoodfacts",
       "barcode": "5060317350040",
       "ingredients": "british chicken (85%), pea flour, water, seasoning (salt, rice flour, sugar, dried leek, preservative (sodium sulphite), spice, yeast extract, antioxidant (ascorbic acid), citric acid, spice extracts, natural flavouring, herb extract), mozzarella (2%) (from milk), slow roasted tomatoes (2%), basil (1%), garlic, filled into beef collagen casings, allergens refer to ingredients in bold, produced in the uk using british chicken,",
-      "expected_detected": ["Chicken Protein", "Pea Protein", "Rice Protein", "Yeast Protein", "Milk Protein", "Beef Protein", "Collagen"],
+      "expected_detected": ["Chicken Protein", "Pea Protein", "Rice Grain Protein", "Yeast Protein", "Milk Protein", "Beef Protein", "Collagen"],
       "expected_not_detected": [],
       "notes": "Chicken chipolatas with pea flour, rice flour, mozzarella, beef collagen casing."
     },
@@ -2273,7 +2273,7 @@
       "source": "openfoodfacts",
       "barcode": "5010498509218",
       "ingredients": "British Outdoor Bred, RSPCA Assured Pork (84%), Water, Gluten Free Breadcrumb (Rice Flour, Water, Dextrose Monohydrate, Vegetable Fibre, Salt, Mono and Di - Glycerides of Fatty Acids, Caramelised Sugar Syrup, Paprika Extract), Salt, Rubbed Sage, Spices (Black Pepper, White Pepper), Stabiliser (Diphosphates), Preservative (Sodium Metabisulphite), Antioxidant (Ascorbic Acid), Filled into Natural Pork casings.",
-      "expected_detected": ["Pork Protein", "Rice Protein"],
+      "expected_detected": ["Pork Protein", "Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "English pork sausages with rice flour."
     },
@@ -2283,7 +2283,7 @@
       "source": "openfoodfacts",
       "barcode": "5060317351474",
       "ingredients": "british chicken (85%), water, pea flour, seasoning (salt, rice flour, sugar, dried leek, preservative (sodium sulphite), spice, yeast extract, antioxidant (ascorbic acid), acidity regulator (citric acid), natural flavouring, spice extracts, herb extract), citrus fibre, filled into calcium alginate casing,",
-      "expected_detected": ["Chicken Protein", "Pea Protein", "Rice Protein", "Yeast Protein"],
+      "expected_detected": ["Chicken Protein", "Pea Protein", "Rice Grain Protein", "Yeast Protein"],
       "expected_not_detected": [],
       "notes": "Chicken chipolatas with pea flour, rice flour, yeast extract."
     },
@@ -2733,7 +2733,7 @@
       "source": "openfoodfacts",
       "barcode": "5013665100065",
       "ingredients": "Organic wholegrain rice 99.8%, Sea Salt",
-      "expected_detected": ["Rice Protein"],
+      "expected_detected": ["Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "English rice cakes. Rice = rice protein."
     },
@@ -2743,7 +2743,7 @@
       "source": "openfoodfacts",
       "barcode": "3760049798609",
       "ingredients": "Farine de BLÉ* 41 % , eau, graines de lin brun 6,1 %, graines de lin jaune 6,1 %, graines de tournesol décortiquées 6 %, farine de SEIGLE 5,1 %, GLUTEN DE BLÉ, farine d'ORGE maltée torréfiée, levure, extrait de malt d'ORGE, sel, vinaigre, arôme naturel (contient alcool), conservateur : propionate de calcium, jus d'acérola déshydraté. Traces éventuelles d'oeufs, lait, graines de sésame, soja et moutarde.",
-      "expected_detected": ["Wheat Protein", "Flax Protein", "Sunflower Seed Protein", "Sunflower Protein", "Rye Protein", "Barley Protein", "Yeast Protein"],
+      "expected_detected": ["Wheat Protein", "Flax Protein", "Sunflower Seed Protein", "Rye Protein", "Barley Protein", "Yeast Protein"],
       "expected_not_detected": ["Egg Protein", "Milk Protein", "Sesame Protein", "Soy Protein"],
       "notes": "French bread with seeds. BLÉ=wheat, SEIGLE=rye, ORGE=barley. Traces éventuelles = trace warning."
     },
@@ -2793,7 +2793,7 @@
       "source": "openfoodfacts",
       "barcode": "3168930010265",
       "ingredients": "avoine complète (32%), blé complet (18%), sirop de glucose, huile de tournesol, sucre, amandes grillées (4,2%), noisettes (4%), oligofructose, noix de Pécan (1,5%), farine de blé, farine de riz, noix du Brésil (1%), miel, arômes naturels, antioxydant (tocophérol).",
-      "expected_detected": ["Oat Protein", "Wheat Protein", "Almond Protein", "Hazelnut Protein", "Pecan Protein", "Rice Protein", "Brazil Nut Protein"],
+      "expected_detected": ["Oat Protein", "Wheat Protein", "Almond Protein", "Hazelnut Protein", "Pecan Protein", "Rice Grain Protein", "Brazil Nut Protein"],
       "expected_not_detected": [],
       "notes": "French nut cereal mix. Removed underscore formatting."
     },
@@ -2993,7 +2993,7 @@
       "source": "openfoodfacts",
       "barcode": "4056489009191",
       "ingredients": "53% fourrage aux épinards et à la Ricotta (35% Ricotta (lactosérum (lait), acidifiant: acide citrique; sel), 20% épinards, flocons de pommes de terre (pommes de terre, antioxydant: extraits de romarin ; chapelure (farine de blé, levure, sel), huile de colza, poudre de lactosérum (lait), 5% Mascarpone (crème (lait), lait écrémé, acidifiant : acide citrique ; poudre de lactosérum (lait)), huile de colza totalement hydrogénée, farine de riz, sel iodé (sel, iodure de potassium), arôme naturel (contient lait), pâte d'ail (ail, sel), muscade moulue), 47% pâtes aux œufs (farine de blé, 30% œuf*, semoule de blé dur). *Issu de poules élevées au sol. Traces éventuelles de poissons, de crustacés, de fruits à coque, de sulfites, de céleri, de moutarde et de soja.",
-      "expected_detected": ["Milk Protein", "Wheat Protein", "Egg Protein", "Rice Protein", "Yeast Protein"],
+      "expected_detected": ["Milk Protein", "Wheat Protein", "Egg Protein", "Rice Grain Protein", "Yeast Protein"],
       "expected_not_detected": ["Fish Protein", "Mixed Nut Protein", "Soy Protein", "Soy Protein Isolate", "Soy Protein Concentrate", "Mustard Seed Protein"],
       "notes": "French tortelloni with ricotta, eggs, wheat, rice flour. Traces éventuelles excludes fish, nuts, soja, moutarde."
     },
@@ -3203,7 +3203,7 @@
       "source": "openfoodfacts",
       "barcode": "3229820160672",
       "ingredients": "Flocons d'avoine complète, Flocons de blé complet, Riz extrudé (farine de riz), Sucre de canne non raffiné, Chocolat noir (pâte de cacao, sucre de canne non raffiné, inuline), Farine de blé, Huile de tournesol, Miel, Stabilisant: gomme d'acacia, Mélasses, Flocons de noix de coco, Sel marin, Cannelle, Antioxydant: extrait riche en tocopherols. \n\nPeut contenir du lait, des fruits à coque, des graines de sésame et du soja. \n\n*Ingrédients biologiques.",
-      "expected_detected": ["Oat Protein", "Wheat Protein", "Rice Protein", "Coconut Protein"],
+      "expected_detected": ["Oat Protein", "Wheat Protein", "Rice Grain Protein", "Coconut Protein"],
       "expected_not_detected": ["Milk Protein", "Mixed Nut Protein", "Walnut Protein", "Sesame Protein", "Soy Protein", "Soy Protein Isolate", "Soy Protein Concentrate"],
       "notes": "French organic granola. Peut contenir = trace warnings. Noix de coco = coconut (not walnut)."
     },
@@ -3233,7 +3233,7 @@
       "source": "openfoodfacts",
       "barcode": "3229820129488",
       "ingredients": "Flocons d'avoine* complète, Flocons de blé* complet, Raisins 8% (raisins*, huile de tournesol*), Figues* séchées 8% (figues*, farine de riz*), Flocons d'épeautre* complet, Pétales de maïs*, Dattes* 4 % (dattes*, farine de riz*), Abricots* secs 3% (abricots*, farine de riz*), Graines de tournesol*, Pétales d'épeautre* complet, Graines de lin*, Graines de courge*.\r\n Peut contenir des traces de lait, de fruits à coque, de graines de sésame et de soja. *Ingrédients biologiques.",
-      "expected_detected": ["Oat Protein", "Wheat Protein", "Rice Protein", "Spelt Protein", "Farro Protein", "Corn Protein", "Sunflower Seed Protein", "Sunflower Protein", "Flax Protein", "Pumpkin Seed Protein"],
+      "expected_detected": ["Oat Protein", "Wheat Protein", "Rice Grain Protein", "Spelt Protein", "Farro Protein", "Corn Protein", "Sunflower Seed Protein", "Flax Protein", "Pumpkin Seed Protein"],
       "expected_not_detected": ["Milk Protein", "Mixed Nut Protein", "Sesame Protein", "Soy Protein", "Soy Protein Isolate", "Soy Protein Concentrate"],
       "notes": "French organic muesli. Épeautre = spelt/farro. Maïs = corn pétales."
     },
@@ -3243,7 +3243,7 @@
       "source": "openfoodfacts",
       "barcode": "5010477348678",
       "ingredients": "Céréales complètes (59%) (flocons d'_avoine_, flocons de _blé_, flocons de _blé_ grillés), fruits secs (30%)  (raisins secs, raisins de sultanine, abricots secs hachés, tranches de pommes séchées, éclats de noix de coco grillés, noix_noisettes_ hachées grillées, _amandes_ effilées), flocons d'_orge_, graines de tournesol.",
-      "expected_detected": ["Oat Protein", "Wheat Protein", "Coconut Protein", "Hazelnut Protein", "Almond Protein", "Barley Protein", "Sunflower Seed Protein", "Sunflower Protein"],
+      "expected_detected": ["Oat Protein", "Wheat Protein", "Coconut Protein", "Hazelnut Protein", "Almond Protein", "Barley Protein", "Sunflower Seed Protein"],
       "expected_not_detected": [],
       "notes": "French muesli with oats, wheat, barley, nuts, seeds."
     },
@@ -3283,7 +3283,7 @@
       "source": "openfoodfacts",
       "barcode": "5010477348357",
       "ingredients": "Céréales complètes (48%) (flocons d'_avoine_, farine d'_avoine_), sucre, noix (14%) (_noisettes_ grillées en morceaux et entières, _amandes_ effilées et entières, morceaux de _noix du Brésil_, éclats de _noix de pécan_), flocons d'_orge_, huile végétale (huile de colza, huile de tournesol), farine de riz, noix de coco séchée, arôme naturel.",
-      "expected_detected": ["Oat Protein", "Mixed Nut Protein", "Walnut Protein", "Hazelnut Protein", "Almond Protein", "Brazil Nut Protein", "Pecan Protein", "Rice Protein", "Coconut Protein"],
+      "expected_detected": ["Oat Protein", "Mixed Nut Protein", "Walnut Protein", "Hazelnut Protein", "Almond Protein", "Brazil Nut Protein", "Pecan Protein", "Rice Grain Protein", "Coconut Protein"],
       "expected_not_detected": [],
       "notes": "French granola with 4 types of nuts. 'Noix (14%)' is generic nuts (walnut). Barley (orge) is in flocons, not detected."
     },
@@ -3343,7 +3343,7 @@
       "source": "openfoodfacts",
       "barcode": "5013803991982",
       "ingredients": "_Peanuts_ 45%, glucose syrup, dark chocolate 11% (cocoa mass, sugar, dextrose, soya lecithin), _soya_ protein crispies (_soy_ protein isolate, tapioca starch, salt), shredded coconut 7%, honey 7%, crisped rice (rice, sugar), cocoa powder, salt.",
-      "expected_detected": ["Peanut Protein", "Soy Protein Isolate", "Soy Protein", "Coconut Protein", "Rice Protein"],
+      "expected_detected": ["Peanut Protein", "Soy Protein Isolate", "Soy Protein", "Coconut Protein", "Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "Eat Natural bars with peanuts, soy protein isolate, coconut, rice. Soya lecithin in chocolate excluded."
     },
@@ -3363,7 +3363,7 @@
       "source": "openfoodfacts",
       "barcode": "5053827189927",
       "ingredients": "Céréales complètes (19 7) avoine, blé complet, orge), sirop de glucose, isolat de protéine de soja, fructose, fruits à coque (6%)(noix de cajou, noisettes), dattes, cacahuètes (5.5%), purée d'amandes (4.5%), noix de coco séchée (4.5%), graines de tournesol (4%), lait concentré sucré (lait, sucre), humectant (glycérol), isolats de protéines de pois, amidon de tapioca, cacao maigre en poudre (1.5%), huile de tournesol, sel, arôme naturel, émulsifiant (lécithine de soja), extrait de romarin.",
-      "expected_detected": ["Oat Protein", "Wheat Protein", "Barley Protein", "Soy Protein Isolate", "Soy Protein", "Cashew Protein", "Hazelnut Protein", "Peanut Protein", "Almond Protein", "Coconut Protein", "Sunflower Seed Protein", "Sunflower Protein", "Milk Protein", "Pea Protein Isolate", "Pea Protein"],
+      "expected_detected": ["Oat Protein", "Wheat Protein", "Barley Protein", "Soy Protein Isolate", "Soy Protein", "Cashew Protein", "Hazelnut Protein", "Peanut Protein", "Almond Protein", "Coconut Protein", "Sunflower Seed Protein", "Milk Protein", "Pea Protein Isolate", "Pea Protein"],
       "expected_not_detected": [],
       "notes": "French Special K protein bar with many protein sources."
     },
@@ -3393,7 +3393,7 @@
       "source": "openfoodfacts",
       "barcode": "20035594",
       "ingredients": "Milk protein mixture (concentrated milk protein, milk protein isolate, calcium caseinate (milk)), 15% whole milk chocolate coating (sweetener: maltitol; cocoa butter, whole milk powder, cocoa mass, emulsifier: lecithin; natural vanilla flavouring), hydrolysed collagen, humectant: glycerin; soya protein isolate, flavouring, 5% crisp soya protein pieces (soya protein, rice semolina, cocoa powder, salt), palm fat, salt, emulsifier. lecithins; sweetener: sucralose; antioxidant: DL-alpha-tocopherol",
-      "expected_detected": ["Milk Protein", "Casein Protein", "Dairy Trace Protein", "Collagen", "Soy Protein Isolate", "Soy Protein", "Rice Protein"],
+      "expected_detected": ["Milk Protein", "Casein Protein", "Collagen", "Soy Protein Isolate", "Soy Protein", "Rice Grain Protein"],
       "expected_not_detected": [],
       "notes": "IronMaxx protein bar with milk protein, casein, collagen, soy protein, rice."
     },
@@ -3403,7 +3403,7 @@
       "source": "openfoodfacts",
       "barcode": "3609200011174",
       "ingredients": "25% chocolat au LAIT avec édulcorant (édulcorant: maltitol, beurre de cacao, poudre de LAIT entier, pate de cacao, émulsifiant : lécithines, arôme naturel de vanille), protéines de LAIT, humectant: glycérol, hydrolysat de collagène, 4,5% billettes de SOJA et cacao (protéine de SOJA, poudre de cacao, amidon de tapioca), chocolat blanc avecédulcorant (édulcorant: maltitol, beurre de cacao, poudre de LAIT entier, émulsifiant: lécithines, arôme naturel de vanille), eau, fibres alimentaires: polydextrose, protéine de SOJA, graisse de palme, arômes, arôme naturel, édulcorant: sucralose. DE FRUITS à coor",
-      "expected_detected": ["Milk Protein", "Dairy Trace Protein", "Collagen", "Soy Protein"],
+      "expected_detected": ["Milk Protein", "Collagen", "Soy Protein"],
       "expected_not_detected": [],
       "notes": "French protein bar with milk protein, collagen hydrolysate, soy protein."
     },
@@ -3413,7 +3413,7 @@
       "source": "openfoodfacts",
       "barcode": "5060811383254",
       "ingredients": "Protein Blend (Calcium Caseinate (Milk), Whey Protein Isolate (Milk)), Milk Chocolate with Sweetener (20%) (Sweetener: Maltitol; Cocoa Butter, Whole Milk Powder, Cocoa Mass, Emulsifier: Soy Lecithin; Natural Flavouring), Bovine Collagen Hydrolysate, Humectant: Glycerol; Sweeteners: Maltitol, Sucralose; Palm Oil, Water, Fat - reduced Cocoa Powder (3%), Wheat Flour, Maize Starch, Rapeseed Oil, Bulking Agent: Polydextrose; Sea Salt, Wheat Starch, Emulsifier: Soy Lecithin; Raising Agents: r Ammonium Carbonates, Sodium Carbonates; Acidity Regulator: Sodium Hydroxide; Flavourings.",
-      "expected_detected": ["Casein Protein", "Whey Protein Isolate", "Milk Protein", "Dairy Trace Protein", "Collagen", "Wheat Protein"],
+      "expected_detected": ["Casein Protein", "Whey Protein Isolate", "Milk Protein", "Collagen", "Wheat Protein"],
       "expected_not_detected": ["Soy Protein", "Soy Protein Isolate", "Soy Protein Concentrate", "Corn Protein"],
       "notes": "Grenade protein bar with casein, whey isolate, collagen, wheat. Soy lecithin is emulsifier. Maize starch excluded."
     },

@@ -39,7 +39,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:fontFamily="@font/blinker"
+                android:fontFamily="@font/inter"
                 android:maxLines="2"
                 android:ellipsize="end" />
 
@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:textColor="#AAAAAA"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:lineSpacingExtra="4dp"
             android:maxLines="3"
             android:ellipsize="end"
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:textColor="#666666"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:layout_marginBottom="16dp"
             android:visibility="gone" />
 
@@ -89,7 +89,7 @@
             android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="#000000"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             app:backgroundTint="#00D4E6"
             app:cornerRadius="12dp" />
 

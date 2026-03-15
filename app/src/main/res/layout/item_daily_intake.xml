@@ -16,7 +16,7 @@
         android:text="14:30"
         android:textSize="13sp"
         android:textColor="@color/text_hint_dark"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         android:layout_marginEnd="12dp" />
 
     <!-- Product Name -->
@@ -28,7 +28,7 @@
         android:text="Whey Protein"
         android:textSize="14sp"
         android:textColor="@color/text_primary_dark"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         android:maxLines="1"
         android:ellipsize="end" />
 
@@ -41,7 +41,7 @@
         android:textSize="14sp"
         android:textColor="#00D4E6"
         android:textStyle="bold"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         android:layout_marginEnd="8dp" />
 
     <!-- Delete Button -->

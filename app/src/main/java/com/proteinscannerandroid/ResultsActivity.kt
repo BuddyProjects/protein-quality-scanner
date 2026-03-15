@@ -140,7 +140,7 @@ class ResultsActivity : AppCompatActivity() {
         binding.btnInfoPdcaas.setOnClickListener {
             showInfoDialog(
                 title = "What is PDCAAS?",
-                content = "PDCAAS (Protein Digestibility Corrected Amino Acid Score) is the gold standard for measuring protein quality, developed by the WHO/FAO.\n\n" +
+                content = "PDCAAS (Protein Digestibility Corrected Amino Acid Score) is the most widely used standard for measuring protein quality, developed by the WHO/FAO.\n\n" +
                     "It measures two things:\n" +
                     "• How complete the amino acid profile is\n" +
                     "• How well your body can digest and absorb the protein\n\n" +
@@ -433,26 +433,14 @@ class ResultsActivity : AppCompatActivity() {
         // Check if favorite
         checkIfFavorite(barcode)
 
-        // Display PDCAAS score
-        binding.tvPdcaasScore.text = String.format("%.2f", pdcaasScore)
-
-        // Determine quality label from score
+        // Display PDCAAS score with ring
         val qualityLabel = when {
             pdcaasScore >= 0.9 -> "Excellent"
             pdcaasScore >= 0.75 -> "Good"
             pdcaasScore >= 0.5 -> "Medium"
             else -> "Low"
         }
-        binding.tvQualityCategory.text = qualityLabel
-
-        val categoryColor = when (qualityLabel.lowercase()) {
-            "excellent" -> R.color.quality_excellent
-            "good" -> R.color.quality_good
-            "medium" -> R.color.quality_medium
-            else -> R.color.quality_low
-        }
-        binding.tvQualityCategory.setTextColor(ContextCompat.getColor(this, categoryColor))
-        binding.tvPdcaasScore.setTextColor(ContextCompat.getColor(this, categoryColor))
+        updateQualityRing(pdcaasScore, qualityLabel)
 
         // Display found proteins (from cached list)
         if (currentProteinSources.isNotEmpty()) {
@@ -789,21 +777,7 @@ class ResultsActivity : AppCompatActivity() {
     private fun displayAnalysis(analysis: ProteinAnalysis, proteinContent: Double?) {
         // Display PDCAAS score
         val pdcaas = analysis.weightedPdcaas
-        binding.tvPdcaasScore.text = String.format("%.2f", pdcaas)
-
-        // Display quality category with appropriate color
-        val qualityLabel = analysis.qualityLabel
-        binding.tvQualityCategory.text = qualityLabel
-        
-        val categoryColor = when (qualityLabel.lowercase()) {
-            "excellent" -> R.color.quality_excellent
-            "good" -> R.color.quality_good
-            "medium" -> R.color.quality_medium
-            else -> R.color.quality_low
-        }
-        
-        binding.tvQualityCategory.setTextColor(ContextCompat.getColor(this, categoryColor))
-        binding.tvPdcaasScore.setTextColor(ContextCompat.getColor(this, categoryColor))
+        updateQualityRing(pdcaas, analysis.qualityLabel)
 
         // Display warnings if any
         if (analysis.warnings.isNotEmpty()) {
@@ -821,6 +795,36 @@ class ResultsActivity : AppCompatActivity() {
         } else {
             binding.effectiveProteinLayout.visibility = View.GONE
         }
+    }
+
+    private fun updateQualityRing(pdcaas: Double, qualityLabel: String) {
+        val scoreInt = (pdcaas * 100).toInt()
+        binding.tvPdcaasScore.text = "$scoreInt"
+
+        val categoryColorRes = when (qualityLabel.lowercase()) {
+            "excellent" -> R.color.quality_excellent
+            "good" -> R.color.quality_good
+            "medium" -> R.color.quality_medium
+            else -> R.color.quality_low
+        }
+        val categoryColor = ContextCompat.getColor(this, categoryColorRes)
+
+        // Set score text color
+        binding.tvPdcaasScore.setTextColor(categoryColor)
+
+        // Set ring progress and color
+        binding.qualityProgressRing.setProgressColor(categoryColor)
+        binding.qualityProgressRing.setProgress(pdcaas.toFloat(), animate = true)
+
+        // Quality badge - colored pill with black text
+        binding.tvQualityCategory.text = qualityLabel
+        val badgeDrawable = ContextCompat.getDrawable(this, R.drawable.quality_badge_background)?.mutate()
+        badgeDrawable?.setTint(categoryColor)
+        binding.tvQualityCategory.background = badgeDrawable
+        binding.tvQualityCategory.setTextColor(Color.BLACK)
+
+        // Description text
+        binding.tvQualityDescription.text = "$qualityLabel protein quality (PDCAAS: ${String.format("%.2f", pdcaas)})"
     }
 
     private fun displayDetectedProteins(detectedProteins: List<DetectedProtein>) {

@@ -34,7 +34,7 @@
             android:textSize="20sp"
             android:textColor="@color/text_primary_dark"
             android:textStyle="bold"
-            android:fontFamily="@font/blinker" />
+            android:fontFamily="@font/inter" />
 
     </LinearLayout>
 

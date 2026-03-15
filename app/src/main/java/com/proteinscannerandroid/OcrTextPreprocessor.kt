@@ -79,14 +79,15 @@ object OcrTextPreprocessor {
             Pair(Regex("(?i)milii"), "milü"),  // Rarely needed, most OCR handles this
             
             // "l" vs "I" vs "1" fixes for common protein terms
-            Pair(Regex("(?i)prote1n"), "protein"),
-            Pair(Regex("(?i)proteIn"), "protein"),
-            Pair(Regex("(?i)iso1ate"), "isolate"),
-            Pair(Regex("(?i)isoIate"), "isolate"),
-            Pair(Regex("(?i)m1lk"), "milk"),
-            Pair(Regex("(?i)mIlk"), "milk"),
-            Pair(Regex("(?i)wh3y"), "whey"),
-            Pair(Regex("(?i)cas3in"), "casein"),
+            // Only match literal OCR errors - not already-correct text
+            Pair(Regex("prote1n", RegexOption.IGNORE_CASE), "protein"),
+            Pair(Regex("proteI(?=[nN])"), "protei"),  // Capital I before n = OCR error (not word-initial "Protein")
+            Pair(Regex("iso1ate", RegexOption.IGNORE_CASE), "isolate"),
+            Pair(Regex("isoI(?=[aA])"), "isoi"),  // Capital I before a = OCR error
+            Pair(Regex("m1lk", RegexOption.IGNORE_CASE), "milk"),
+            Pair(Regex("mIlk"), "milk"),  // Case-sensitive: only "mIlk" not "Milk"
+            Pair(Regex("wh3y", RegexOption.IGNORE_CASE), "whey"),
+            Pair(Regex("cas3in", RegexOption.IGNORE_CASE), "casein"),
             
             // "0" vs "O" fixes
             Pair(Regex("(?i)s0ja"), "soja"),
@@ -94,8 +95,9 @@ object OcrTextPreprocessor {
             Pair(Regex("(?i)prote0n"), "protein"),
             
             // French accent fixes (OCR often drops accents)
-            Pair(Regex("(?i)proteine"), "protéine"),
-            Pair(Regex("(?i)proteines"), "protéines"),
+            // Use word boundary to avoid matching English "protein" + random "e"
+            Pair(Regex("\\bproteines\\b", RegexOption.IGNORE_CASE), "protéines"),
+            Pair(Regex("\\bproteine\\b", RegexOption.IGNORE_CASE), "protéine"),
             Pair(Regex("(?i)lait ecreme"), "lait écrémé"),
             Pair(Regex("(?i)legumineuse"), "légumineuse"),
             

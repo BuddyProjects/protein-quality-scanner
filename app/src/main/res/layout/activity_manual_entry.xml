@@ -35,7 +35,7 @@
             android:textSize="20sp"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:layout_marginStart="8dp" />
 
     </LinearLayout>
@@ -70,7 +70,7 @@
             android:text="Enter Barcode Number"
             android:textSize="18sp"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
 
@@ -80,7 +80,7 @@
             android:text="Type the barcode number from your product packaging to look up protein quality information."
             android:textSize="14sp"
             android:textColor="#AAAAAA"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:layout_marginBottom="24dp" />
 
         <!-- Input Field -->
@@ -100,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FFFFFF"
                 android:textColorHint="#888888"
-                android:fontFamily="@font/blinker"
+                android:fontFamily="@font/inter"
                 android:textSize="16sp"
                 android:inputType="number"
                 android:maxLines="1" />
@@ -125,7 +125,7 @@
             android:layout_weight="1"
             android:text="BACK"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:textStyle="bold"
             android:backgroundTint="#444444"
             android:layout_marginEnd="8dp"
@@ -139,7 +139,7 @@
             android:layout_weight="1"
             android:text="@string/analyze_protein"
             android:textColor="#000000"
-            android:fontFamily="@font/blinker"
+            android:fontFamily="@font/inter"
             android:textStyle="bold"
             android:backgroundTint="#00D4E6"
             android:layout_marginStart="8dp"
@@ -154,7 +154,7 @@
         android:text="Tip: The barcode is usually found near the product's nutritional information"
         android:textSize="12sp"
         android:textColor="#666666"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         android:layout_marginTop="24dp"
         android:gravity="center"
         android:layout_gravity="center" />

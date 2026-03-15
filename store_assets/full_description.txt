@@ -15,7 +15,7 @@ Not all protein is created equal. That "30g protein" bar might only deliver 15g 
 
 🎯 WHY PDCAAS MATTERS
 
-PDCAAS (Protein Digestibility Corrected Amino Acid Score) is the gold standard used by the WHO and FDA to measure protein quality. A score of 1.0 means complete protein. Many products score far lower.
+PDCAAS (Protein Digestibility Corrected Amino Acid Score) is the most widely used standard by the WHO and FDA to measure protein quality. A score of 1.0 means complete protein. Many products score far lower.
 
 • Whey protein: 1.0 (excellent)
 • Egg: 1.0 (excellent)  

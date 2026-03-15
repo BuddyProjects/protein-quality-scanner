@@ -16,7 +16,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         android:layout_marginBottom="16dp" />
 
     <!-- Content -->
@@ -27,7 +27,7 @@
         android:text="Info content goes here..."
         android:textSize="15sp"
         android:textColor="#CCCCCC"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         android:lineSpacingExtra="4dp"
         android:layout_marginBottom="8dp" />
 
@@ -39,7 +39,7 @@
         android:text=""
         android:textSize="13sp"
         android:textColor="#AAAAAA"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         android:fontStyle="italic"
         android:lineSpacingExtra="2dp"
         android:visibility="gone"
@@ -53,7 +53,7 @@
         android:text="Got it"
         android:textSize="16sp"
         android:textColor="#000000"
-        android:fontFamily="@font/blinker"
+        android:fontFamily="@font/inter"
         app:backgroundTint="#00D4E6"
         app:cornerRadius="12dp"
         android:layout_marginTop="20dp" />

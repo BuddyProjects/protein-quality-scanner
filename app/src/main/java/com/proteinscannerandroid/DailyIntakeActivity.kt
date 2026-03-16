@@ -152,8 +152,8 @@ class DailyIntakeActivity : AppCompatActivity() {
 
     private fun loadStreak() {
         lifecycleScope.launch {
-            val dates = database.dailyIntakeDao().getAllDatesWithEntries()
-            val streak = DailyIntakeManager.calculateStreak(dates)
+            val goalDates = database.dailyIntakeDao().getDatesWhereGoalMet(currentGoal)
+            val streak = DailyIntakeManager.calculateStreak(goalDates)
 
             if (streak > 0) {
                 binding.streakCard.visibility = View.VISIBLE

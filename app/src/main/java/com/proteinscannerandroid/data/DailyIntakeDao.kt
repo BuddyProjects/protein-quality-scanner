@@ -14,6 +14,9 @@ interface DailyIntakeDao {
     @Query("SELECT DISTINCT date FROM daily_intake ORDER BY date DESC")
     suspend fun getAllDatesWithEntries(): List<String>
 
+    @Query("SELECT date FROM daily_intake GROUP BY date HAVING SUM(proteinGrams) >= :goal ORDER BY date DESC")
+    suspend fun getDatesWhereGoalMet(goal: Double): List<String>
+
     @Insert
     suspend fun insert(entry: DailyIntakeEntity): Long
 

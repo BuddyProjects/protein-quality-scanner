@@ -39,8 +39,8 @@ object DailyIntakeManager {
     }
 
     /**
-     * Calculate streak of consecutive days with at least one intake entry.
-     * Today counts only if it has entries.
+     * Calculate streak of consecutive days where the protein goal was met.
+     * Expects a list of date strings where the goal was achieved.
      */
     fun calculateStreak(datesWithEntries: List<String>): Int {
         if (datesWithEntries.isEmpty()) return 0

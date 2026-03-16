@@ -34,7 +34,7 @@ class DailyIntakeActivity : AppCompatActivity() {
         setupRecyclerView()
         setupClickListeners()
         observeData()
-        loadStreak()
+        updateMotivationalCard()
         updateGoalDisplay()
 
         // Check if launched with "add" intent from ResultsActivity
@@ -120,6 +120,9 @@ class DailyIntakeActivity : AppCompatActivity() {
 
                     // Update progress ring
                     updateProgress(total)
+
+                    // Update motivational message (may change when entries added/goal hit)
+                    updateMotivationalCard()
                 }
         }
     }
@@ -150,24 +153,24 @@ class DailyIntakeActivity : AppCompatActivity() {
         ).show()
     }
 
-    private fun loadStreak() {
+    private fun updateMotivationalCard() {
         lifecycleScope.launch {
             val goalDates = database.dailyIntakeDao().getDatesWhereGoalMet(currentGoal)
             val streak = DailyIntakeManager.calculateStreak(goalDates)
+            val hasEntriesToday = database.dailyIntakeDao().getAllDatesWithEntries()
+                .contains(DailyIntakeManager.todayDateString())
 
-            if (streak > 0) {
-                binding.streakCard.visibility = View.VISIBLE
-                binding.tvStreakCount.text = "$streak Day Streak!"
-                binding.tvStreakSubtitle.text = when {
-                    streak >= 30 -> "Incredible dedication!"
-                    streak >= 14 -> "You're on fire!"
-                    streak >= 7 -> "One week strong!"
-                    streak >= 3 -> "Keep it going!"
-                    else -> "Great start!"
-                }
-            } else {
-                binding.streakCard.visibility = View.GONE
-            }
+            val message = DailyIntakeManager.getMotivationalMessage(
+                streak = streak,
+                todayTotal = currentTotal,
+                goal = currentGoal,
+                hasEntriesToday = hasEntriesToday
+            )
+
+            binding.streakCard.visibility = View.VISIBLE
+            binding.tvStreakEmoji.text = message.emoji
+            binding.tvStreakCount.text = message.title
+            binding.tvStreakSubtitle.text = message.subtitle
         }
     }
 

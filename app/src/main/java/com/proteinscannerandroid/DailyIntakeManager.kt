@@ -93,4 +93,66 @@ object DailyIntakeManager {
         if (goal <= 0) return 0
         return ((currentGrams / goal) * 100).coerceIn(0.0, 100.0).toInt()
     }
+
+    data class MotivationalMessage(val emoji: String, val title: String, val subtitle: String)
+
+    /**
+     * Get a motivational message based on current state.
+     * Uses day-of-year to rotate messages so they vary daily but stay consistent within a day.
+     */
+    fun getMotivationalMessage(streak: Int, todayTotal: Double, goal: Double, hasEntriesToday: Boolean): MotivationalMessage {
+        val dayIndex = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+        val goalMetToday = todayTotal >= goal
+
+        return when {
+            // Has an active streak
+            streak >= 30 -> pick(dayIndex, listOf(
+                MotivationalMessage("👑", "$streak Day Streak!", "Incredible dedication!"),
+                MotivationalMessage("🏆", "$streak Day Streak!", "Legendary streak!"),
+                MotivationalMessage("🔥", "$streak Day Streak!", "Absolute champion!")
+            ))
+            streak >= 14 -> pick(dayIndex, listOf(
+                MotivationalMessage("🔥", "$streak Day Streak!", "You're on fire!"),
+                MotivationalMessage("🏆", "$streak Day Streak!", "Two weeks of dedication!"),
+                MotivationalMessage("⚡", "$streak Day Streak!", "Machine mode!")
+            ))
+            streak >= 7 -> pick(dayIndex, listOf(
+                MotivationalMessage("🏆", "$streak Day Streak!", "One week strong!"),
+                MotivationalMessage("🔥", "$streak Day Streak!", "A full week — beast mode!"),
+                MotivationalMessage("💪", "$streak Day Streak!", "Unstoppable!")
+            ))
+            streak >= 3 -> pick(dayIndex, listOf(
+                MotivationalMessage("🔥", "$streak Day Streak!", "Keep it going!"),
+                MotivationalMessage("💪", "$streak Day Streak!", "You're consistent!"),
+                MotivationalMessage("⚡", "$streak Day Streak!", "Crushing it!")
+            ))
+            streak >= 1 -> pick(dayIndex, listOf(
+                MotivationalMessage("🌱", "$streak Day Streak!", "Great start!"),
+                MotivationalMessage("💪", "$streak Day Streak!", "Building momentum!"),
+                MotivationalMessage("🔥", "$streak Day Streak!", "Keep it up!")
+            ))
+            // No streak but hit goal today
+            goalMetToday -> pick(dayIndex, listOf(
+                MotivationalMessage("🎉", "Goal Crushed!", "Do it again tomorrow for a streak!"),
+                MotivationalMessage("⚡", "Nailed It!", "Come back tomorrow to start a streak!"),
+                MotivationalMessage("💪", "Target Hit!", "One more day and you've got a streak!")
+            ))
+            // No streak, has entries but goal not yet met
+            hasEntriesToday -> pick(dayIndex, listOf(
+                MotivationalMessage("💪", "You're On Your Way!", "Keep adding to hit your goal!"),
+                MotivationalMessage("🎯", "Good Start!", "Chase that ${goal.toInt()}g target!"),
+                MotivationalMessage("🔥", "First Entry Logged!", "Keep going — you've got this!")
+            ))
+            // No streak, no entries
+            else -> pick(dayIndex, listOf(
+                MotivationalMessage("💪", "Get Those Gains!", "Start tracking your protein today!"),
+                MotivationalMessage("🎯", "Ready to Go!", "Log your first meal to begin!"),
+                MotivationalMessage("🚀", "New Day, New Goals!", "Your protein journey starts here!")
+            ))
+        }
+    }
+
+    private fun <T> pick(dayIndex: Int, options: List<T>): T {
+        return options[dayIndex % options.size]
+    }
 }

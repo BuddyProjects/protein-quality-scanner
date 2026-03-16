@@ -126,13 +126,13 @@ object DailyIntakeManager {
                 MotivationalMessage("💪", "$streak Day Streak!", "You're consistent!"),
                 MotivationalMessage("⚡", "$streak Day Streak!", "Crushing it!")
             ))
-            streak >= 1 -> pick(dayIndex, listOf(
-                MotivationalMessage("🌱", "$streak Day Streak!", "Great start!"),
-                MotivationalMessage("💪", "$streak Day Streak!", "Building momentum!"),
-                MotivationalMessage("🔥", "$streak Day Streak!", "Keep it up!")
+            streak == 2 -> pick(dayIndex, listOf(
+                MotivationalMessage("🌱", "2 Day Streak!", "Great start!"),
+                MotivationalMessage("💪", "2 Day Streak!", "Building momentum!"),
+                MotivationalMessage("🔥", "2 Day Streak!", "Keep it up!")
             ))
-            // No streak but hit goal today
-            goalMetToday -> pick(dayIndex, listOf(
+            // Goal hit today (streak == 1 means just today, not a real streak yet)
+            goalMetToday || streak == 1 -> pick(dayIndex, listOf(
                 MotivationalMessage("🎉", "Goal Crushed!", "Do it again tomorrow for a streak!"),
                 MotivationalMessage("⚡", "Nailed It!", "Come back tomorrow to start a streak!"),
                 MotivationalMessage("💪", "Target Hit!", "One more day and you've got a streak!")

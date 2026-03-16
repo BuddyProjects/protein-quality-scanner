@@ -2,14 +2,23 @@ package com.proteinscannerandroid
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.HapticFeedbackConstants
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdLoader
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdView
 import com.google.android.material.snackbar.Snackbar
+import com.proteinscannerandroid.premium.PremiumManager
 import com.proteinscannerandroid.data.AppDatabase
 import com.proteinscannerandroid.data.DailyIntakeEntity
 import com.proteinscannerandroid.databinding.ActivityDailyIntakeBinding
@@ -23,6 +32,7 @@ class DailyIntakeActivity : AppCompatActivity() {
     private lateinit var adapter: DailyIntakeAdapter
     private var currentTotal = 0.0
     private var currentGoal = 150.0
+    private var nativeAd: NativeAd? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +46,7 @@ class DailyIntakeActivity : AppCompatActivity() {
         observeData()
         updateMotivationalCard()
         updateGoalDisplay()
+        loadNativeAd()
 
         // Check if launched with "add" intent from ResultsActivity
         handleAddIntent()
@@ -229,5 +240,86 @@ class DailyIntakeActivity : AppCompatActivity() {
 
             Snackbar.make(binding.root, "Added ${String.format("%.1f", proteinGrams)}g from $productName", Snackbar.LENGTH_SHORT).show()
         }
+    }
+
+    private fun loadNativeAd() {
+        if (PremiumManager.checkPremium()) {
+            binding.nativeAdCard.visibility = View.GONE
+            return
+        }
+
+        val adUnitId = BuildConfig.ADMOB_NATIVE_AD_UNIT_ID
+
+        val adLoader = AdLoader.Builder(this, adUnitId)
+            .forNativeAd { ad: NativeAd ->
+                nativeAd?.destroy()
+                nativeAd = ad
+
+                if (isDestroyed || isFinishing) {
+                    ad.destroy()
+                    return@forNativeAd
+                }
+
+                val adView = layoutInflater.inflate(R.layout.native_ad_layout, null) as NativeAdView
+                populateNativeAdView(ad, adView)
+
+                binding.nativeAdContainer.removeAllViews()
+                binding.nativeAdContainer.addView(adView)
+                binding.nativeAdCard.visibility = View.VISIBLE
+            }
+            .withAdListener(object : com.google.android.gms.ads.AdListener() {
+                override fun onAdFailedToLoad(loadAdError: com.google.android.gms.ads.LoadAdError) {
+                    binding.nativeAdCard.visibility = View.GONE
+                    Log.d("DailyIntakeActivity", "Native ad failed to load: ${loadAdError.message}")
+                }
+            })
+            .build()
+
+        adLoader.loadAd(AdRequest.Builder().build())
+    }
+
+    private fun populateNativeAdView(nativeAd: NativeAd, adView: NativeAdView) {
+        adView.headlineView = adView.findViewById(R.id.ad_headline)
+        adView.bodyView = adView.findViewById(R.id.ad_body)
+        adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
+        adView.iconView = adView.findViewById(R.id.ad_app_icon)
+        adView.advertiserView = adView.findViewById(R.id.ad_advertiser)
+
+        (adView.headlineView as TextView).text = nativeAd.headline
+
+        if (nativeAd.body != null) {
+            (adView.bodyView as TextView).text = nativeAd.body
+            adView.bodyView?.visibility = View.VISIBLE
+        } else {
+            adView.bodyView?.visibility = View.GONE
+        }
+
+        if (nativeAd.callToAction != null) {
+            (adView.callToActionView as Button).text = nativeAd.callToAction
+            adView.callToActionView?.visibility = View.VISIBLE
+        } else {
+            adView.callToActionView?.visibility = View.GONE
+        }
+
+        if (nativeAd.icon != null) {
+            (adView.iconView as ImageView).setImageDrawable(nativeAd.icon?.drawable)
+            adView.iconView?.visibility = View.VISIBLE
+        } else {
+            adView.iconView?.visibility = View.GONE
+        }
+
+        if (nativeAd.advertiser != null) {
+            (adView.advertiserView as TextView).text = nativeAd.advertiser
+            adView.advertiserView?.visibility = View.VISIBLE
+        } else {
+            adView.advertiserView?.visibility = View.GONE
+        }
+
+        adView.setNativeAd(nativeAd)
+    }
+
+    override fun onDestroy() {
+        nativeAd?.destroy()
+        super.onDestroy()
     }
 }

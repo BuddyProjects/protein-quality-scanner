@@ -221,6 +221,26 @@
 
             </LinearLayout>
 
+            <!-- Native Ad Container -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/nativeAdCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#252525"
+                app:strokeColor="#333333"
+                app:strokeWidth="1dp"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:id="@+id/nativeAdContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- Today's Log Card -->
             <LinearLayout
                 android:layout_width="match_parent"

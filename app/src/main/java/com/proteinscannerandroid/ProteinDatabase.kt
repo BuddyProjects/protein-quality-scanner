@@ -671,7 +671,7 @@ object ProteinDatabase {
             qualityCategory = "Excellent",
             // REMOVED "sojaprotein" - it's a substring of "sojaproteinisolat" causing double-matches
             // Generic German soy terms: sojaeiweiß, sojaeiweiss, soja
-            keywords = listOf("soy protein", "sojaprotein", "soja", "soya", "soya flour", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soy beans", "soja beans", "sojabohnen"),
+            keywords = listOf("soy protein", "sojaprotein", "soja", "soya", "soy", "soya flour", "sojaeiweiß", "sojaeiweiss", "protéine de soja", "soya protein", "tofu", "tempeh", "edamame", "soybeans", "soybean", "soy beans", "soja beans", "sojabohnen"),
             description = "Plant-based complete protein from soybeans",
             diaas = 91,
             limitingAminoAcids = listOf("Methionine"),

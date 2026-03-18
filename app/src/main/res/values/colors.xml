@@ -17,7 +17,7 @@
     <color name="surface_elevation">#F5F5F5</color>
     
     <!-- Dynamic Colors (Theme-aware) -->
-    <color name="primary_accent">#00D4AA</color>
+    <color name="primary_accent">#00D4E6</color>
     <color name="primary_accent_dark">#00B894</color>
     <color name="primary_accent_light">#4DFFE6</color>
     
@@ -38,14 +38,14 @@
     <color name="text_sophisticated_tertiary_light">#999999</color>
     
     <!-- Protein Quality Colors - Minimalist -->
-    <color name="quality_excellent">#00D4AA</color>
+    <color name="quality_excellent">#00D4E6</color>
     <color name="quality_good">#FFB84D</color>
     <color name="quality_medium">#FFA726</color>
     <color name="quality_low">#FF6B6B</color>
     <color name="quality_low_light">#FF8A80</color>
     
     <!-- Interactive Elements -->
-    <color name="button_primary">#00D4AA</color>
+    <color name="button_primary">#00D4E6</color>
     <color name="button_secondary">#2A2A2A</color>
     <color name="ripple_dark">#33FFFFFF</color>
     <color name="ripple_light">#1F000000</color>
@@ -70,7 +70,7 @@
     <color name="divider">#E0E0E0</color>
     
     <!-- Quality color aliases for layout compatibility -->
-    <color name="excellent">#00D4AA</color>
+    <color name="excellent">#00D4E6</color>
     <color name="good">#FFB84D</color>
     <color name="medium">#FFA726</color>
     <color name="low">#FF6B6B</color>
@@ -80,7 +80,7 @@
     <color name="white">#FFFFFF</color>
     <color name="light_gray">#FAFAFA</color>
     <color name="text_gray">#757575</color>
-    <color name="high_quality_protein">#00D4AA</color>
+    <color name="high_quality_protein">#00D4E6</color>
     <color name="medium_quality_protein">#FFB84D</color>
     <color name="low_quality_protein">#FF6B6B</color>
     

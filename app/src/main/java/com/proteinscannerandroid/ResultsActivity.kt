@@ -283,6 +283,7 @@ class ResultsActivity : AppCompatActivity() {
                 }
 
                 val proteinGrams = (amount / 100.0) * proteinPer100g
+                val effectiveGrams = proteinGrams * currentPdcaasScore
                 val productName = currentProductName ?: "Unknown Product"
 
                 lifecycleScope.launch {
@@ -290,9 +291,9 @@ class ResultsActivity : AppCompatActivity() {
                         com.proteinscannerandroid.data.DailyIntakeEntity(
                             date = DailyIntakeManager.todayDateString(),
                             productName = productName,
-                            proteinGrams = proteinGrams,
+                            proteinGrams = effectiveGrams,
                             pdcaasScore = currentPdcaasScore,
-                            effectiveProteinGrams = proteinGrams * currentPdcaasScore,
+                            effectiveProteinGrams = effectiveGrams,
                             barcode = currentBarcode
                         )
                     )
@@ -300,7 +301,7 @@ class ResultsActivity : AppCompatActivity() {
 
                 Snackbar.make(
                     binding.root,
-                    "Added ${String.format("%.1f", proteinGrams)}g protein to today's intake",
+                    "Added ${String.format("%.1f", effectiveGrams)}g effective protein to today's intake",
                     Snackbar.LENGTH_LONG
                 ).setAction("View") {
                     startActivity(Intent(this, DailyIntakeActivity::class.java))

@@ -147,6 +147,33 @@ object ProteinDatabase {
             }
         }
 
+        // RULE 0b: MILK CHOCOLATE / MILKFAT EXCLUSION - "milk" in "milk chocolate" is NOT a protein source
+        // "Milk chocolate" is a type of chocolate, not a dairy protein ingredient.
+        // Similarly "milkfat" is a fat, not a protein source.
+        if (proteinSourceName == "Milk Protein" || proteinSourceName == "Casein Protein" ||
+            proteinSourceName == "Whey Protein Concentrate" || proteinSourceName == "Whey Protein Isolate" ||
+            proteinSourceName == "Whey Protein Hydrolysate" || proteinSourceName == "Dairy Trace Protein") {
+            if (matchedText == "milk" || matchedText == "lait" || matchedText == "milch") {
+                val afterEnd = minOf(ingredientsLower.length, position + matchedText.length + 15)
+                val textAfter = ingredientsLower.substring(position + matchedText.length, afterEnd).trimStart()
+                val chocolatePhrases = listOf("chocolate", "chocolat", "schokolade", "fat", "fett")
+                if (chocolatePhrases.any { textAfter.startsWith(it) }) {
+                    return Pair(false, "Part of '$matchedText ${textAfter.split(" ").first()}', not protein source")
+                }
+            }
+            // Also check for compound words: "milchschokolade", "milkfat"
+            if (matchedText == "milk" || matchedText == "milch") {
+                val wordEnd = (position + matchedText.length until ingredientsLower.length).firstOrNull {
+                    ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n')
+                } ?: ingredientsLower.length
+                val fullWord = ingredientsLower.substring(position, wordEnd)
+                val excludeCompounds = listOf("milchschokolade", "milkfat", "milchfett", "milkchocolate")
+                if (excludeCompounds.any { fullWord.startsWith(it) }) {
+                    return Pair(false, "Part of compound word ($fullWord), not protein source")
+                }
+            }
+        }
+
         // FIX: Cocoa butter exclusion for Dairy Trace Protein - cocoa butter is NOT dairy
         // Must handle multiple languages and formats:
         // - English: "cocoa butter" (with space)

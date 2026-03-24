@@ -138,11 +138,14 @@ object ProteinDatabase {
                 }
             }
 
-            // Additional oil check: if "huile" or "oil" appears BEFORE soja in the context
+            // Additional oil check: if "huile" or "oil" appears BEFORE soja in the SAME ingredient
             // This handles patterns like "huile de soja" or "huile végétale (soja)" where oil comes first
+            // But NOT across ingredient boundaries: "sonnenblumenöl, sojaprotein" are separate ingredients
             val contextBeforeMatch = immediateContext.substring(0, minOf(immediateContext.length, 25))
-            if (contextBeforeMatch.contains("huile") || contextBeforeMatch.contains("oil") ||
-                contextBeforeMatch.contains("öl") || contextBeforeMatch.contains("aceite")) {
+            // Only check the text after the last comma/semicolon (= same ingredient)
+            val sameIngredientBefore = contextBeforeMatch.substringAfterLast(",").substringAfterLast(";")
+            if (sameIngredientBefore.contains("huile") || sameIngredientBefore.contains("oil") ||
+                sameIngredientBefore.contains("öl") || sameIngredientBefore.contains("aceite")) {
                 return Pair(false, "Part of oil phrase (oil precedes soja/soy), not protein source")
             }
         }

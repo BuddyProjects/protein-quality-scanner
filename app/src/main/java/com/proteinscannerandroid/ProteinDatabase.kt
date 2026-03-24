@@ -1312,8 +1312,68 @@ object ProteinDatabase {
         }
         Log.d(TAG, "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 
+        // === SUB-INGREDIENT DEDUPLICATION ===
+        // Remove proteins that appear inside parentheses following another detected protein
+        // from the SAME protein family. E.g., "Milk Protein (casein, whey isolate)" → keep Milk Protein only.
+        // But "Protein Blend (whey, pea protein)" → keep whey & pea (different families from blend).
+        val proteinFamilies = mapOf(
+            // Dairy family
+            "Milk Protein" to "dairy", "Casein Protein" to "dairy",
+            "Whey Protein Concentrate" to "dairy", "Whey Protein Isolate" to "dairy",
+            "Whey Protein Hydrolysate" to "dairy",
+            // Soy family
+            "Soy Protein" to "soy", "Soy Protein Isolate" to "soy", "Soy Protein Concentrate" to "soy",
+            // Pea family
+            "Pea Protein" to "pea", "Pea Protein Isolate" to "pea",
+            // Collagen family
+            "Collagen" to "collagen", "Gelatin" to "collagen"
+        )
+
+        val parenGroups = mutableListOf<Pair<Int, Int>>() // (openPos, closePos)
+        val parenStack = mutableListOf<Int>()
+        for (i in ingredientsLower.indices) {
+            when (ingredientsLower[i]) {
+                '(' -> parenStack.add(i)
+                ')' -> if (parenStack.isNotEmpty()) {
+                    parenGroups.add(Pair(parenStack.removeLast(), i))
+                }
+            }
+        }
+
+        val subIngredientIndices = mutableSetOf<Int>()
+        for ((idx, match) in proteinMatches.withIndex()) {
+            val matchPos = match.third
+            // Find the innermost paren group containing this match
+            val containingGroup = parenGroups
+                .filter { matchPos > it.first && matchPos < it.second }
+                .minByOrNull { it.second - it.first } // innermost
+            if (containingGroup != null) {
+                // Check if any other detected protein ends just before this paren group's opening
+                for ((otherIdx, other) in proteinMatches.withIndex()) {
+                    if (otherIdx == idx) continue
+                    val otherKeywordEnd = other.third + other.second.length
+                    if (otherKeywordEnd <= containingGroup.first && containingGroup.first - otherKeywordEnd < 20) {
+                        val between = ingredientsLower.substring(otherKeywordEnd, containingGroup.first)
+                        if (between.matches(Regex("[\\s,;:%0-9.]*"))) {
+                            // Only deduplicate if same protein family
+                            val parentFamily = proteinFamilies[other.first.name]
+                            val childFamily = proteinFamilies[match.first.name]
+                            if (parentFamily != null && parentFamily == childFamily) {
+                                Log.d(TAG, "🔗 Sub-ingredient: ${match.first.name} is inside parens of ${other.first.name} (family: $parentFamily) → removing")
+                                subIngredientIndices.add(idx)
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        val deduplicatedMatches = proteinMatches.filterIndexed { idx, _ -> idx !in subIngredientIndices }
+        Log.d(TAG, "📊 After sub-ingredient dedup: ${proteinMatches.size} → ${deduplicatedMatches.size} matches")
+
         // Sort by position (earlier ingredients first) and assign ordinal weights
-        val sortedMatches = proteinMatches.sortedBy { it.third }
+        val sortedMatches = deduplicatedMatches.sortedBy { it.third }
         
         Log.d(TAG, "📊 AFTER SORTING BY POSITION:")
         sortedMatches.forEachIndexed { idx, (protein, kw, pos) ->

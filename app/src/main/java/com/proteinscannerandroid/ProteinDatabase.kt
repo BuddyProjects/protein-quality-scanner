@@ -1022,25 +1022,25 @@ object ProteinDatabase {
         // Problematic Proteins
         ProteinSource(
             name = "Collagen",
-            pdcaas = 0.0,  // ZERO - completely lacks tryptophan (essential amino acid)
+            pdcaas = 0.08,  // Nearly zero - completely lacks tryptophan (essential amino acid)
             qualityCategory = "Incomplete",
             keywords = listOf("collagen", "kollagen", "kollagenhydrolysat", "collagène", "collagen peptides", "collagen hydrolysate", "hydrolyzed collagen"),
-            description = "Incomplete protein - completely missing tryptophan, scores 0 on PDCAAS",
+            description = "Nearly incomplete protein - missing tryptophan, extremely low PDCAAS",
             diaas = 0,
             limitingAminoAcids = listOf("Tryptophan (absent)", "Methionine", "Histidine"),
             digestionSpeed = "Fast",
-            notes = "⚠️ LACKS TRYPTOPHAN ENTIRELY - PDCAAS is 0. Not suitable as sole protein source. Good for skin/joints, not muscle building."
+            notes = "⚠️ LACKS TRYPTOPHAN ENTIRELY. Not suitable as sole protein source. Good for skin/joints, not muscle building."
         ),
         ProteinSource(
             name = "Gelatin",
-            pdcaas = 0.0,  // ZERO - derived from collagen, same deficiency
+            pdcaas = 0.08,  // Nearly zero - derived from collagen, same deficiency
             qualityCategory = "Incomplete",
             keywords = listOf("gelatin", "gelatine", "gélatine", "beef gelatin", "pork gelatin", "gelatinehydrolysat", "hydrolyzed gelatin", "gelatin hydrolysate", "hydrolysat de gélatine", "gélatine hydrolysée"),
-            description = "Incomplete protein derived from collagen - completely missing tryptophan",
+            description = "Nearly incomplete protein derived from collagen - missing tryptophan",
             diaas = 0,
             limitingAminoAcids = listOf("Tryptophan (absent)", "Methionine", "Histidine"),
             digestionSpeed = "Fast",
-            notes = "⚠️ Same as collagen - LACKS TRYPTOPHAN. PDCAAS is 0, not suitable for muscle protein synthesis."
+            notes = "⚠️ Same as collagen - LACKS TRYPTOPHAN. Not suitable for muscle protein synthesis."
         ),
         
         // Protein Blends

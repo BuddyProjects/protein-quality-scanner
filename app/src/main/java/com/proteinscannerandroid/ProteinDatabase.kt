@@ -246,6 +246,33 @@ object ProteinDatabase {
             }
         }
 
+        // Gluten-free exclusion - "glutenfrei", "gluten free", "sans gluten" etc. are NOT protein
+        if (proteinSourceName == "Wheat Protein" || proteinSourceName == "Corn Protein") {
+            if (matchedText == "gluten" || matchedText == "weizengluten" || matchedText == "maisgluten" || matchedText == "corn gluten") {
+                val afterEnd = minOf(ingredientsLower.length, position + matchedText.length + 10)
+                val textAfter = ingredientsLower.substring(position + matchedText.length, afterEnd)
+                if (textAfter.startsWith("frei") || textAfter.startsWith("free") || textAfter.startsWith("-free") || textAfter.startsWith("-frei")) {
+                    return Pair(false, "Part of 'gluten free' label, not protein source")
+                }
+            }
+            // Also check for "sans gluten", "senza glutine", "sin gluten" before the match
+            if (matchedText == "gluten" || matchedText == "glutine") {
+                val beforeStart = maxOf(0, position - 10)
+                val textBefore = ingredientsLower.substring(beforeStart, position).trimEnd()
+                if (textBefore.endsWith("sans") || textBefore.endsWith("senza") || textBefore.endsWith("sin") || textBefore.endsWith("ohne")) {
+                    return Pair(false, "Part of 'gluten free' label, not protein source")
+                }
+            }
+            // German compound: "glutenfrei" - the keyword "gluten" is a substring
+            val wordEnd = (position + matchedText.length until ingredientsLower.length).firstOrNull {
+                ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n')
+            } ?: ingredientsLower.length
+            val fullWord = ingredientsLower.substring(position, wordEnd)
+            if (fullWord.contains("frei") || fullWord.contains("free")) {
+                return Pair(false, "Part of compound word ($fullWord), not protein source")
+            }
+        }
+
         // Corn exclusion - fiber and starch contexts
         if (proteinSourceName == "Corn Protein") {
             val contextStart = maxOf(0, position - 50)

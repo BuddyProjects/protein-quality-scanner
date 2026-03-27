@@ -49,6 +49,9 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
 
+        // Set version dynamically from BuildConfig
+        binding.tvVersion.text = "Version ${BuildConfig.VERSION_NAME}"
+
         // Hidden debug mode: tap version 7 times to toggle
         binding.tvVersion.setOnClickListener {
             val now = System.currentTimeMillis()

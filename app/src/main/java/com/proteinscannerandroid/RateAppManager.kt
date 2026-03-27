@@ -23,7 +23,7 @@ object RateAppManager {
     private const val FIRST_PROMPT_AT = 10
     private const val PROMPT_INTERVAL = 25  // Ask again every 25 scans if dismissed
     
-    const val FEEDBACK_EMAIL = "proteinscanner.feedback@gmail.com"
+    const val FEEDBACK_EMAIL = "proteinscanner@proton.me"
     const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.proteinscannerandroid"
     
     /**

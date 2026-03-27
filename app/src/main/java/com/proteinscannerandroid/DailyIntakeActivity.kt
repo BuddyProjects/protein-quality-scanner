@@ -110,6 +110,28 @@ class DailyIntakeActivity : AppCompatActivity() {
         binding.btnChangeGoal.setOnClickListener {
             showGoalDialog()
         }
+
+        binding.btnGoalInfo.setOnClickListener {
+            showGoalInfoDialog()
+        }
+    }
+
+    private fun showGoalInfoDialog() {
+        val message = "How much protein do you need?\n\n" +
+            "General guidelines (per day):\n\n" +
+            "• Sedentary adults: 0.8g per kg body weight\n" +
+            "• Active / recreational exercise: 1.2–1.6g per kg\n" +
+            "• Strength training / muscle building: 1.6–2.2g per kg\n" +
+            "• Endurance athletes: 1.2–1.8g per kg\n\n" +
+            "Example: A 75kg person doing strength training should aim for 120–165g of protein per day.\n\n" +
+            "Important: This app tracks effective (quality-adjusted) protein. A product with 30g of low-quality protein may only count as 15g effective protein. Set your goal based on effective protein, not label claims.\n\n" +
+            "These are general recommendations. Consult a healthcare professional for personalized advice."
+
+        AlertDialog.Builder(this)
+            .setTitle("Protein Goal Guidance")
+            .setMessage(message)
+            .setPositiveButton("OK", null)
+            .show()
     }
 
     private fun observeData() {

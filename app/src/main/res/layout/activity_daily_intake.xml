@@ -318,15 +318,33 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="DAILY GOAL"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_primary_dark"
-                        android:fontFamily="@font/inter"
-                        android:textStyle="bold"
-                        android:letterSpacing="0.05" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="DAILY GOAL"
+                            android:textSize="14sp"
+                            android:textColor="@color/text_primary_dark"
+                            android:fontFamily="@font/inter"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.05" />
+
+                        <ImageButton
+                            android:id="@+id/btnGoalInfo"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_marginStart="8dp"
+                            android:src="@drawable/ic_info"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="Protein goal guidance"
+                            app:tint="@color/text_hint_dark" />
+
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tvCurrentGoal"

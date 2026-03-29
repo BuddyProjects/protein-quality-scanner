@@ -1426,11 +1426,70 @@ object ProteinDatabase {
             }
         }
 
-        val deduplicatedMatches = proteinMatches.filterIndexed { idx, _ -> idx !in subIngredientIndices }
-        Log.d(TAG, "📊 After sub-ingredient dedup: ${proteinMatches.size} → ${deduplicatedMatches.size} matches")
+        // === PROTEIN BLEND MERGING ===
+        // When a protein-related word appears before parens containing multiple proteins,
+        // merge them into ONE source with averaged PDCAAS. This prevents blends from
+        // stealing multiple ordinal slots and pushing later ingredients down.
+        // E.g., "proteinmischung (pea, rice), collagen" → "Protein Blend: Pea + Rice" (pos 1), Collagen (pos 2)
+        val proteinBlendWords = listOf("eiweiß", "eiweiss", "protein", "protéine", "proteine", "proteína",
+            "mischung", "blend", "mix", "mixture", "mélange", "mezcla")
+
+        val blendIndicesToRemove = mutableSetOf<Int>()
+        val blendReplacements = mutableListOf<Triple<ProteinSource, String, Int>>()
+
+        for (group in parenGroups) {
+            val matchesInGroup = proteinMatches.withIndex()
+                .filter { (idx, match) -> idx !in subIngredientIndices && match.third > group.first && match.third < group.second }
+                .toList()
+
+            if (matchesInGroup.size < 2) continue
+
+            // Check if text before the paren contains a protein-related word
+            val beforeStart = maxOf(0, group.first - 30)
+            val textBefore = ingredientsLower.substring(beforeStart, group.first)
+            val hasProteinWord = proteinBlendWords.any { textBefore.contains(it) }
+
+            if (!hasProteinWord) continue
+
+            // Merge all components into one blend
+            val components = matchesInGroup.sortedBy { it.value.third }
+            val avgPdcaas = components.map { it.value.first.pdcaas }.average()
+            val avgDiaas = components.mapNotNull { it.value.first.diaas }.let { if (it.isNotEmpty()) it.average().toInt() else null }
+            val componentNames = components.map { it.value.first.name }
+            val allLimiting = components.flatMap { it.value.first.limitingAminoAcids }.distinct()
+            val qualityLabel = when {
+                avgPdcaas >= 0.90 -> "Excellent"
+                avgPdcaas >= 0.75 -> "Good"
+                avgPdcaas >= 0.50 -> "Medium"
+                else -> "Low"
+            }
+
+            val blendSource = ProteinSource(
+                name = "Protein Blend: ${componentNames.joinToString(" + ")}",
+                pdcaas = avgPdcaas,
+                qualityCategory = qualityLabel,
+                keywords = emptyList(),
+                description = "Blend of ${componentNames.joinToString(", ")}",
+                diaas = avgDiaas,
+                limitingAminoAcids = allLimiting,
+                digestionSpeed = "Medium"
+            )
+
+            // Use the position of the first component
+            val firstPos = components.first().value.third
+            blendReplacements.add(Triple(blendSource, "blend", firstPos))
+
+            // Mark all components for removal
+            components.forEach { blendIndicesToRemove.add(it.index) }
+
+            Log.d(TAG, "🔗 Blend merged: ${componentNames.joinToString(" + ")} → avg PDCAAS ${String.format("%.2f", avgPdcaas)}")
+        }
+
+        val afterBlendMerge = proteinMatches.filterIndexed { idx, _ -> idx !in subIngredientIndices && idx !in blendIndicesToRemove } + blendReplacements
+        Log.d(TAG, "📊 After sub-ingredient dedup + blend merge: ${proteinMatches.size} → ${afterBlendMerge.size} matches")
 
         // Sort by position (earlier ingredients first) and assign ordinal weights
-        val sortedMatches = deduplicatedMatches.sortedBy { it.third }
+        val sortedMatches = afterBlendMerge.sortedBy { it.third }
         
         Log.d(TAG, "📊 AFTER SORTING BY POSITION:")
         sortedMatches.forEachIndexed { idx, (protein, kw, pos) ->

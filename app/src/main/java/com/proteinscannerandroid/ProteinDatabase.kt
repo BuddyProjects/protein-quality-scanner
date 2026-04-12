@@ -288,6 +288,26 @@ object ProteinDatabase {
             }
         }
 
+        // Malt/extract exclusion - malt and malt extract are sweeteners/flavorings, not protein
+        // Handles: gerstenmalzextrakt, malzextrakt, barley malt, malt extract, weizenmalz, etc.
+        if (proteinSourceName == "Barley Protein" || proteinSourceName == "Wheat Protein" ||
+            proteinSourceName == "Corn Protein" || proteinSourceName == "Rye Protein") {
+            val wordEnd = (position + matchedText.length until ingredientsLower.length).firstOrNull {
+                ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n')
+            } ?: ingredientsLower.length
+            val fullWord = ingredientsLower.substring(position, wordEnd)
+            val maltTerms = listOf("malz", "malt", "malto")
+            if (maltTerms.any { fullWord.contains(it) }) {
+                return Pair(false, "Part of malt/extract ($fullWord), not protein source")
+            }
+            // Also check text after for "malt" or "malt extract" with space
+            val afterEnd = minOf(ingredientsLower.length, position + matchedText.length + 15)
+            val textAfter = ingredientsLower.substring(position + matchedText.length, afterEnd).trimStart()
+            if (textAfter.startsWith("malt") || textAfter.startsWith("malz")) {
+                return Pair(false, "Part of malt phrase, not protein source")
+            }
+        }
+
         // Chicken/poultry exclusion - flavor/aroma terms are not actual protein
         if (proteinSourceName == "Chicken Protein" || proteinSourceName == "Turkey Protein") {
             val flavorContextStart = maxOf(0, position - 40)
@@ -1035,7 +1055,7 @@ object ProteinDatabase {
             name = "Barley Protein",
             pdcaas = 0.45,
             qualityCategory = "Low",
-            keywords = listOf("barley", "gerste", "gerstenmehl", "gerstenmalz", "malz", "orge", "farine d'orge", "malt d'orge", "flocons d'orge", "cebada", "barley protein", "pearl barley", "malt", "malted barley"),
+            keywords = listOf("barley", "gerste", "gerstenmehl", "orge", "farine d'orge", "flocons d'orge", "cebada", "barley protein", "pearl barley"),
             description = "Cereal protein with moderate quality"
         ),
         ProteinSource(

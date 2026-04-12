@@ -297,8 +297,17 @@ object ProteinDatabase {
             } ?: ingredientsLower.length
             val fullWord = ingredientsLower.substring(position, wordEnd)
             val maltTerms = listOf("malz", "malt", "malto")
+            val extractTerms = listOf("extrakt", "extract", "extrait")
             if (maltTerms.any { fullWord.contains(it) }) {
                 return Pair(false, "Part of malt/extract ($fullWord), not protein source")
+            }
+            // Handle OCR typos: "matz" instead of "malz" when combined with "extrakt"
+            if (fullWord.contains("matz") && extractTerms.any { fullWord.contains(it) }) {
+                return Pair(false, "Part of malt/extract with typo ($fullWord), not protein source")
+            }
+            // General extract exclusion: "gerstenextrakt", "barley extract" etc.
+            if (extractTerms.any { fullWord.contains(it) }) {
+                return Pair(false, "Part of extract ($fullWord), not protein source")
             }
             // Also check text after for "malt" or "malt extract" with space
             val afterEnd = minOf(ingredientsLower.length, position + matchedText.length + 15)

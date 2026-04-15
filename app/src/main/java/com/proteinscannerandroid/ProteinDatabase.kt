@@ -164,15 +164,25 @@ object ProteinDatabase {
                     return Pair(false, "Part of '$matchedText ${textAfter.split(" ").first()}', not protein source")
                 }
             }
-            // Also check for compound words: "milchschokolade", "milkfat"
-            if (matchedText == "milk" || matchedText == "milch") {
+            // Also check for compound words: "milchschokolade", "milkfat", "kokosmilch"
+            if (matchedText == "milk" || matchedText == "milch" || matchedText == "milchpulver") {
                 val wordEnd = (position + matchedText.length until ingredientsLower.length).firstOrNull {
                     ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n')
                 } ?: ingredientsLower.length
-                val fullWord = ingredientsLower.substring(position, wordEnd)
+                // Also look backwards for the start of the compound word
+                val wordStart = (position - 1 downTo 0).firstOrNull {
+                    ingredientsLower[it] in setOf(' ', ',', '.', ';', ':', '(', ')', '[', ']', '\t', '\n')
+                }?.plus(1) ?: 0
+                val fullWord = ingredientsLower.substring(wordStart, wordEnd)
                 val excludeCompounds = listOf("milchschokolade", "milkfat", "milchfett", "milkchocolate")
                 if (excludeCompounds.any { fullWord.startsWith(it) }) {
                     return Pair(false, "Part of compound word ($fullWord), not protein source")
+                }
+                // Plant "milk" exclusions - coconut milk, almond milk, oat milk etc. are not dairy
+                val plantMilkPrefixes = listOf("kokos", "coconut", "mandel", "almond", "hafer", "oat",
+                    "soja", "soy", "reis", "rice", "cashew", "hanf", "hemp", "kokosnuss")
+                if (plantMilkPrefixes.any { fullWord.startsWith(it) }) {
+                    return Pair(false, "Part of plant-based milk ($fullWord), not dairy protein")
                 }
             }
         }

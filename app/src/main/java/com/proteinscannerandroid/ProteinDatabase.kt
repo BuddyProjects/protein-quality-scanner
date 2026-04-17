@@ -669,7 +669,7 @@ object ProteinDatabase {
             name = "Egg Protein",
             pdcaas = 1.0,
             qualityCategory = "Excellent",
-            keywords = listOf("egg protein", "eiprotein", "eiweiß", "eiweiss", "protéine d'œuf", "albumin", "whole egg", "ganzes ei", "egg white", "hühnereiweiß", "hühnereiweiss", "blanc d'œuf", "eggs", "egg", "egg yolk", "eigelb", "jaune d'œuf", "eier", "œuf", "œufs", "oeufs", "oeuf", "uova", "huevo"),
+            keywords = listOf("egg protein", "eiprotein", "eiweiß", "eiweiss", "protéine d'œuf", "albumin", "whole egg", "ganzes ei", "egg white", "hühnereiweiß", "hühnereiweiss", "blanc d'œuf", "eggs", "egg", "egg yolk", "eigelb", "jaune d'œuf", "eier", "œuf", "œufs", "oeufs", "oeuf", "uova", "huevo", "eiklar", "eiklarpulver", "eiweißpulver", "eiweisspulver", "egg white powder", "dried egg white", "trockenei", "trockeneiweiß", "trockeneiweiss"),
             description = "The most widely used standard for protein with perfect amino acid balance",
             diaas = 113,
             limitingAminoAcids = emptyList(),

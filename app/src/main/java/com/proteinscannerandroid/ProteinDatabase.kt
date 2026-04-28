@@ -1269,10 +1269,16 @@ object ProteinDatabase {
             "ingrediënten:", "ingrediënten :", "ainekset:", "ainekset :"
         )
         val textLower = ingredientsText.lowercase()
+        // Words that indicate the marker is NOT a section start but part of "origin of ingredients" etc.
+        val originPrefixes = listOf("herkunft", "origin", "origine", "origen", "origini", "oorsprong", "ursprung")
         val extractedText = ingredientMarkers
-            .mapNotNull { marker -> 
+            .mapNotNull { marker ->
                 val idx = textLower.indexOf(marker)
-                if (idx >= 0) idx + marker.length else null
+                if (idx < 0) return@mapNotNull null
+                // Check if preceded by an origin-related word (e.g. "Herkunft Zutaten:")
+                val before = textLower.substring(maxOf(0, idx - 15), idx).trim()
+                if (originPrefixes.any { before.endsWith(it) }) return@mapNotNull null
+                idx + marker.length
             }
             .minOrNull()
             ?.let { startIdx -> ingredientsText.substring(startIdx).trim() }
